@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-    ChevronDown as ChevronDownIcon,
-    Wrench,
-    Plane,
-    Briefcase,
-    HelpCircle,
-    Menu as MenuIcon,
-    X as XIcon,
+  ChevronDown as ChevronDownIcon,
+  Wrench,
+  Plane,
+  Briefcase,
+  HelpCircle,
+  Menu as MenuIcon,
+  X as XIcon,
 } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -19,14 +19,26 @@ const navigationItems = [
       {
         title: "Management",
         links: [
-          { name: "Asset Management", icon: <Briefcase className="w-4 h-4 text-[#5cc6d0]" />, href: "/asset-management" },
-          { name: "Repair Management", icon: <Wrench className="w-4 h-4 text-[#5cc6d0]" />, href: "/repair-management" },
+          {
+            name: "Asset Management",
+            icon: <Briefcase className="w-4 h-4 text-[#5cc6d0]" />,
+            href: "/asset-management",
+          },
+          {
+            name: "Repair Management",
+            icon: <Wrench className="w-4 h-4 text-[#5cc6d0]" />,
+            href: "/repair-management",
+          },
         ],
       },
       {
         title: "Support",
         links: [
-          { name: "24/7 AOG Support", icon: <Plane className="w-4 h-4 text-[#5cc6d0]" />, href: "/aog-support" },
+          {
+            name: "24/7 AOG Support",
+            icon: <Plane className="w-4 h-4 text-[#5cc6d0]" />,
+            href: "/aog-support",
+          },
         ],
       },
     ],
@@ -39,15 +51,31 @@ const navigationItems = [
       {
         title: "About",
         links: [
-          { name: "The Story", icon: <Briefcase className="w-4 h-4 text-[#5cc6d0]" />, href: "/the-story" },
-          { name: "Careers", icon: <Plane className="w-4 h-4 text-[#5cc6d0]" />, href: "/careers" },
+          {
+            name: "The Story",
+            icon: <Briefcase className="w-4 h-4 text-[#5cc6d0]" />,
+            href: "/the-story",
+          },
+          {
+            name: "Careers",
+            icon: <Plane className="w-4 h-4 text-[#5cc6d0]" />,
+            href: "/careers",
+          },
         ],
       },
       {
         title: "Services",
         links: [
-          { name: "MRO", icon: <Wrench className="w-4 h-4 text-[#5cc6d0]" />, href: "/mro" },
-          { name: "FAQs", icon: <HelpCircle className="w-4 h-4 text-[#5cc6d0]" />, href: "/faqs" },
+          {
+            name: "MRO",
+            icon: <Wrench className="w-4 h-4 text-[#5cc6d0]" />,
+            href: "/mro",
+          },
+          {
+            name: "FAQs",
+            icon: <HelpCircle className="w-4 h-4 text-[#5cc6d0]" />,
+            href: "/faqs",
+          },
         ],
       },
     ],
@@ -60,7 +88,9 @@ export const Header: React.FC = () => {
 
   // Mobile menu states
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileActiveSection, setMobileActiveSection] = useState<string | null>(null);
+  const [mobileActiveSection, setMobileActiveSection] = useState<string | null>(
+    null
+  );
 
   const navigate = useNavigate();
 
@@ -98,17 +128,29 @@ export const Header: React.FC = () => {
           <div
             key={item.label}
             className="relative flex items-center gap-2 cursor-pointer"
-            onMouseEnter={() => item.hasDropdown && handleMouseEnter(item.label)}
+            onMouseEnter={() =>
+              item.hasDropdown && handleMouseEnter(item.label)
+            }
             onMouseLeave={() => item.hasDropdown && handleMouseLeave()}
           >
             {item.hasDropdown ? (
-              <span className={`font-bold text-base md:text-lg transition-colors duration-300 ${activeDropdown === item.label ? "text-[#4ab5bf]" : "text-[#5cc6d0]"}`}>
+              <span
+                className={`font-bold text-base md:text-lg transition-colors duration-300 ${
+                  activeDropdown === item.label
+                    ? "text-[#4ab5bf]"
+                    : "text-[#5cc6d0]"
+                }`}
+              >
                 {item.label}
               </span>
             ) : (
               <Link
                 to={item.href || "#"}
-                className={`font-bold text-base md:text-lg transition-colors duration-300 ${activeDropdown === item.label ? "text-[#4ab5bf]" : "text-[#5cc6d0]"}`}
+                className={`font-bold text-base md:text-lg transition-colors duration-300 ${
+                  activeDropdown === item.label
+                    ? "text-[#4ab5bf]"
+                    : "text-[#5cc6d0]"
+                }`}
               >
                 {item.label}
               </Link>
@@ -116,7 +158,11 @@ export const Header: React.FC = () => {
 
             {item.hasDropdown && (
               <ChevronDownIcon
-                className={`w-5 h-5 text-[#5cc6d0] transition-all duration-300 ${activeDropdown === item.label ? "text-[#4ab5bf] translate-y-[2px]" : ""}`}
+                className={`w-5 h-5 text-[#5cc6d0] transition-all duration-300 ${
+                  activeDropdown === item.label
+                    ? "text-[#4ab5bf] translate-y-[2px]"
+                    : ""
+                }`}
               />
             )}
 
@@ -126,7 +172,9 @@ export const Header: React.FC = () => {
                 <div className="grid grid-cols-2 gap-8">
                   {item.sections?.map((section, i) => (
                     <div key={i}>
-                      <h4 className="text-[#5cc6d0] font-semibold mb-3 text-sm uppercase tracking-wide">{section.title}</h4>
+                      <h4 className="text-[#5cc6d0] font-semibold mb-3 text-sm uppercase tracking-wide">
+                        {section.title}
+                      </h4>
                       <ul className="space-y-3">
                         {section.links.map((link, j) => (
                           <li key={j}>
@@ -164,7 +212,7 @@ export const Header: React.FC = () => {
         <Button
           variant="outline"
           className="rounded-full border border-[#5cc6d0] text-[#5cc6d0] px-6 py-2 hover:bg-[#5cc6d0] hover:text-black transition-all duration-300 hover:scale-110 shadow-sm hover:shadow-[#5cc6d0]/30"
-          onClick={() => navigate('/contact')}
+          onClick={() => navigate("/contact")}
         >
           Contact
         </Button>
@@ -184,7 +232,11 @@ export const Header: React.FC = () => {
           <div className="relative ml-auto w-full max-w-md bg-[#0b0d10]/95 border-l border-[#1a1d22] p-6 overflow-auto">
             <div className="flex items-center justify-between mb-6">
               <Link to="/" aria-label="Home">
-                <img src="/rda-gradient-logo--1--1.png" alt="RockDove Logo" className="w-[160px] h-[50px] object-contain" />
+                <img
+                  src="/rda-gradient-logo--1--1.png"
+                  alt="RockDove Logo"
+                  className="w-[160px] h-[50px] object-contain"
+                />
               </Link>
               <button
                 aria-label="Close menu"
@@ -198,24 +250,43 @@ export const Header: React.FC = () => {
             <nav>
               <ul className="space-y-4">
                 {navigationItems.map((item) => (
-                  <li key={item.label} className="border-b border-[#1a1d22] pb-3">
+                  <li
+                    key={item.label}
+                    className="border-b border-[#1a1d22] pb-3"
+                  >
                     {item.hasDropdown ? (
                       <>
                         <button
-                          onClick={() => setMobileActiveSection((s) => (s === item.label ? null : item.label))}
+                          onClick={() =>
+                            setMobileActiveSection((s) =>
+                              s === item.label ? null : item.label
+                            )
+                          }
                           className="w-full flex items-center justify-between text-left text-white/90 font-semibold text-lg"
                         >
                           <span className="text-[#5cc6d0]">{item.label}</span>
                           <ChevronDownIcon
-                            className={`w-5 h-5 text-[#5cc6d0] transition-transform ${mobileActiveSection === item.label ? "rotate-180" : ""}`}
+                            className={`w-5 h-5 text-[#5cc6d0] transition-transform ${
+                              mobileActiveSection === item.label
+                                ? "rotate-180"
+                                : ""
+                            }`}
                           />
                         </button>
 
-                        <div className={`mt-3 overflow-hidden transition-all ${mobileActiveSection === item.label ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                        <div
+                          className={`mt-3 overflow-hidden transition-all ${
+                            mobileActiveSection === item.label
+                              ? "max-h-[1000px] opacity-100"
+                              : "max-h-0 opacity-0"
+                          }`}
+                        >
                           <div className="space-y-3">
                             {item.sections?.map((section, si) => (
                               <div key={si}>
-                                <h5 className="text-sm text-[#4ab5bf] font-medium mb-2 uppercase">{section.title}</h5>
+                                <h5 className="text-sm text-[#4ab5bf] font-medium mb-2 uppercase">
+                                  {section.title}
+                                </h5>
                                 <ul className="space-y-2">
                                   {section.links.map((link, li) => (
                                     <li key={li}>
@@ -252,7 +323,7 @@ export const Header: React.FC = () => {
                     onClick={() => {
                       // Close menu then navigate to contact anchor
                       setMobileOpen(false);
-                      navigate('/contact');
+                      navigate("/contact");
                     }}
                   >
                     Contact
