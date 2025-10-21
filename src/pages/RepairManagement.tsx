@@ -1,6 +1,7 @@
 import React from "react";
 import { Wrench, Settings, Clock, AlertTriangle, CheckCircle, Users } from "lucide-react";
 import { Button } from "../components/ui/button";
+import { PageLayout } from "../components/PageLayout";
 
 const RepairManagement: React.FC = () => {
   const features = [
@@ -36,7 +37,8 @@ const RepairManagement: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <PageLayout>
+      <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-8">
         <div className="max-w-6xl mx-auto">
@@ -126,7 +128,8 @@ const RepairManagement: React.FC = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </PageLayout>
   );
 };
 

@@ -8,7 +8,8 @@ import {
   TheStory,
   Careers,
   FAQs,
-  RFQ
+  RFQ,
+  MRO
 } from "./pages";
 
 const App: React.FC = () => {
@@ -27,6 +28,7 @@ const App: React.FC = () => {
         <Route path="/the-story" element={<TheStory />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/faqs" element={<FAQs />} />
+        <Route path="/mro" element={<MRO />} />
         
         {/* Other pages */}
         <Route path="/rfq" element={<RFQ />} />

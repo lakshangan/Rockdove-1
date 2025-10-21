@@ -1,6 +1,7 @@
 import React from "react";
 import { Heart, Users, Award, Target, Globe, TrendingUp } from "lucide-react";
 import { Button } from "../components/ui/button";
+import { PageLayout } from "../components/PageLayout";
 
 const TheStory: React.FC = () => {
   const milestones = [
@@ -55,7 +56,8 @@ const TheStory: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <PageLayout>
+      <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-8">
         <div className="max-w-6xl mx-auto">
@@ -186,7 +188,8 @@ const TheStory: React.FC = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </PageLayout>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState, lazy, Suspense } from "react";
 import { FileText, Send, CheckCircle, AlertCircle } from "lucide-react";
 import { Button } from "../components/ui/button";
+import { PageLayout } from "../components/PageLayout";
 
 // Lazy load the Spline component for faster initial load
 const Spline = lazy(() => import("@splinetool/react-spline"));
@@ -54,7 +55,8 @@ const RFQ: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
+      <PageLayout>
+        <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
         <div className="max-w-2xl mx-auto text-center">
           <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
           <h1 className="text-3xl md:text-4xl font-bold mb-6">
@@ -82,12 +84,14 @@ const RFQ: React.FC = () => {
             Submit Another RFQ
           </Button>
         </div>
-      </div>
+        </div>
+      </PageLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <PageLayout>
+      <div className="min-h-screen bg-black text-white">
       {/* HERO SECTION */}
       <section className="relative pt-28 pb-16 px-6 md:px-12">
         <div className="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
@@ -294,7 +298,8 @@ const RFQ: React.FC = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </PageLayout>
   );
 };
 

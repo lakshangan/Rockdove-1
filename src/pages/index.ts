@@ -6,3 +6,4 @@ export { default as TheStory } from './TheStory';
 export { default as Careers } from './Careers';
 export { default as FAQs } from './FAQs';
 export { default as RFQ } from './RFQ';
+export { default as MRO } from './MRO';

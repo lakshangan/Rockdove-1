@@ -1,6 +1,7 @@
 import React from "react";
 import { Users, MapPin, Clock, Award, Heart, Briefcase } from "lucide-react";
 import { Button } from "../components/ui/button";
+import { PageLayout } from "../components/PageLayout";
 
 const Careers: React.FC = () => {
   const openPositions = [
@@ -58,7 +59,8 @@ const Careers: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <PageLayout>
+      <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-8">
         <div className="max-w-6xl mx-auto">
@@ -201,7 +203,8 @@ const Careers: React.FC = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </PageLayout>
   );
 };
 

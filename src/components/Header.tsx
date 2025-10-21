@@ -44,8 +44,9 @@ const navigationItems = [
         ],
       },
       {
-        title: "More",
+        title: "Services",
         links: [
+          { name: "MRO", icon: <Wrench className="w-4 h-4 text-[#5cc6d0]" />, href: "/mro" },
           { name: "FAQs", icon: <HelpCircle className="w-4 h-4 text-[#5cc6d0]" />, href: "/faqs" },
         ],
       },

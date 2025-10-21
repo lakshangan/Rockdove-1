@@ -7,7 +7,7 @@ import { Stats } from "./Stats";
 import Features from "./Features";
 import { FAQ } from "./FAQ";
 import { Contact } from "./Contact";
-import { Footer } from "./Footer";
+import { Footer } from "./FooterFixed";
 import "../styles/horror-effects.css";
 
 export const Layout: React.FC = () => {
