@@ -4,102 +4,166 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const features = [
-  { number: "01", title: "Quality we follow" },
-  { number: "02", title: "Logistics" },
-  { number: "03", title: "From OEM to Customer" },
-  { number: "04", title: "Accreditation" },
-];
-
-export const Features: React.FC = () => {
+const Features: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const planeRef = useRef<HTMLImageElement | null>(null);
-  const lineRef = useRef<HTMLDivElement | null>(null);
+  const whiteLineRef = useRef<HTMLDivElement | null>(null);
+  const blueLineRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (window.innerWidth < 768) return; // disable GSAP on mobile
+    const section = sectionRef.current;
+    const plane = planeRef.current;
+    const blueLine = blueLineRef.current;
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1,
-          pin: false,
-        },
-      });
+    if (!section || !plane || !blueLine) return;
 
-      // Plane flies top → bottom
-      tl.fromTo(
-        planeRef.current,
-        { yPercent: -50, opacity: 0 },
-        { yPercent: 350, opacity: 1, ease: "none" },
-        0
+    // Scroll animation
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top center",
+        end: "bottom bottom",
+        scrub: 1,
+      },
+    });
+    const planeTravel = 900; // plane moves from y: 0 -> 900
+    const blueLineHeight = 1300; // CSS height of blue line
+    const maxScale = planeTravel / blueLineHeight; // scaleY to match plane
+
+    // Plane movement along the line
+    tl.fromTo(plane, { y: 0 }, { y: 900, ease: "none" }, 0);
+
+    // Line color progress (white to cyan as plane moves)
+    tl.fromTo(
+      blueLine,
+      { scaleY: 0 },
+      { scaleY: 1, transformOrigin: "top center", ease: "none" },
+      0
+    );
+
+    // Fade-in animations for text blocks
+    const texts = gsap.utils.toArray<HTMLElement>(".feature-block");
+    texts.forEach((text) => {
+      gsap.fromTo(
+        text,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: text,
+            start: "top 80%",
+            toggleActions: "play none none none", // only once
+          },
+        }
       );
-
-      // Line reveal (grow height)
-      tl.fromTo(
-        lineRef.current,
-        { scaleY: 0 },
-        { scaleY: 1, transformOrigin: "top center", ease: "none" },
-        0
-      );
-
-      // Reveal each feature as the plane crosses
-      features.forEach((_, i) => {
-        tl.fromTo(
-          `.feature-${i}`,
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 0.8 },
-          i * 0.2 + 0.3
-        );
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
+    });
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[250vh] flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#02040a] via-[#050910] to-[#0b1320]"
+      className="relative min-h-[230vh] bg-black text-white flex flex-col items-center justify-start py-24 font-[Poppins]"
     >
-      {/* Glowing vertical line */}
-      <div
-        ref={lineRef}
-        className="absolute top-0 left-1/2 w-[4px] h-full bg-gradient-to-b from-transparent via-[#5cc6d0] to-[#5cc6d0]/30 blur-[1px] scale-y-0"
-      />
-
-      {/* Airplane */}
-      <img
-        ref={planeRef}
-        src="/pngwing-com--28--28-1.png"
-        alt="Plane"
-        className="absolute left-1/2 w-[100px] -translate-x-1/2 drop-shadow-[0_0_25px_#5cc6d0]"
-      />
-
       {/* Title */}
-      <h2 className="font-semibold text-center text-4xl md:text-5xl text-white mt-40">
-        Fly safe with parts you
-        <span className="text-[#5cc6d0]"> trust.</span>
+      <h2 className="text-[48px] font-semibold text-center leading-[100%] text-white mb-32">
+        Fly safe with parts you <span className="text-[#5CC6D0]">trust.</span>
       </h2>
 
-      {/* Features List */}
-      <div className="relative z-10 mt-40 grid grid-cols-1 md:grid-cols-2 gap-16 text-center">
-        {features.map((feature, i) => (
-          <div
-            key={i}
-            className={`feature-${i} opacity-0 transform transition-all`}
-          >
-            <div className="font-bold text-[#5cc6d0] text-2xl md:text-4xl">
-              {feature.number}
+      {/* Vertical Lines */}
+      <div
+        ref={whiteLineRef}
+        className="absolute top-[280px] left-1/2 w-[10px] h-[900px] bg-white rounded-full -translate-x-1/2"
+      ></div>
+
+      <div
+        ref={blueLineRef}
+        className="absolute top-[280px] left-1/2 w-[10px] h-[900px] bg-[#5CC6D0] rounded-full -translate-x-1/2 scale-y-0"
+      ></div>
+
+      {/* Plane */}
+      <img
+        ref={planeRef}
+        src="/sliderplane.png"
+        alt="Plane"
+        className="absolute top-[250px] left-1/2 w-[120px] h-[120px] rotate-180 -translate-x-1/2"
+      />
+
+      {/* Zigzag Feature Blocks */}
+      <div className="mt-[-100px]  flex flex-col gap-[120px] w-full max-w-[1200px]">
+        {/* 01 - Left */}
+        <div className="feature-block flex justify-start ml-[5vw] mt-[20vh]">
+          <div className="max-w-[440px] text-left space-y-3">
+            <div className="text-[#5CC6D0] font-bold text-[40px] leading-[100%]">
+              01
             </div>
-            <div className="font-medium text-white text-lg md:text-2xl mt-2">
-              {feature.title}
-            </div>
+            <h3 className="text-[32px] font-medium leading-[110%]">
+              Quality we follow
+            </h3>
+            <p className="text-[16px] font-normal text-gray-300 leading-[160%] tracking-wide">
+              RDA ensures top-quality products and on-time support, backed by
+              ISO 9001:2015 compliance, ASA, and NBAA memberships. Regular
+              audits reflect our commitment to being the premier aviation
+              service provider.
+            </p>
           </div>
-        ))}
+        </div>
+
+        {/* 02 - Right */}
+        <div className="feature-block flex justify-end">
+          <div className="max-w-[440px] mr-[100px] mr-[4vw] mt-[-15vh]  text-right space-y-3">
+            <div className="text-[#5CC6D0] font-bold text-[40px] leading-[100%]">
+              02
+            </div>
+            <h3 className="text-[32px] font-medium leading-[110%]">
+              Logistics
+            </h3>
+            <p className="text-[16px] font-normal text-gray-300 leading-[160%] tracking-wide">
+              Our team ensures timely global delivery of aircraft parts,
+              partnering with trusted providers like DHL, FedEx, UPS, and TWI.
+              We collaborate with private air, sea, and freight forwarders for
+              reliable, efficient shipping.
+            </p>
+          </div>
+        </div>
+
+        {/* 03 - Left */}
+        <div className="feature-block flex justify-start">
+          <div className="max-w-[440px]  ml-[5vw] mt-[-10vh] text-left space-y-3">
+            <div className="text-[#5CC6D0] font-bold text-[40px] leading-[100%]">
+              03
+            </div>
+            <h3 className="text-[32px] font-medium leading-[110%]">
+              From OEM to Customer
+            </h3>
+            <p className="text-[16px] font-normal text-gray-300 leading-[160%] tracking-wide">
+              A trusted distributor of aerospace tools and placards, RDA
+              specializes in aircraft parts for the Asia-Pacific, Middle East,
+              and Africa. As an official OEM distributor, we guarantee quality
+              and reliability for every order.
+            </p>
+          </div>
+        </div>
+
+        {/* 04 - Right */}
+        <div className="feature-block flex justify-end">
+          <div className="max-w-[440px] mr-[100px] mr-[4vw] mt-[-15vh] text-right space-y-3">
+            <div className="text-[#5CC6D0] font-bold text-[40px] leading-[100%]">
+              04
+            </div>
+            <h3 className="text-[32px] font-medium leading-[110%]">
+              Accreditation
+            </h3>
+            <p className="text-[16px] font-normal text-gray-300 leading-[160%] tracking-wide">
+              Partnerships with SAT, Logisky, Shanghai Junuun Aviation, and
+              JS-Tooling elevate our repair, tooling, and distribution services.
+              We ensure fast turnaround, high precision, and unmatched service
+              standards.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

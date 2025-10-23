@@ -1,32 +1,70 @@
 import React from "react";
 import { Button } from "./ui/button";
+import { MascotModel } from "./MascotModel";
 
 export const Contact: React.FC = () => {
   return (
-    <section className="py-16 md:py-24 px-4 md:px-8">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="[font-family:'Poppins',Helvetica] font-semibold text-white text-3xl md:text-5xl text-center tracking-[0] leading-[normal] animate-fade-up">
-          Lets Talk Business
-        </h2>
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-black">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* LEFT CONTENT */}
+        <div className="space-y-8 text-left animate-fade-up">
+          <h2 className="font-[Poppins] font-bold text-[#5CC6D0] text-3xl md:text-5xl leading-tight">
+            Let’s Talk Business
+          </h2>
 
-        <p className="mt-8 md:mt-12 [font-family:'Poppins',Helvetica] font-medium text-white text-lg md:text-xl tracking-[0] leading-[normal] animate-fade-up" style={{animationDelay: '0.1s', opacity: 0}}>
-          Ready to elevate your fleet? <br />
-          At RDA, we deliver fast, reliable parts to keep your aircraft soaring
-        </p>
+          <p className="font-[Poppins] text-white text-lg md:text-xl leading-relaxed max-w-lg">
+            Ready to elevate your fleet?
+            <br />
+            At Rockdove Aviation, we deliver fast, reliable parts and tailored
+            support to keep your aircraft soaring without interruption.
+          </p>
 
-        <Button 
-          className="mt-8 md:mt-12 h-auto bg-transparent border-0 p-0 hover:bg-transparent relative transition-transform duration-300 hover:scale-110 animate-fade-up hover:animate-shake" 
-          style={{animationDelay: '0.2s', opacity: 0}}
-        >
-          <img
-            className="w-[150px] h-[46px]"
-            alt="Rectangle"
-            src="/rectangle-6.svg"
-          />
-          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 [font-family:'Poppins',Helvetica] font-semibold text-white text-2xl tracking-[0] leading-[normal]">
-            Explore
-          </span>
-        </Button>
+          <Button
+            className="
+    relative isolate
+    overflow-hidden
+    group
+    text-white font-[Poppins] font-semibold
+    text-base md:text-lg
+    px-10 py-3.5
+    rounded-xl
+    transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
+    
+    bg-gradient-to-b from-[#5CC6D0] to-[#14919B]
+    border border-[#5CC6D0]/40
+    
+    hover:scale-[1.04]
+    active:scale-[0.98]
+    focus:ring-2 focus:ring-[#5CC6D0]/50 focus:ring-offset-2 focus:ring-offset-black
+  "
+          >
+            <span className="relative z-10">Contact Us</span>
+
+            {/* Soft reflective shimmer overlay */}
+            <span
+              className="
+      absolute inset-0
+      bg-gradient-to-t from-transparent via-white/20 to-transparent
+      opacity-0 group-hover:opacity-100
+      transition-opacity duration-700 ease-out
+    "
+            ></span>
+
+            {/* Animated light streak */}
+            <span
+              className="
+      absolute top-0 left-[-100%] w-[60%] h-full
+      bg-gradient-to-r from-transparent via-white/30 to-transparent
+      transform skew-x-[-20deg]
+      transition-all duration-700 ease-in-out
+      group-hover:left-[120%]
+    "
+            ></span>
+          </Button>
+        </div>
+
+        {/* RIGHT IMAGE (MASCOT AREA) */}
+        <MascotModel />
       </div>
     </section>
   );
