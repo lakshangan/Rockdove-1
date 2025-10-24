@@ -2,6 +2,18 @@ import React from "react";
 import { Heart, Users, Award, Target, Globe, TrendingUp } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { PageLayout } from "../components/PageLayout";
+import { 
+  FadeInUp, 
+  FadeInLeft, 
+  FadeInRight, 
+  ScaleIn, 
+  StaggeredContainer,
+  ParallaxSection,
+  AnimatedHero,
+  AnimatedSection,
+  AnimatedCardGrid,
+  AnimatedContactSection
+} from "../components/animations";
 
 const TheStory: React.FC = () => {
   const milestones = [
@@ -58,16 +70,18 @@ const TheStory: React.FC = () => {
   return (
     <PageLayout>
       <div className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-8">
-        <div className="max-w-6xl mx-auto">
+      {/* Animated Hero Section */}
+      <AnimatedHero parallaxSpeed={0.3}>
+        <FadeInUp delay={200}>
           <h1 className="text-5xl md:text-6xl font-bold mb-8">Our Story</h1>
+        </FadeInUp>
+        <FadeInUp delay={400}>
           <p className="text-xl md:text-2xl text-gray-300 max-w-4xl leading-relaxed">
             From a small startup with big dreams to a global leader in aviation parts supply, 
             RockDove Aviation has been at the forefront of innovation and reliability in the aviation industry.
           </p>
-        </div>
-      </section>
+        </FadeInUp>
+      </AnimatedHero>
 
       {/* Mission Section */}
       <section className="py-20 px-8 bg-[#0b0d10]/30">
