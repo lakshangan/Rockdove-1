@@ -1,226 +1,292 @@
-import React from "react";
-import { Briefcase, BarChart3, Shield, Clock, CheckCircle } from "lucide-react";
+import { lazy, Suspense } from "react";
 import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
 import { PageLayout } from "../components/PageLayout";
-import { 
-  FadeInUp, 
-  FadeInLeft, 
-  ScaleIn, 
-  StaggeredContainer,
-  ParallaxSection 
-} from "../components/animations";
 
-const AssetManagement: React.FC = () => {
-  const features = [
-    {
-      icon: <Briefcase className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Asset Tracking",
-      description: "Real-time tracking and monitoring of all aircraft parts and components across your entire fleet."
-    },
-    {
-      icon: <BarChart3 className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Analytics & Reporting",
-      description: "Comprehensive analytics and reporting tools to optimize your asset utilization and reduce costs."
-    },
-    {
-      icon: <Shield className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Compliance Management",
-      description: "Automated compliance tracking to ensure all assets meet regulatory requirements and safety standards."
-    },
-    {
-      icon: <Clock className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Predictive Maintenance",
-      description: "AI-powered predictive maintenance scheduling to prevent failures and optimize maintenance windows."
-    }
-  ];
+const Spline = lazy(() => import('@splinetool/react-spline'));
 
-  const benefits = [
-    "Reduce operational costs by up to 30%",
-    "Improve asset utilization by 25%",
-    "Minimize downtime with predictive insights",
-    "Ensure regulatory compliance automatically",
-    "Streamline inventory management",
-    "Enhance decision-making with real-time data"
-  ];
+const inventoryCategories = [
+  {
+    title: "Consumables",
+    items: ["Oils and fluids"],
+  },
+  {
+    title: "Rotables",
+    items: ["Engines & Landing gears"],
+  },
+  {
+    title: "Expendables",
+    items: ["filters and seals"],
+  },
+  {
+    title: "Tools",
+    items: ["Specialized aviation tooling"],
+  },
+  {
+    title: "Placards",
+    items: ["Aircraft signage and labels"],
+  },
+];
 
-  const capabilities = [
-    "Real-time Asset Tracking",
-    "Lifecycle Management",
-    "Maintenance Scheduling",
-    "Compliance Monitoring",
-    "Cost Optimization",
-    "Performance Analytics"
-  ];
+const brandLogos = [
+  {
+    src: "https://c.animaapp.com/mh31x2ueWQqHGB/img/airbus-logo-1.png",
+    alt: "Airbus logo",
+    className: "w-[175px] h-[110px]",
+  },
+  {
+    src: "https://c.animaapp.com/mh31x2ueWQqHGB/img/logo-boeing-1.png",
+    alt: "Logo boeing",
+    className: "w-[198px] h-[124px]",
+  },
+  {
+    src: "https://c.animaapp.com/mh31x2ueWQqHGB/img/atr-logo-2015-svg-1.png",
+    alt: "Atr logo svg",
+    className: "w-[180px] h-[31px]",
+  },
+  {
+    src: "https.c.animaapp.com/mh31x2ueWQqHGB/img/bombardier-logo-1942-1.png",
+    alt: "Bombardier logo",
+    className: "w-[159px] h-[90px]",
+  },
+  {
+    src: "https://c.animaapp.com/mh31x2ueWQqHGB/img/embraer-logo-1.png",
+    alt: "Embraer logo",
+    className: "w-[243px] h-[41px]",
+  },
+];
 
+const specializedProducts = [
+  {
+    title: "APUs",
+    image:
+      "https://c.animaapp.com/mh31x2ueWQqHGB/img/10products-13apu-categorypage-pw901a-c-content-card-800x450-remo.png",
+    imageClassName: "w-[405px] h-[228px]",
+    cardClassName:
+      "bg-[linear-gradient(180deg,rgba(92,198,208,1)_0%,rgba(0,151,161,1)_100%)]",
+  },
+  {
+    title: "Brakes",
+    image:
+      "https.c.animaapp.com/mh31x2ueWQqHGB/img/6874354-free-3d-file-aircraft-circuit-breaker-3d-printable-desig.png",
+    imageClassName: "w-[194px] h-[175px]",
+    cardClassName: "bg-[#d9d9d9] hover:bg-[#5cc6d0] transition-colors duration-300",
+  },
+  {
+    title: "Engine",
+    image:
+      "https://c.animaapp.com/mh31x2ueWQqHGB/img/360-f-269338408-iic0xiyjedyxws8gczvsuromv0whj2rs-removebg-previe.png",
+    imageClassName: "w-[306px] h-[175px]",
+    cardClassName: "bg-[#d9d9d9] hover:bg-[#5cc6d0] transition-colors duration-300",
+  },
+  {
+    title: "Starters",
+    image:
+      "https://c.animaapp.com/mh31x2ueWQqHGB/img/images--2--removebg-preview--1--1.png",
+    imageClassName: "w-[209px] h-[130px]",
+    cardClassName: "bg-[#d9d9d9] hover:bg-[#5cc6d0] transition-colors duration-300",
+  },
+  {
+    title: "Thrust reverser",
+    image: "https://c.animaapp.com/mh31x2ueWQqHGB/img/thrust-reverser-1-1.png",
+    imageClassName: "w-[211px] h-[152px]",
+    cardClassName: "bg-[#d9d9d9] hover:bg-[#5cc6d0] transition-colors duration-300",
+  },
+  {
+    title: "Wheels",
+    image:
+      "https://c.animaapp.com/mh31x2ueWQqHGB/img/boeing737aircraftwheelvray3dmodel001-removebg-preview-1.png",
+    imageClassName: "w-[305px] h-[172px]",
+    cardClassName: "bg-[#d9d9d9] hover:bg-[#5cc6d0] transition-colors duration-300",
+  },
+  {
+    title: "Landing Gears",
+    image:
+      "https://c.animaapp.com/mh31x2ueWQqHGB/img/landing-gear-r787-01-removebg-preview-1.png",
+    imageClassName: "w-[304px] h-[190px]",
+    cardClassName: "bg-[#d9d9d9] hover:bg-[#5cc6d0] transition-colors duration-300",
+  },
+  {
+    title: "Blades",
+    image:
+      "https://c.animaapp.com/mh31x2ueWQqHGB/img/images--3--removebg-preview-1.png",
+    imageClassName: "w-[325px] h-52",
+    cardClassName: "bg-[#d9d9d9] hover:bg-[#5cc6d0] transition-colors duration-300",
+  },
+  {
+    title: "Actuators",
+    image:
+      "https://c.animaapp.com/mh31x2ueWQqHGB/img/images--4--removebg-preview--1--1.png",
+    imageClassName: "w-[231px] h-[133px]",
+    cardClassName: "bg-[#d9d9d9] hover:bg-[#5cc6d0] transition-colors duration-300",
+  },
+];
+
+const AssetManagement = (): JSX.Element => {
   return (
     <PageLayout>
-      <div className="min-h-screen bg-black text-white">
-        {/* Animated Hero Section */}
-        <ParallaxSection speed={0.3} className="relative pt-32 pb-20 px-8">
-          <div className="max-w-6xl mx-auto">
-            {/* Animated title and icon */}
-            <FadeInUp delay={200}>
-              <div className="flex items-center gap-4 mb-8">
-                <Briefcase className="w-12 h-12 text-[#5cc6d0]" />
-                <h1 className="text-5xl md:text-6xl font-bold">Asset Management</h1>
-              </div>
-            </FadeInUp>
-            
-            {/* Animated description */}
-            <FadeInUp delay={400}>
-              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl leading-relaxed">
-                Optimize your aircraft asset lifecycle with our comprehensive management platform. 
-                Track, monitor, and maintain your fleet assets with precision and efficiency.
+      <div
+        className="bg-black overflow-hidden w-full"
+        data-model-id="375:224"
+      >
+        <section className="relative px-4 md:px-4 lg:px-[178px] pt-[150px] pb-[100px] translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="flex-1 max-w-full md:max-w-[530px] transform -translate-x-16">
+              <h1 className="[font-family:'Poppins',Helvetica] font-bold text-[#5cc6d0] text-[32px] leading-[48px] mb-6">
+                Asset Management
+              </h1>
+              <p className="[font-family:'Poppins',Helvetica] font-medium text-white text-2xl leading-normal">
+                With over 400,000 parts in our<br/> dedicated warehouse and broad inventories covering 
+                Rotables, <br />consumables, and more, we ensure your aircraft stays Non-stop.
               </p>
-            </FadeInUp>
-          </div>
-        </ParallaxSection>
-
-        {/* Animated Features Section */}
-        <section className="py-20 px-8">
-          <div className="max-w-6xl mx-auto">
-            {/* Animated section title */}
-            <FadeInUp delay={200}>
-              <h2 className="text-4xl font-bold text-center mb-16">Key Features</h2>
-            </FadeInUp>
-            
-            {/* Staggered feature cards */}
-            <StaggeredContainer delay={150}>
-              <div className="grid md:grid-cols-2 gap-12">
-                {features.map((feature, index) => (
-                  <ScaleIn key={index} delay={index * 100} scale={0.9}>
-                    <div className="bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-8 hover:bg-[#0b0d10]/70 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#5cc6d0]/20">
-                      <div className="flex items-start gap-4">
-                        {feature.icon}
-                        <div>
-                          <h3 className="text-2xl font-semibold mb-4 text-[#5cc6d0]">{feature.title}</h3>
-                          <p className="text-gray-300 leading-relaxed">{feature.description}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </ScaleIn>
-                ))}
+            </div>
+            <div className="w-full md:w-auto flex-shrink-0 transform translate-x-16">
+              <div className="w-full h-[400px] md:w-[510px] md:h-[600px]">
+                <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">Loading 3D model...</div>}>
+                  <Spline scene="https://prod.spline.design/eKIr9KALeaHgOFXP/scene.splinecode" />
+                </Suspense>
               </div>
-            </StaggeredContainer>
+            </div>
           </div>
         </section>
 
-        {/* Animated Benefits Section */}
-        <ParallaxSection speed={0.2} className="py-20 px-8 bg-[#0b0d10]/30">
-          <div className="max-w-6xl mx-auto">
-            {/* Animated section title */}
-            <FadeInUp delay={200}>
-              <h2 className="text-4xl font-bold text-center mb-16">Benefits</h2>
-            </FadeInUp>
-            
-            {/* Staggered benefit items */}
-            <StaggeredContainer delay={100}>
-              <div className="grid md:grid-cols-2 gap-8">
-                {benefits.map((benefit, index) => (
-                  <FadeInLeft key={index} delay={index * 100}>
-                    <div className="flex items-center gap-4 hover:scale-105 transition-all duration-300">
-                      <CheckCircle className="w-6 h-6 text-[#5cc6d0] flex-shrink-0" />
-                      <span className="text-lg text-gray-300">{benefit}</span>
-                    </div>
-                  </FadeInLeft>
-                ))}
+        <section className="relative px-4 md:px-8 lg:px-[228px] py-20 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms]">
+          <h2 className="font-medium text-white text-2xl md:text-3xl lg:text-[24px] leading-[48px] text-center max-w-[881px] mx-auto mb-16">
+            Expert Asset Management <br />
+            for Seamless <br />
+            <span className="lg:text-[32px] font-bold text-[#5cc6d0]">
+              Aviation Operations
+            </span>
+          </h2>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-64">
+            <div className="flex items-center gap-8 md:gap-12">
+              <div className="text-center">
+                <div className="font-bold text-[#55cccc] text-3xl md:text-4xl lg:text-[40px] leading-normal mb-2">
+                  27k+
+                </div>
+                <div className="font-medium text-white text-2xl md:text-3xl lg:text-[32px] leading-normal">
+                  Inventories
+                </div>
               </div>
-            </StaggeredContainer>
-          </div>
-        </ParallaxSection>
 
-        {/* Animated Capabilities Section */}
-        <section className="py-20 px-8">
-          <div className="max-w-6xl mx-auto">
-            {/* Animated section title */}
-            <FadeInUp delay={200}>
-              <h2 className="text-4xl font-bold text-center mb-16">Our Capabilities</h2>
-            </FadeInUp>
-            
-            {/* Staggered capability cards */}
-            <StaggeredContainer delay={100}>
-              <div className="grid md:grid-cols-3 gap-8">
-                {capabilities.map((capability, index) => (
-                  <ScaleIn key={index} delay={index * 80} scale={0.9}>
-                    <div className="bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-6 text-center hover:bg-[#0b0d10]/70 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#5cc6d0]/20">
-                      <CheckCircle className="w-8 h-8 text-[#5cc6d0] mx-auto mb-4" />
-                      <h3 className="text-xl font-semibold text-[#5cc6d0]">{capability}</h3>
-                    </div>
-                  </ScaleIn>
-                ))}
+              <div className="w-[5px] h-[86px] bg-white" />
+
+              <div className="text-center">
+                <div className="font-bold text-[#55cccc] text-3xl md:text-4xl lg:text-[40px] leading-normal mb-2">
+                  400,000+
+                </div>
+                <div className="font-medium text-white text-2xl md:text-3xl lg:text-[32px] leading-normal">
+                  Parts
+                </div>
               </div>
-            </StaggeredContainer>
+            </div>
+
+           <div className="relative">
+              <div className="w-[350px] h-[180px] rounded-[20px] bg-[linear-gradient(180deg,rgba(92,198,208,1)_0%,rgba(47,101,106,1)_100%)]" />
+              <img
+                className="absolute top-[-5rem] left-[-4rem] w-[379px] h-[329px] object-cover "
+                alt="Now that looks fun"
+                src="https://c.animaapp.com/mh31x2ueWQqHGB/img/now-that-looks-fun-removebg-preview--1--1.png"
+              />
+            </div>
+           
           </div>
         </section>
 
-        {/* Animated Stats Section */}
-        <ParallaxSection speed={0.3} className="py-20 px-8 bg-[#0b0d10]/30">
-          <div className="max-w-6xl mx-auto">
-            {/* Animated section title */}
-            <FadeInUp delay={200}>
-              <h2 className="text-4xl font-bold text-center mb-16">Proven Results</h2>
-            </FadeInUp>
-            
-            {/* Staggered stats cards */}
-            <StaggeredContainer delay={150}>
-              <div className="grid md:grid-cols-3 gap-8">
-                {[
-                  { 
-                    title: "Cost Reduction", 
-                    value: "30%",
-                    description: "Average cost savings achieved by our clients"
-                  },
-                  { 
-                    title: "Asset Utilization", 
-                    value: "25%",
-                    description: "Improvement in asset utilization rates"
-                  },
-                  { 
-                    title: "Downtime Reduction", 
-                    value: "40%",
-                    description: "Reduction in unplanned downtime"
-                  }
-                ].map((stat, index) => (
-                  <ScaleIn key={index} delay={index * 150} scale={0.85}>
-                    <div className="text-center bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-8 hover:bg-[#0b0d10]/70 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#5cc6d0]/20">
-                      <div className="text-4xl font-bold text-[#5cc6d0] mb-4">{stat.value}</div>
-                      <h3 className="text-2xl font-semibold mb-4 text-[#5cc6d0]">{stat.title}</h3>
-                      <p className="text-gray-300">{stat.description}</p>
-                    </div>
-                  </ScaleIn>
+        <section className="relative px-4 md:px-8 lg:px-[228px] py-20 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:800ms]">
+          <h2 className="font-extrabold text-[#5cc6d0] text-4xl md:text-5xl leading-[72px] text-center mb-16">
+            Broad Inventory
+          </h2>
+
+          <div className="flex justify-center">
+            {inventoryCategories.map((category, index) => (
+              <div key={index} className="text-center">
+                <h3 className="font-bold text-white text-xl leading-normal mb-4">
+                  {category.title}
+                </h3>
+                {category.items.map((item, itemIndex) => (
+                  <p
+                    key={itemIndex}
+                    className="font-medium text-white text-base leading-normal w-52 mx-auto"
+                  >
+                    {item}
+                  </p>
                 ))}
               </div>
-            </StaggeredContainer>
-          </div>
-        </ParallaxSection>
-
-        {/* Animated CTA Section */}
-        <section className="py-20 px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Animated title and description */}
-            <FadeInUp delay={200}>
-              <h2 className="text-4xl font-bold mb-8">Ready to Optimize Your Assets?</h2>
-            </FadeInUp>
-            
-            <FadeInUp delay={400}>
-              <p className="text-xl text-gray-300 mb-12">
-                Discover how our asset management platform can transform your operations and reduce costs.
-              </p>
-            </FadeInUp>
-            
-            {/* Animated buttons */}
-            <FadeInUp delay={600}>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-[#5cc6d0] text-black px-8 py-4 text-lg font-semibold hover:bg-[#4ab5bf] transition-all duration-300 hover:scale-105">
-                  Get Started
-                </Button>
-                <Button variant="outline" className="border-[#5cc6d0] text-[#5cc6d0] px-8 py-4 text-lg font-semibold hover:bg-[#5cc6d0] hover:text-black transition-all duration-300">
-                  Request Demo
-                </Button>
-              </div>
-            </FadeInUp>
+            ))}
           </div>
         </section>
+
+        <section className="relative px-4 md:px-8 lg:px-[228px] py-20">
+          <h3 className="font-medium text-white text-2xl text-center mb-12">
+            These inventories support Major{" "}
+            <span className="text-[#5cc6d0]">Brands</span>
+          </h3>
+
+          <div className="flex items-center justify-center gap-10">
+            {brandLogos.map((logo, index) => (
+              <img
+                key={index}
+                className={`${logo.className} object-cover`}
+                alt={logo.alt}
+                src={logo.src}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="relative px-4 md:px-8 lg:px-[228px] py-20">
+          <h2 className="font-bold text-[#5cc6d0] text-4xl md:text-5xl leading-[72px] text-center mb-8">
+            A to Z Parts Solutions
+          </h2>
+
+          <p className="font-medium text-white text-xl md:text-2xl text-center leading-normal max-w-[1080px] mx-auto mb-12">
+            Not limited to high-end specialties; we provide everything from basic
+            hardware (nuts, bolts, seals) to advanced systems (avionics, landing
+            gear, propulsion). Sourced from trusted OEMs and aftermarket
+          </p>
+          <div className="flex justify-center">
+          <Button className="h-auto rounded-[40px] border-0 bg-[linear-gradient(180deg,rgba(92,198,208,1)_0%,rgba(20,145,155,1)_100%)] px-10 py-2.5 [font-family:'Poppins',Helvetica] font-semibold text-white text-xl hover:opacity-90 transition-opacity">
+            Request a quote
+          </Button>
+        </div>
+      </section>
+
+      <section className="relative px-[228px] py-20">
+        <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#5cc6d0] text-[40px] leading-[60px] text-center mb-4">
+          We are specialized in
+        </h2>
+
+        <div className="w-[101px] h-[5px] bg-[#5cc6d0] mx-auto mb-8" />
+
+        <p className="[font-family:'Poppins',Helvetica] font-medium text-white text-xl text-center leading-normal mb-16">
+          We manage critical assets with
+          <br /> expert maintenance, ensuring top performance and safety
+        </p>
+
+        <div className="grid grid-cols-3 gap-8 max-w-[1200px] mx-auto">
+          {specializedProducts.map((product, index) => (
+            <div key={index} className="flex flex-col items-center gap-4">
+              <div className="relative group">
+                <Card
+                  className={`w-[157px] h-[124px] ${product.cardClassName} rounded-[20px] border-0`}
+                >
+                  <CardContent className="p-0" />
+                </Card>
+                <img
+                  className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${product.imageClassName} object-cover`}
+                  alt={product.title}
+                  src={product.image}
+                />
+              </div>
+              <h3 className="[font-family:'Poppins',Helvetica] font-bold text-white text-2xl text-center leading-normal">
+                {product.title}
+              </h3>
+            </div>
+          ))}
+        </div>
+      </section>
+
       </div>
     </PageLayout>
   );
