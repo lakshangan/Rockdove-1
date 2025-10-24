@@ -84,11 +84,13 @@ export const Header: React.FC = () => {
   return (
     <header className="absolute top-6 left-8 right-8 flex items-center justify-between z-50">
       {/* Logo */}
-      <img
-        src="/rda-gradient-logo--1--1.png"
-        alt="RockDove Logo"
-        className="w-[220px] h-[70px] object-contain transition-transform duration-300 hover:scale-105"
-      />
+      <Link to="/" aria-label="Home">
+        <img
+          src="/rda-gradient-logo--1--1.png"
+          alt="RockDove Logo"
+          className="w-[220px] h-[70px] object-contain transition-transform duration-300 hover:scale-105"
+        />
+      </Link>
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex flex-1 justify-center items-center gap-12 relative">
@@ -181,7 +183,9 @@ export const Header: React.FC = () => {
           {/* Drawer panel */}
           <div className="relative ml-auto w-full max-w-md bg-[#0b0d10]/95 border-l border-[#1a1d22] p-6 overflow-auto">
             <div className="flex items-center justify-between mb-6">
-              <img src="/rda-gradient-logo--1--1.png" alt="RockDove Logo" className="w-[160px] h-[50px] object-contain" />
+              <Link to="/" aria-label="Home">
+                <img src="/rda-gradient-logo--1--1.png" alt="RockDove Logo" className="w-[160px] h-[50px] object-contain" />
+              </Link>
               <button
                 aria-label="Close menu"
                 onClick={() => setMobileOpen(false)}

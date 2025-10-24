@@ -28,7 +28,7 @@ export const Layout: React.FC = () => {
       <Stats />
       <Features />
       <FAQ />
-      <Contact />
+      {/* <Contact /> */}
       <Footer />
     </div>
   );

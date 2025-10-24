@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
             <img
               className="w-[200px] h-auto object-contain mb-6"
               alt="Rockdove Aviation Logo"
-              src="/rda-black-logo.png"
+              src="/rda-gradient-logo--1--1.png"
             />
 
             {/* Partner logos (updated + aligned + bigger) */}
