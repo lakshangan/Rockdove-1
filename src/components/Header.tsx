@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     ChevronDown as ChevronDownIcon,
     Wrench,
@@ -61,6 +61,8 @@ export const Header: React.FC = () => {
   // Mobile menu states
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileActiveSection, setMobileActiveSection] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   const handleMouseEnter = (label: string) => {
     if (closeTimeout.current) clearTimeout(closeTimeout.current);
@@ -160,6 +162,7 @@ export const Header: React.FC = () => {
         <Button
           variant="outline"
           className="rounded-full border border-[#5cc6d0] text-[#5cc6d0] px-6 py-2 hover:bg-[#5cc6d0] hover:text-black transition-all duration-300 hover:scale-110 shadow-sm hover:shadow-[#5cc6d0]/30"
+          onClick={() => navigate('/contact')}
         >
           Contact
         </Button>
@@ -243,8 +246,9 @@ export const Header: React.FC = () => {
                     variant="outline"
                     className="w-full rounded-full border border-[#5cc6d0] text-[#5cc6d0] px-6 py-2 hover:bg-[#5cc6d0] hover:text-black transition-all duration-300"
                     onClick={() => {
-                      // Close menu and (optionally) navigate to contact or open contact modal
+                      // Close menu then navigate to contact anchor
                       setMobileOpen(false);
+                      navigate('/contact');
                     }}
                   >
                     Contact

@@ -72,12 +72,14 @@ export const Footer: React.FC = () => {
 
           {/* Contact */}
           <div>
-            <h3 className="text-xl font-semibold mb-5 text-[#5cc6d0]">Contact</h3>
-            <p className="text-white/80 text-sm mb-3">
-              No. B17-22, RAK Port Customs Building, Nakheel Ras Al Khaimah, UAE
-            </p>
-            <p className="text-white/80 text-sm mb-2">+971 505056093</p>
-            <p className="text-white/80 text-sm">sales@rockdoveaviation.com</p>
+            <a href="/contact" className="group block">
+              <h3 className="text-xl font-semibold mb-5 text-[#5cc6d0] group-hover:text-[#4ab5bf]">Contact</h3>
+              <p className="text-white/80 text-sm mb-3 group-hover:text-[#fff]">
+                No. B17-22, RAK Port Customs Building, Nakheel Ras Al Khaimah, UAE
+              </p>
+              <p className="text-white/80 text-sm mb-2 group-hover:text-[#fff]">+971 505056093</p>
+              <p className="text-white/80 text-sm group-hover:text-[#fff]">sales@rockdoveaviation.com</p>
+            </a>
           </div>
         </div>
 

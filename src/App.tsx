@@ -11,6 +11,7 @@ import {
   RFQ,
   MRO
 } from "./pages";
+import ContactPage from "./pages/ContactPage";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,9 @@ const App: React.FC = () => {
         <Route path="/asset-management" element={<AssetManagement />} />
         <Route path="/repair-management" element={<RepairManagement />} />
         <Route path="/aog-support" element={<AOGSupport />} />
+
+  {/* Contact page */}
+  <Route path="/contact" element={<ContactPage />} />
         
         {/* Company pages */}
         <Route path="/the-story" element={<TheStory />} />
