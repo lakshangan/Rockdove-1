@@ -26,10 +26,6 @@ const Features: React.FC = () => {
         scrub: 1,
       },
     });
-    const planeTravel = 900; // plane moves from y: 0 -> 900
-    const blueLineHeight = 1300; // CSS height of blue line
-    const maxScale = planeTravel / blueLineHeight; // scaleY to match plane
-
     // Plane movement along the line
     tl.fromTo(plane, { y: 0 }, { y: 900, ease: "none" }, 0);
 

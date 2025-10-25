@@ -1,7 +1,24 @@
 import React from "react";
 
 export const Clients: React.FC = () => {
-  const clients = Array(16).fill("/airindia.png"); // temporary placeholder images
+  const clients = [
+    "ethihad.png",
+    "airindia.png",
+    "tway.png",
+    "garuda.png",
+    "tanzania.png",
+    "cathy.png",
+    "saudi.png",
+    "phillipines.png",
+    "Ethiopian.png",
+    "airastana.png",
+    "kenya.png",
+    "southafrica.png",
+    "kuwait.png",
+    "sky.png",
+    "cebu.png",
+    "Emirates.png",
+  ];
 
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center bg-black py-20 px-6 overflow-hidden">

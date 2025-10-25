@@ -34,9 +34,10 @@ export const FAQ: React.FC = () => {
   };
 
   return (
-    <section className="bg-black text-white py-20 px-6 md:px-16 overflow-hidden">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start">
-        {/* Left Section */}
+    <section className="bg-black text-white py-20">
+      {/* Container with same width & side gaps as other sections */}
+      <div className="w-full max-w-[1200px] mx-auto grid md:grid-cols-2 gap-12 md:gap-20 px-[5vw] items-start">
+        {/* Left Section (vertical offset) */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -45,7 +46,7 @@ export const FAQ: React.FC = () => {
             ease: [0.25, 0.1, 0.25, 1],
           }}
           viewport={{ once: true }}
-          className="space-y-4"
+          className="space-y-4 mt-10 md:mt-16" // vertical offset
         >
           <h2 className="text-4xl md:text-5xl font-semibold font-[Poppins]">
             FAQS
@@ -64,7 +65,7 @@ export const FAQ: React.FC = () => {
             ease: [0.25, 0.1, 0.25, 1],
           }}
           viewport={{ once: true }}
-          className="space-y-2 w-full"
+          className="space-y-4 w-full"
         >
           {faqItems.map((faq, index) => (
             <div
@@ -73,13 +74,13 @@ export const FAQ: React.FC = () => {
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center py-4 text-left text-base md:text-lg font-[Poppins] font-medium transition-all duration-500 hover:text-[#5cc6d0]"
+                className="w-full flex justify-between items-center py-4 text-left text-base md:text-lg font-[Poppins] font-medium transition-all duration-500 hover:text-[#5CC6D0]"
               >
                 <span>{faq.question}</span>
                 <motion.div
                   animate={{
                     rotate: openIndex === index ? 180 : 0,
-                    color: openIndex === index ? "#5cc6d0" : "#fff",
+                    color: openIndex === index ? "#5CC6D0" : "#fff",
                   }}
                   transition={{
                     type: "spring",
@@ -110,7 +111,7 @@ export const FAQ: React.FC = () => {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ delay: 0.05, duration: 0.4 }}
-                      className="text-[#5cc6d0] text-sm md:text-base font-[Poppins] font-medium leading-relaxed pb-4"
+                      className="text-[#5CC6D0] text-sm md:text-base font-[Poppins] font-medium leading-relaxed pb-4"
                     >
                       {faq.answer}
                     </motion.div>
