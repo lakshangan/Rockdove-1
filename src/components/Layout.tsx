@@ -1,5 +1,5 @@
 import React from "react";
-import { Header } from "./Header";
+import Header from "./Header";
 import { Hero } from "./Hero";
 import { Clients } from "./Clients";
 import { Inventory } from "./Inventory";
@@ -7,7 +7,7 @@ import { Stats } from "./Stats";
 import Features from "./Features";
 import { FAQ } from "./FAQ";
 import { Contact } from "./Contact";
-import Footer from "./Footer";
+import { Footer } from "./Footer";
 import Services from "./Services";
 //import "../styles/horror-effects.css";
 

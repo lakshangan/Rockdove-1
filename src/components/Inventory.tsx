@@ -5,17 +5,18 @@ import { Button } from "./ui/button";
 
 export const Inventory: React.FC = () => {
   return (
-    <section className="bg-black text-white py-20 px-6 md:px-16 overflow-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <section className="bg-black text-white py-20">
+      {/* Centered container with same side spacing as Features section */}
+      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 px-[5vw]">
         {/* LEFT SIDE CONTENT */}
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
+          initial={{ opacity: 0, x: -40, y: 150 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
           viewport={{ once: true }}
           className="space-y-6"
         >
-          <h2 className="text-4xl md:text-5xl font-bold font-[Poppins] text-[#5cc6d0]">
+          <h2 className="text-4xl md:text-5xl font-bold font-[Poppins] text-[#5CC6D0]">
             Broad Inventory
           </h2>
 
@@ -29,19 +30,18 @@ export const Inventory: React.FC = () => {
 
           <Button
             className="
-    relative overflow-hidden
-    bg-gradient-to-b from-[#5CC6D0] to-[#14919B]
-    text-white
-    font-[Poppins]
-    font-semibold
-    text-base md:text-lg
-    px-8 py-3
-    rounded-xl
-    transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]
-    hover:scale-[1.03]
-    active:scale-[0.97]
-    
-  "
+              relative overflow-hidden
+              bg-gradient-to-b from-[#5CC6D0] to-[#14919B]
+              text-white
+              font-[Poppins]
+              font-semibold
+              text-base md:text-lg
+              px-8 py-3
+              rounded-xl
+              transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]
+              hover:scale-[1.03]
+              active:scale-[0.97]
+            "
           >
             Know more
           </Button>
@@ -56,7 +56,7 @@ export const Inventory: React.FC = () => {
           className="flex justify-center"
         >
           <img
-            src="/RDINVENT.png" // replace this with your actual image name (uploaded one)
+            src="/RDINVENT.png"
             alt="Broad Inventory Illustration"
             className="w-full max-w-lg h-auto object-contain transition-transform duration-700 hover:scale-105"
           />

@@ -1,100 +1,137 @@
 "use client";
 
 import React from "react";
-import { FaPhoneAlt, FaEnvelope, FaLocationDot } from "react-icons/fa";
-import Link from "next/link";
-import { Poppins } from "next/font/google";
+import {
+  FaInstagram,
+  FaLinkedinIn,
+  FaTwitter,
+  FaFacebookF,
+} from "react-icons/fa";
+import type { IconType } from "react-icons";
 
-// Load Google font directly using next/font (no external CSS file)
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-});
+const footerServices = [
+  "Asset Management",
+  "Repair Management",
+  "24/7 AOG Support",
+];
+const footerCompany = ["Story", "Careers", "FAQs"];
 
-const Footer = () => {
+export const Footer: React.FC = () => {
+  const socials: { icon: IconType; link: string; label?: string }[] = [
+    { icon: FaLinkedinIn, link: "#", label: "LinkedIn" },
+    { icon: FaFacebookF, link: "#", label: "Facebook" },
+    { icon: FaInstagram, link: "#", label: "Instagram" },
+    { icon: FaTwitter, link: "#", label: "X" },
+  ];
+
   return (
-    <footer
-      className={`${poppins.className} bg-[#0a0a0a] text-gray-300 py-12 px-6 sm:px-12`}
-    >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-12 text-center sm:text-left">
-        {/* Left Section */}
-        <div>
-          <h2 className="text-2xl font-semibold text-white mb-4">Rockdove</h2>
-          <div className="flex justify-center sm:justify-start space-x-4 mt-4">
-            {/* Replace tagline text with 3 images */}
+    <footer className="w-full bg-black text-white py-14 md:py-20 border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 border-b border-white/10 pb-10 relative">
+          {/* Left Section: Logo + Partners */}
+          <div className="flex flex-col items-start">
             <img
-              src="public/images--1--removebg-preview.png"
-              alt="Partner 1"
-              className="w-14 h-14 object-contain rounded-lg"
+              className="w-[200px] h-auto object-contain mb-6"
+              alt="Rockdove Aviation Logo"
+              src="/rda-gradient-logo--1--1.png"
             />
-            <img
-              src="public/images--2--removebg-preview.png"
-              alt="Partner 2"
-              className="w-14 h-14 object-contain rounded-lg"
-            />
-            <img
-              src="public/images--3--removebg-preview.png"
-              alt="Partner 3"
-              className="w-14 h-14 object-contain rounded-lg"
-            />
+
+            {/* Partner logos (updated + aligned + bigger) */}
+            <div className="flex flex-wrap items-center justify-start gap-6 mt-4">
+              <img
+                src="/download--12--removebg-preview.png"
+                alt="Partner 1"
+                className="h-16 md:h-20 object-contain transition-transform hover:scale-105"
+              />
+              <img
+                src="/images--1--removebg-preview.png"
+                alt="Partner 2"
+                className="h-16 md:h-20 object-contain transition-transform hover:scale-105"
+              />
+              <img
+                src="/images--2--removebg-preview.png"
+                alt="Partner 3"
+                className="h-16 md:h-20 object-contain transition-transform hover:scale-105"
+              />
+            </div>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h3 className="text-xl font-semibold mb-5 text-[#5cc6d0]">
+              Services
+            </h3>
+            <ul className="space-y-3">
+              {footerServices.map((s, i) => (
+                <li
+                  key={i}
+                  className="text-white/80 hover:text-[#5cc6d0] cursor-pointer"
+                >
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h3 className="text-xl font-semibold mb-5 text-[#5cc6d0]">
+              Company
+            </h3>
+            <ul className="space-y-3">
+              {footerCompany.map((c, i) => (
+                <li
+                  key={i}
+                  className="text-white/80 hover:text-[#5cc6d0] cursor-pointer"
+                >
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <a href="/contact" className="group block">
+              <h3 className="text-xl font-semibold mb-5 text-[#5cc6d0] group-hover:text-[#4ab5bf]">
+                Contact
+              </h3>
+              <p className="text-white/80 text-sm mb-3 group-hover:text-[#fff]">
+                No. B17-22, RAK Port Customs Building, Nakheel Ras Al Khaimah,
+                UAE
+              </p>
+              <p className="text-white/80 text-sm mb-2 group-hover:text-[#fff]">
+                +971 505056093
+              </p>
+              <p className="text-white/80 text-sm group-hover:text-[#fff]">
+                sales@rockdoveaviation.com
+              </p>
+            </a>
           </div>
         </div>
 
-        {/* Middle Section */}
-        <div>
-          <h2 className="text-xl font-semibold text-white mb-4">Quick Links</h2>
-          <ul className="space-y-3">
-            <li>
-              <Link href="/about" className="hover:text-white transition">
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link href="/services" className="hover:text-white transition">
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link href="/rfq" className="hover:text-white transition">
-                Request for Quote
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="hover:text-white transition">
-                Contact
-              </Link>
-            </li>
-          </ul>
+        {/* Social icons */}
+        <div className="flex justify-center items-center gap-5 mt-10 flex-wrap">
+          {socials.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <a
+                key={i}
+                href={s.link}
+                aria-label={s.label}
+                className="w-12 h-12 flex items-center justify-center rounded-full bg-[#5cc6d0]/20 text-[#5cc6d0] hover:bg-[#5cc6d0] hover:text-black transition-all duration-300"
+              >
+                {React.createElement(Icon as any, { className: "w-5 h-5" })}
+              </a>
+            );
+          })}
         </div>
 
-        {/* Right Section */}
-        <div>
-          <h2 className="text-xl font-semibold text-white mb-4">
-            Contact Info
-          </h2>
-          <ul className="space-y-4">
-            <li className="flex items-center justify-center sm:justify-start space-x-3">
-              <FaPhoneAlt size={20} className="text-blue-400" />
-              <span>+1 (555) 234-5678</span>
-            </li>
-            <li className="flex items-center justify-center sm:justify-start space-x-3">
-              <FaEnvelope size={20} className="text-blue-400" />
-              <span>info@rockdove.com</span>
-            </li>
-            <li className="flex items-center justify-center sm:justify-start space-x-3">
-              <FaLocationDot size={24} className="text-blue-400" /> {/* bigger size */}
-              <span>Los Angeles, California, USA</span>
-            </li>
-          </ul>
+        {/* Footer bottom */}
+        <div className="mt-10 text-center text-white/60 text-sm border-t border-white/10 pt-6">
+          © 2025 Rockdove Aviation | All Rights Reserved
         </div>
-      </div>
-
-      {/* Divider */}
-      <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} Rockdove Aviation. All rights reserved.
       </div>
     </footer>
   );
 };
-
-export default Footer;
