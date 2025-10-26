@@ -1,136 +1,109 @@
 "use client";
 
 import React from "react";
-import {
-  FaInstagram,
-  FaLinkedinIn,
-  FaTwitter,
-  FaFacebookF,
-} from "react-icons/fa";
-import type { IconType } from "react-icons";
-
-const footerServices = [
-  "Asset Management",
-  "Repair Management",
-  "24/7 AOG Support",
-];
-const footerCompany = ["Story", "Careers", "FAQs"];
+import { Instagram, Linkedin } from "lucide-react";
 
 export const Footer: React.FC = () => {
-  const socials: { icon: IconType; link: string; label?: string }[] = [
-    { icon: FaLinkedinIn, link: "#", label: "LinkedIn" },
-    { icon: FaFacebookF, link: "#", label: "Facebook" },
-    { icon: FaInstagram, link: "#", label: "Instagram" },
-    { icon: FaTwitter, link: "#", label: "X" },
-  ];
-
   return (
-    <footer className="w-full bg-black text-white py-14 md:py-20 border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 border-b border-white/10 pb-10 relative">
-          {/* Left Section: Logo + Partners */}
-          <div className="flex flex-col items-start">
+    <footer
+      className="w-full text-black bg-[#5CC6D0] font-[Inter] text-[17px] leading-snug"
+      style={{
+        fontWeight: 400,
+        letterSpacing: "0%",
+      }}
+    >
+      {/* MAIN FOOTER CONTENT */}
+      <div className="max-w-[1400px] mx-auto px-12 py-12 flex flex-col md:flex-row justify-between items-start gap-10">
+        {/* LEFT SECTION - LOGO + CERTIFICATIONS */}
+        <div className="flex flex-col gap-5">
+          <img
+            src="https://c.animaapp.com/mh6p7bc3N6zmh3/img/rda-black-logo.png"
+            alt="ROCKDOVE"
+            className="w-48 object-contain"
+          />
+          <div className="flex items-center gap-5">
             <img
-              className="w-[200px] h-auto object-contain mb-6"
-              alt="Rockdove Aviation Logo"
-              src="/rda-gradient-logo--1--1.png"
+              src="https://c.animaapp.com/mh6p7bc3N6zmh3/img/download--12--removebg-preview.png"
+              alt="NBAA"
+              className="w-16 object-contain"
             />
+            <img
+              src="https://c.animaapp.com/mh6p7bc3N6zmh3/img/images--1--removebg-preview.png"
+              alt="ISO"
+              className="w-16 object-contain"
+            />
+            <img
+              src="https://c.animaapp.com/mh6p7bc3N6zmh3/img/images--2--removebg-preview.png"
+              alt="ASA"
+              className="w-20 object-contain"
+            />
+          </div>
+        </div>
 
-            {/* Partner logos (updated + aligned + bigger) */}
-            <div className="flex flex-wrap items-center justify-start gap-6 mt-4">
-              <img
-                src="/download--12--removebg-preview.png"
-                alt="Partner 1"
-                className="h-16 md:h-20 object-contain transition-transform hover:scale-105"
-              />
-              <img
-                src="/images--1--removebg-preview.png"
-                alt="Partner 2"
-                className="h-16 md:h-20 object-contain transition-transform hover:scale-105"
-              />
-              <img
-                src="/images--2--removebg-preview.png"
-                alt="Partner 3"
-                className="h-16 md:h-20 object-contain transition-transform hover:scale-105"
-              />
-            </div>
+        {/* MIDDLE LEFT - SOCIALS + SERVICES */}
+        <div className="flex flex-col gap-5">
+          {/* Social icons */}
+          <div className="flex items-center gap-4">
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="text-black hover:opacity-70 transition"
+            >
+              <Instagram size={22} strokeWidth={2} />
+            </a>
+            <a
+              href="#"
+              aria-label="LinkedIn"
+              className="text-black hover:opacity-70 transition"
+            >
+              <Linkedin size={22} strokeWidth={2} />
+            </a>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="text-xl font-semibold mb-5 text-[#5cc6d0]">
+            <h3 className="font-[Poppins] font-semibold text-[18px] mb-2 tracking-wide">
               Services
             </h3>
-            <ul className="space-y-3">
-              {footerServices.map((s, i) => (
-                <li
-                  key={i}
-                  className="text-white/80 hover:text-[#5cc6d0] cursor-pointer"
-                >
-                  {s}
-                </li>
-              ))}
+            <ul className="space-y-1">
+              <li>Asset Management</li>
+              <li>Repair Management</li>
+              <li>24/7 AOG Support</li>
             </ul>
           </div>
+        </div>
 
-          {/* Company */}
+        {/* MIDDLE RIGHT - RFQ BUTTON + COMPANY INFO */}
+        <div className="flex flex-col gap-5">
+          <button className="self-start px-5 py-1.5 rounded-full bg-white text-black text-[15px] font-[Poppins] font-medium shadow-sm hover:bg-gray-100 transition">
+            RFQ
+          </button>
+
           <div>
-            <h3 className="text-xl font-semibold mb-5 text-[#5cc6d0]">
-              Company
+            <h3 className="font-[Poppins] font-semibold text-[18px] mb-2 tracking-wide">
+              The Company
             </h3>
-            <ul className="space-y-3">
-              {footerCompany.map((c, i) => (
-                <li
-                  key={i}
-                  className="text-white/80 hover:text-[#5cc6d0] cursor-pointer"
-                >
-                  {c}
-                </li>
-              ))}
+            <ul className="space-y-1">
+              <li>Story</li>
+              <li>Careers</li>
+              <li>FAQs</li>
+              <li>MRO Events</li>
             </ul>
           </div>
-
-          {/* Contact */}
-          <div>
-            <a href="/contact" className="group block">
-              <h3 className="text-xl font-semibold mb-5 text-[#5cc6d0] group-hover:text-[#4ab5bf]">
-                Contact
-              </h3>
-              <p className="text-white/80 text-sm mb-3 group-hover:text-[#fff]">
-                No. B17-22, RAK Port Customs Building, Nakheel Ras Al Khaimah,
-                UAE
-              </p>
-              <p className="text-white/80 text-sm mb-2 group-hover:text-[#fff]">
-                +971 505056093
-              </p>
-              <p className="text-white/80 text-sm group-hover:text-[#fff]">
-                sales@rockdoveaviation.com
-              </p>
-            </a>
-          </div>
         </div>
 
-        {/* Social icons */}
-        <div className="flex justify-center items-center gap-5 mt-10 flex-wrap">
-          {socials.map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <a
-                key={i}
-                href={s.link}
-                aria-label={s.label}
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-[#5cc6d0]/20 text-[#5cc6d0] hover:bg-[#5cc6d0] hover:text-black transition-all duration-300"
-              >
-                {React.createElement(Icon as any, { className: "w-5 h-5" })}
-              </a>
-            );
-          })}
+        {/* RIGHT SECTION - CONTACT */}
+        <div className="leading-relaxed">
+          <p>No. B17-22, RAK Port Customs</p>
+          <p>Building, Nakheel Ras Al Khaimah, UAE</p>
+          <p className="mt-2 font-medium">+971 505056093</p>
+          <p>sales@rockdoveaviation.com</p>
         </div>
+      </div>
 
-        {/* Footer bottom */}
-        <div className="mt-10 text-center text-white/60 text-sm border-t border-white/10 pt-6">
-          © 2025 Rockdove Aviation | All Rights Reserved
-        </div>
+      {/* COPYRIGHT */}
+      <div className="border-t border-black/10 text-center text-[15px] py-4">
+        © 2025 Rockdove Aviation | All Rights Reserved
       </div>
     </footer>
   );

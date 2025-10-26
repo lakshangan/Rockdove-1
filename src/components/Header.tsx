@@ -87,7 +87,7 @@ const Header: React.FC = () => {
   return (
     <header
       ref={containerRef}
-      className="w-full fixed top-0 left-0 z-50 bg-black text-white font-[Poppins]"
+      className="w-full relative top-0 left-0 z-50 bg-black text-white font-[Poppins]"
     >
       <div className="max-w-7xl mx-auto px-8">
         <div className="h-20 flex items-center justify-between">
