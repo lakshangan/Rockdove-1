@@ -1,100 +1,110 @@
 "use client";
 
 import React from "react";
-import { FaPhoneAlt, FaEnvelope, FaLocationDot } from "react-icons/fa";
-import Link from "next/link";
-import { Poppins } from "next/font/google";
+import { Instagram, Linkedin } from "lucide-react";
 
-// Load Google font directly using next/font (no external CSS file)
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-});
-
-const Footer = () => {
+export const Footer: React.FC = () => {
   return (
     <footer
-      className={`${poppins.className} bg-[#0a0a0a] text-gray-300 py-12 px-6 sm:px-12`}
+      className="w-full text-black bg-[#5CC6D0] font-[Inter] text-[17px] leading-snug"
+      style={{
+        fontWeight: 400,
+        letterSpacing: "0%",
+      }}
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-12 text-center sm:text-left">
-        {/* Left Section */}
-        <div>
-          <h2 className="text-2xl font-semibold text-white mb-4">Rockdove</h2>
-          <div className="flex justify-center sm:justify-start space-x-4 mt-4">
-            {/* Replace tagline text with 3 images */}
+      {/* MAIN FOOTER CONTENT */}
+      <div className="max-w-[1400px] mx-auto px-12 py-12 flex flex-col md:flex-row justify-between items-start gap-10">
+        {/* LEFT SECTION - LOGO + CERTIFICATIONS */}
+        <div className="flex flex-col gap-5">
+          <img
+            src="https://c.animaapp.com/mh6p7bc3N6zmh3/img/rda-black-logo.png"
+            alt="ROCKDOVE"
+            className="w-48 object-contain"
+          />
+          <div className="flex items-center gap-5">
             <img
-              src="public/images--1--removebg-preview.png"
-              alt="Partner 1"
-              className="w-14 h-14 object-contain rounded-lg"
+              src="https://c.animaapp.com/mh6p7bc3N6zmh3/img/download--12--removebg-preview.png"
+              alt="NBAA"
+              className="w-16 object-contain"
             />
             <img
-              src="public/images--2--removebg-preview.png"
-              alt="Partner 2"
-              className="w-14 h-14 object-contain rounded-lg"
+              src="https://c.animaapp.com/mh6p7bc3N6zmh3/img/images--1--removebg-preview.png"
+              alt="ISO"
+              className="w-16 object-contain"
             />
             <img
-              src="public/images--3--removebg-preview.png"
-              alt="Partner 3"
-              className="w-14 h-14 object-contain rounded-lg"
+              src="https://c.animaapp.com/mh6p7bc3N6zmh3/img/images--2--removebg-preview.png"
+              alt="ASA"
+              className="w-20 object-contain"
             />
           </div>
         </div>
 
-        {/* Middle Section */}
-        <div>
-          <h2 className="text-xl font-semibold text-white mb-4">Quick Links</h2>
-          <ul className="space-y-3">
-            <li>
-              <Link href="/about" className="hover:text-white transition">
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link href="/services" className="hover:text-white transition">
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link href="/rfq" className="hover:text-white transition">
-                Request for Quote
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="hover:text-white transition">
-                Contact
-              </Link>
-            </li>
-          </ul>
+        {/* MIDDLE LEFT - SOCIALS + SERVICES */}
+        <div className="flex flex-col gap-5">
+          {/* Social icons */}
+          <div className="flex items-center gap-4">
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="text-black hover:opacity-70 transition"
+            >
+              <Instagram size={22} strokeWidth={2} />
+            </a>
+            <a
+              href="#"
+              aria-label="LinkedIn"
+              className="text-black hover:opacity-70 transition"
+            >
+              <Linkedin size={22} strokeWidth={2} />
+            </a>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h3 className="font-[Poppins] font-semibold text-[18px] mb-2 tracking-wide">
+              Services
+            </h3>
+            <ul className="space-y-1">
+              <li>Asset Management</li>
+              <li>Repair Management</li>
+              <li>24/7 AOG Support</li>
+            </ul>
+          </div>
         </div>
 
-        {/* Right Section */}
-        <div>
-          <h2 className="text-xl font-semibold text-white mb-4">
-            Contact Info
-          </h2>
-          <ul className="space-y-4">
-            <li className="flex items-center justify-center sm:justify-start space-x-3">
-              <FaPhoneAlt size={20} className="text-blue-400" />
-              <span>+1 (555) 234-5678</span>
-            </li>
-            <li className="flex items-center justify-center sm:justify-start space-x-3">
-              <FaEnvelope size={20} className="text-blue-400" />
-              <span>info@rockdove.com</span>
-            </li>
-            <li className="flex items-center justify-center sm:justify-start space-x-3">
-              <FaLocationDot size={24} className="text-blue-400" /> {/* bigger size */}
-              <span>Los Angeles, California, USA</span>
-            </li>
-          </ul>
+        {/* MIDDLE RIGHT - RFQ BUTTON + COMPANY INFO */}
+        <div className="flex flex-col gap-5">
+          <button className="self-start px-5 py-1.5 rounded-full bg-white text-black text-[15px] font-[Poppins] font-medium shadow-sm hover:bg-gray-100 transition">
+            RFQ
+          </button>
+
+          <div>
+            <h3 className="font-[Poppins] font-semibold text-[18px] mb-2 tracking-wide">
+              The Company
+            </h3>
+            <ul className="space-y-1">
+              <li>Story</li>
+              <li>Careers</li>
+              <li>FAQs</li>
+              <li>MRO Events</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* RIGHT SECTION - CONTACT */}
+        <div className="leading-relaxed">
+          <p>No. B17-22, RAK Port Customs</p>
+          <p>Building, Nakheel Ras Al Khaimah, UAE</p>
+          <p className="mt-2 font-medium">+971 505056093</p>
+          <p>sales@rockdoveaviation.com</p>
         </div>
       </div>
 
-      {/* Divider */}
-      <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} Rockdove Aviation. All rights reserved.
+      {/* COPYRIGHT */}
+      <div className="border-t border-black/10 text-center text-[15px] py-4">
+        © 2025 Rockdove Aviation | All Rights Reserved
       </div>
     </footer>
   );
 };
-
-export default Footer;

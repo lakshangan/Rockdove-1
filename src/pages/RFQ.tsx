@@ -2,6 +2,14 @@ import React, { useState, lazy, Suspense } from "react";
 import { FileText, Send, CheckCircle, AlertCircle } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { PageLayout } from "../components/PageLayout";
+import { 
+  FadeInUp, 
+  FadeInLeft, 
+  FadeInRight, 
+  ScaleIn, 
+  StaggeredContainer,
+  ParallaxSection 
+} from "../components/animations";
 
 // Lazy load the Spline component for faster initial load
 const Spline = lazy(() => import("@splinetool/react-spline"));
@@ -92,36 +100,41 @@ const RFQ: React.FC = () => {
   return (
     <PageLayout>
       <div className="min-h-screen bg-black text-white">
-      {/* HERO SECTION */}
-      <section className="relative pt-28 pb-16 px-6 md:px-12">
+      {/* Animated Hero Section */}
+      <ParallaxSection speed={0.2} className="relative pt-28 pb-16 px-6 md:px-12">
         <div className="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
-          <div className="text-center lg:text-left">
-            <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
-              <FileText className="w-10 h-10 text-[#5cc6d0]" />
-              <h1 className="text-4xl md:text-5xl font-bold">
-                Request for Quote (RFQ)
-              </h1>
+          {/* Animated content */}
+          <FadeInLeft delay={200}>
+            <div className="text-center lg:text-left">
+              <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
+                <FileText className="w-10 h-10 text-[#5cc6d0]" />
+                <h1 className="text-4xl md:text-5xl font-bold">
+                  Request for Quote (RFQ)
+                </h1>
+              </div>
+              <p className="text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed mx-auto lg:mx-0">
+                Submit your parts requirements and receive competitive quotes from
+                our global network. Expect a response within 2 hours.
+              </p>
             </div>
-            <p className="text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed mx-auto lg:mx-0">
-              Submit your parts requirements and receive competitive quotes from
-              our global network. Expect a response within 2 hours.
-            </p>
-          </div>
+          </FadeInLeft>
 
-          {/* Lazy-loaded 3D spline */}
-          <div className="w-full lg:w-1/2 h-[300px] md:h-[500px]">
-            <Suspense
-              fallback={
-                <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
-                  Loading 3D model...
-                </div>
-              }
-            >
-              <Spline scene="https://prod.spline.design/6Rl-4NaKJMOHUkQH/scene.splinecode" />
-            </Suspense>
-          </div>
+          {/* Animated 3D spline */}
+          <FadeInRight delay={400}>
+            <div className="w-full lg:w-1/2 h-[300px] md:h-[500px]">
+              <Suspense
+                fallback={
+                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+                    Loading 3D model...
+                  </div>
+                }
+              >
+                <Spline scene="https://prod.spline.design/6Rl-4NaKJMOHUkQH/scene.splinecode" />
+              </Suspense>
+            </div>
+          </FadeInRight>
         </div>
-      </section>
+      </ParallaxSection>
 
       {/* FORM SECTION */}
       <section className="py-16 px-6 md:px-12">
@@ -259,43 +272,49 @@ const RFQ: React.FC = () => {
         </div>
       </section>
 
-      {/* BENEFITS */}
+      {/* Animated Benefits Section */}
       <section className="py-16 px-6 md:px-12 bg-[#0b0d10]/30">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Why Submit an RFQ with RockDove?
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Fast Response",
-                description: "Receive detailed quotes within 2 hours of submission.",
-              },
-              {
-                title: "Global Network",
-                description: "Access to our worldwide network of certified suppliers.",
-              },
-              {
-                title: "Competitive Pricing",
-                description: "Best market rates with transparent pricing structure.",
-              },
-            ].map((benefit, index) => (
-              <div
-                key={index}
-                className="text-center bg-[#0b0d10]/40 border border-[#1a1d22] p-6 rounded-xl hover:border-[#5cc6d0] transition-all"
-              >
-                <div className="w-14 h-14 bg-[#5cc6d0] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-6 h-6 text-black" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2 text-[#5cc6d0]">
-                  {benefit.title}
-                </h3>
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  {benefit.description}
-                </p>
-              </div>
-            ))}
-          </div>
+          {/* Animated section title */}
+          <FadeInUp delay={200}>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+              Why Submit an RFQ with RockDove?
+            </h2>
+          </FadeInUp>
+          
+          {/* Staggered benefit cards */}
+          <StaggeredContainer delay={150}>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "Fast Response",
+                  description: "Receive detailed quotes within 2 hours of submission.",
+                },
+                {
+                  title: "Global Network",
+                  description: "Access to our worldwide network of certified suppliers.",
+                },
+                {
+                  title: "Competitive Pricing",
+                  description: "Best market rates with transparent pricing structure.",
+                },
+              ].map((benefit, index) => (
+                <ScaleIn key={index} delay={index * 100} scale={0.9}>
+                  <div className="text-center bg-[#0b0d10]/40 border border-[#1a1d22] p-6 rounded-xl hover:border-[#5cc6d0] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#5cc6d0]/20">
+                    <div className="w-14 h-14 bg-[#5cc6d0] rounded-full flex items-center justify-center mx-auto mb-4 hover:shadow-lg hover:shadow-[#5cc6d0]/30 transition-all duration-300">
+                      <CheckCircle className="w-6 h-6 text-black" />
+                    </div>
+                    <h3 className="text-lg font-semibold mb-2 text-[#5cc6d0]">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {benefit.description}
+                    </p>
+                  </div>
+                </ScaleIn>
+              ))}
+            </div>
+          </StaggeredContainer>
         </div>
       </section>
       </div>

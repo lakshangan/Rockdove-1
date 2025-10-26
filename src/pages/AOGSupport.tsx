@@ -1,146 +1,202 @@
 import React from "react";
-import { Plane, Clock, Phone, MapPin, AlertCircle, CheckCircle, Users } from "lucide-react";
-import { Button } from "../components/ui/button";
 import { PageLayout } from "../components/PageLayout";
+import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
+
+const advantages = [
+  {
+    title: "Advantage 1",
+    description: "Always-on team for global, time-sensitive needs.",
+    gradient: true,
+    titleColor: "text-white",
+    descriptionColor: "text-black",
+  },
+  {
+    title: "Advantage 2",
+    description: "Reduces expenses by addressing urgent issues efficiently.",
+    gradient: false,
+    titleColor: "text-black",
+    descriptionColor: "text-black",
+  },
+  {
+    title: "Advantage 3",
+    description: "Certified quality and innovation for trusted performance.",
+    gradient: false,
+    titleColor: "text-black",
+    descriptionColor: "text-black",
+  },
+];
+
+const processSteps = [
+  {
+    number: "01",
+    title: "Immediate Contact",
+    description:
+      "Reach our 24/7 team via phone or email for instant assessment.",
+  },
+  {
+    number: "02",
+    title: "Part Preparation",
+    description:
+      "Over 400,000 warehouse parts and 500k+ inventories ensure availability within 60-90 minutes for pickup.",
+  },
+  {
+    number: "03",
+    title: "Delivery & Support",
+    description:
+      "Fast logistics, integrated with repair management if needed, to reduce downtime and costs.",
+  },
+  {
+    number: "04",
+    title: "Follow-Up",
+    description:
+      "Post-resolution assistance for aftermarket support and prevention.",
+  },
+];
+
+const logisticsPartners = [
+  {
+    src: "https://c.animaapp.com/mh4e1d40mbxSsz/img/logo-mobile-removebg-preview-1.png",
+    alt: "Logo mobile removebg",
+  },
+  {
+    src: "https://c.animaapp.com/mh4e1d40mbxSsz/img/tnt-logo-png-5-1.png",
+    alt: "Tnt logo png",
+  },
+];
 
 const AOGSupport: React.FC = () => {
-  const features = [
-    {
-      icon: <Clock className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "24/7 Availability",
-      description: "Round-the-clock support for critical aircraft on ground situations worldwide."
-    },
-    {
-      icon: <Phone className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Instant Response",
-      description: "Immediate response to AOG calls with dedicated emergency hotlines."
-    },
-    {
-      icon: <MapPin className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Global Network",
-      description: "Worldwide network of certified technicians and parts suppliers."
-    },
-    {
-      icon: <Users className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Expert Team",
-      description: "Highly trained specialists with extensive aviation industry experience."
-    }
-  ];
-
-  const emergencyServices = [
-    "Emergency Parts Supply",
-    "On-site Technical Support",
-    "Rapid Component Replacement",
-    "Aircraft Recovery Services",
-    "Regulatory Compliance Assistance",
-    "Insurance Coordination"
-  ];
-
   return (
     <PageLayout>
-      <div className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-4 mb-8">
-            <Plane className="w-12 h-12 text-[#5cc6d0]" />
-            <h1 className="text-5xl md:text-6xl font-bold">24/7 AOG Support</h1>
-          </div>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl leading-relaxed">
-            When your aircraft is on ground, every minute counts. Our dedicated 24/7 AOG support team 
-            ensures rapid response and resolution to get your aircraft back in the air safely and efficiently.
-          </p>
-          <div className="mt-8 flex items-center gap-4">
-            <AlertCircle className="w-6 h-6 text-red-500" />
-            <span className="text-lg font-semibold text-red-500">Emergency Hotline: +1-800-AOG-HELP</span>
-          </div>
-        </div>
-      </section>
+      <div className="bg-black text-white overflow-hidden">
+        {/* Hero Section */}
+        <section className="flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-32 pt-24 pb-32 text-center">
+          <h1 className="max-w-4xl font-bold text-4xl md:text-5xl leading-tight mb-10">
+            <span className="text-[#5cc6d0]">24/7 AOG Support </span>
+            <span className="text-white">(Aircraft on Ground)</span>
+          </h1>
 
-      {/* Features Section */}
-      <section className="py-20 px-8">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">Why Choose Our AOG Support?</h2>
-          <div className="grid md:grid-cols-2 gap-12">
-            {features.map((feature, index) => (
-              <div key={index} className="bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-8 hover:bg-[#0b0d10]/70 transition-all duration-300">
-                <div className="flex items-start gap-4">
-                  {feature.icon}
-                  <div>
-                    <h3 className="text-2xl font-semibold mb-4 text-[#5cc6d0]">{feature.title}</h3>
-                    <p className="text-gray-300 leading-relaxed">{feature.description}</p>
-                  </div>
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-16 max-w-6xl">
+            <div className="flex flex-col gap-8 flex-1 text-left">
+              <p className="font-medium text-white text-lg md:text-xl leading-relaxed">
+                Our priority service ensures parts are ready for pickup in
+                60–90 minutes, delivering fast, cost-effective solutions to
+                minimize downtime during Aircraft-on-Ground emergencies.
+              </p>
+
+              <Button className="w-fit rounded-[40px] border-0 bg-[linear-gradient(180deg,rgba(92,198,208,1)_0%,rgba(20,145,155,1)_100%)] px-8 py-4 text-white text-lg font-medium hover:opacity-90 transition-opacity">
+                Request AOG Assistance Now
+              </Button>
+            </div>
+
+            <div className="relative flex-shrink-0">
+              <div className="w-[280px] h-[320px] sm:w-[320px] sm:h-[360px] bg-[#d9d9d9] rounded-[20px]" />
+              <span className="absolute bottom-[-30px] right-0 font-medium text-[#5cc6d0] text-lg">
+                Mascot
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* Advantages Section */}
+        <section className="flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-32 pb-32 text-center">
+          <h2 className="max-w-3xl text-3xl md:text-4xl leading-snug mb-16">
+            <span className="font-medium text-white">
+              Keeping Your Aircraft Airborne in{" "}
+            </span>
+            <span className="font-bold text-[#5cc6d0]">Critical Moments</span>
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+            {advantages.map((advantage, index) => (
+              <Card
+                key={index}
+                className={`rounded-[20px] border-0 ${
+                  advantage.gradient
+                    ? "bg-[linear-gradient(180deg,rgba(92,198,208,1)_0%,rgba(0,151,161,1)_100%)]"
+                    : "bg-[#d9d9d9]"
+                }`}
+              >
+                <CardContent className="flex flex-col gap-6 p-8 text-left">
+                  <h3
+                    className={`${advantage.titleColor} font-semibold text-2xl`}
+                  >
+                    {advantage.title}
+                  </h3>
+                  <p
+                    className={`${advantage.descriptionColor} font-medium text-lg`}
+                  >
+                    {advantage.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Process Steps Section */}
+        <section className="flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-32 pb-32 text-center">
+          <h2 className="max-w-2xl font-bold text-3xl md:text-4xl mb-10">
+            <span className="text-white">Rapid Response: </span>
+            <span className="text-[#5cc6d0]">
+              From Request to Resolution
+            </span>
+          </h2>
+
+          <p className="max-w-3xl text-lg md:text-xl text-white mb-20">
+            When you select our AOG Priority service, we guarantee prompt
+            action. Our committed and agile team handles all aspects to
+            seamlessly assist during Aircraft-on-Ground scenarios.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-6xl">
+            {processSteps.map((step, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center text-center gap-4"
+              >
+                <span className="text-[#5cc6d0] font-bold text-4xl">
+                  {step.number}
+                </span>
+                <div className="text-white text-lg">
+                  <span className="font-bold">{step.title}</span>
+                  <br />
+                  <span className="font-medium">{step.description}</span>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Emergency Services Section */}
-      <section className="py-20 px-8 bg-[#0b0d10]/30">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">Emergency Services</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {emergencyServices.map((service, index) => (
-              <div key={index} className="bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-6 text-center hover:bg-[#0b0d10]/70 transition-all duration-300">
-                <CheckCircle className="w-8 h-8 text-[#5cc6d0] mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-[#5cc6d0]">{service}</h3>
+        {/* Logistics Support Section */}
+        <section className="flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-32 pb-32 text-center">
+          <h2 className="max-w-3xl font-bold text-3xl md:text-4xl mb-16">
+            <span className="text-white">Logistics support for our</span>
+            <span className="text-[#5cc6d0]"> AOG</span>
+            <span className="text-white"> orders.</span>
+          </h2>
+
+          <div className="flex flex-wrap items-center justify-center gap-10 mb-16">
+            {logisticsPartners.map((partner, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-center bg-[#d9d9d9] rounded-[20px] px-6 py-6"
+              >
+                <img
+                  className="w-[160px] sm:w-[200px] object-contain"
+                  alt={partner.alt}
+                  src={partner.src}
+                />
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Response Time Section */}
-      <section className="py-20 px-8">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">Our Response Commitment</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { time: "< 15 min", title: "Initial Response", description: "First contact and assessment" },
-              { time: "< 2 hours", title: "Parts Location", description: "Identify and secure required parts" },
-              { time: "< 24 hours", title: "Resolution", description: "Complete repair and aircraft return to service" }
-            ].map((commitment, index) => (
-              <div key={index} className="text-center bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-8">
-                <div className="text-4xl font-bold text-[#5cc6d0] mb-4">{commitment.time}</div>
-                <h3 className="text-2xl font-semibold mb-4 text-white">{commitment.title}</h3>
-                <p className="text-gray-300">{commitment.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-20 px-8 bg-[#0b0d10]/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8">Emergency Contact</h2>
-          <p className="text-xl text-gray-300 mb-12">
-            For immediate AOG assistance, contact our emergency response team 24/7.
-          </p>
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-6">
-              <Phone className="w-8 h-8 text-[#5cc6d0] mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2 text-[#5cc6d0]">Emergency Hotline</h3>
-              <p className="text-2xl font-bold">+1-800-AOG-HELP</p>
-            </div>
-            <div className="bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-6">
-              <Phone className="w-8 h-8 text-[#5cc6d0] mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2 text-[#5cc6d0]">International</h3>
-              <p className="text-2xl font-bold">+1-555-AOG-INTL</p>
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-red-600 text-white px-8 py-4 text-lg font-semibold hover:bg-red-700 transition-all duration-300 hover:scale-105">
-              Call Emergency Line
-            </Button>
-            <Button variant="outline" className="border-[#5cc6d0] text-[#5cc6d0] px-8 py-4 text-lg font-semibold hover:bg-[#5cc6d0] hover:text-black transition-all duration-300">
-              Online Request
-            </Button>
-          </div>
-        </div>
-      </section>
+          <img
+            className="w-[90px] sm:w-[110px] h-auto object-contain"
+            alt="United parcel"
+            src="https://c.animaapp.com/mh4e1d40mbxSsz/img/united-parcel-service-logo-2014-svg-1.png"
+          />
+        </section>
       </div>
     </PageLayout>
   );
