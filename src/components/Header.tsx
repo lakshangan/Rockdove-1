@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
+import { Link } from "react-router-dom"; // ✅ import Link
 
 type NavLink = { label: string; href: string; icon?: string; desc?: string };
 
@@ -24,29 +25,29 @@ const SERVICES: NavLink[] = [
   },
 ];
 
-// Updated COMPANY structure (including MRO)
+// ✅ Updated COMPANY structure
 const COMPANY: NavLink[] = [
   {
     label: "The Story",
-    href: "/company/the-story",
+    href: "/the-story",
     icon: "/1.png",
     desc: "Our journey so far, our future direction, and why we’re thrilled to have you with us.",
   },
   {
     label: "Career",
-    href: "/company/careers",
+    href: "/careers",
     icon: "/2.png",
     desc: "Become part of Rockdove’s dynamic team and elevate your career.",
   },
   {
     label: "MRO",
-    href: "/company/mro",
+    href: "/mro",
     icon: "/3.png",
     desc: "Explore on our journey and secure an early appointment to connect with us.",
   },
   {
     label: "FAQs",
-    href: "/company/faqs",
+    href: "/faqs",
     icon: "/4.png",
     desc: "Find fast solutions to our most frequently asked questions.",
   },
@@ -91,14 +92,14 @@ const Header: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-8">
         <div className="h-20 flex items-center justify-between">
-          {/* Logo */}
-          <a href="/" className="flex items-center gap-2">
+          {/* ✅ Logo */}
+          <Link to="/" className="flex items-center gap-2">
             <img
               src="/rda-gradient-logo--1--1.png"
               alt="RockDove Logo"
               className="h-10 w-auto"
             />
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-12 text-[17px] font-semibold">
@@ -142,9 +143,9 @@ const Header: React.FC = () => {
                     </p>
                     <div className="flex flex-col gap-6">
                       {SERVICES.map((s) => (
-                        <a
+                        <Link
                           key={s.href}
-                          href={s.href}
+                          to={s.href}
                           className="flex items-start gap-4 hover:bg-white/10 p-3 rounded-xl transition"
                         >
                           <div className="bg-white rounded-lg p-3 shadow-md">
@@ -158,7 +159,7 @@ const Header: React.FC = () => {
                               {s.desc}
                             </p>
                           </div>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -177,8 +178,8 @@ const Header: React.FC = () => {
                         RFQ page now to get started.
                       </p>
                     </div>
-                    <a
-                      href="/rfq"
+                    <Link
+                      to="/rfq"
                       className="inline-flex items-center justify-center gap-2 bg-[#EAEAEA] text-black font-semibold text-sm px-5 py-3 rounded-xl transition-all duration-300 w-fit"
                     >
                       <img
@@ -187,19 +188,19 @@ const Header: React.FC = () => {
                         className="w-10 h-6 opacity-70"
                       />
                       Go to Form
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* RFQ */}
-            <a
-              href="/rfq"
+            {/* ✅ RFQ link */}
+            <Link
+              to="/rfq"
               className="text-[#5CC6D0] hover:text-white transition-colors"
             >
               RFQ
-            </a>
+            </Link>
 
             {/* Company */}
             <div
@@ -222,7 +223,7 @@ const Header: React.FC = () => {
                 Company <ChevronDown className="h-5 w-5" />
               </button>
 
-              {/* Redesigned Company Dropdown */}
+              {/* Company Dropdown */}
               <div
                 className={`absolute left-1/2 -translate-x-1/2 mt-4 w-[1200px] rounded-3xl shadow-2xl overflow-hidden transition-all duration-300 ease-out ${
                   activeDropdown === "company"
@@ -235,7 +236,6 @@ const Header: React.FC = () => {
                 }}
               >
                 <div className="flex h-full">
-                  {/* Left side (company info) */}
                   <div className="flex-1 p-10">
                     <p className="text-black font-medium text-sm mb-6">
                       Know more about Company
@@ -243,9 +243,9 @@ const Header: React.FC = () => {
 
                     <div className="grid grid-cols-2 gap-8">
                       {COMPANY.map((item) => (
-                        <a
+                        <Link
                           key={item.href}
-                          href={item.href}
+                          to={item.href}
                           className="flex items-start gap-4 hover:bg-white/10 p-3 rounded-xl transition"
                         >
                           <div className="bg-white rounded-lg p-3 shadow-md flex-shrink-0">
@@ -263,15 +263,13 @@ const Header: React.FC = () => {
                               {item.desc}
                             </p>
                           </div>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
 
-                  {/* Divider */}
                   <div className="w-[1px] bg-black/20 my-8"></div>
 
-                  {/* Right side (request quote) */}
                   <div className="w-[40%] p-10 flex flex-col justify-between">
                     <div>
                       <h4 className="text-black font-semibold text-lg mb-3">
@@ -286,10 +284,9 @@ const Header: React.FC = () => {
                       </p>
                     </div>
 
-                    {/* Button moved slightly upward */}
                     <div className="mt-2">
-                      <a
-                        href="/rfq"
+                      <Link
+                        to="/rfq"
                         className="inline-flex items-center justify-center gap-2 bg-[#EAEAEA] text-black font-semibold text-sm px-5 py-3 rounded-xl transition-all duration-300 w-fit"
                       >
                         <img
@@ -298,7 +295,7 @@ const Header: React.FC = () => {
                           className="w-10 h-6 opacity-70"
                         />
                         Go to Form
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -306,15 +303,15 @@ const Header: React.FC = () => {
             </div>
           </nav>
 
-          {/* Contact button */}
-          <a
-            href="/contact"
+          {/* ✅ Contact button */}
+          <Link
+            to="/contact"
             className="hidden md:inline-block border border-[#5CC6D0] text-[#5CC6D0] rounded-full px-5 py-2 font-semibold hover:bg-[#5CC6D0] hover:text-black transition"
           >
             Contact
-          </a>
+          </Link>
 
-          {/* Mobile button */}
+          {/* Mobile menu toggle */}
           <button
             className="md:hidden text-[#5CC6D0] hover:text-white"
             onClick={() => {
