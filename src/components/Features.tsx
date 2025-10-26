@@ -84,7 +84,7 @@ const Features: React.FC = () => {
         ref={planeRef}
         src="/sliderplane.png"
         alt="Plane"
-        className="absolute top-[250px] left-1/2 w-[120px] h-[120px] rotate-180 -translate-x-1/2"
+        className="absolute top-[250px] left-1/2 w-[120px] h-[120px] rotate-0 -translate-x-1/2"
       />
 
       {/* Zigzag Feature Blocks */}
