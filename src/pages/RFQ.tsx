@@ -1,322 +1,224 @@
-import React, { useState, lazy, Suspense } from "react";
-import { FileText, Send, CheckCircle, AlertCircle } from "lucide-react";
+import React, { useState, useRef } from "react";
+import { Send, Phone, Mail } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { PageLayout } from "../components/PageLayout";
-import { 
-  FadeInUp, 
-  FadeInLeft, 
-  FadeInRight, 
-  ScaleIn, 
-  StaggeredContainer,
-  ParallaxSection 
-} from "../components/animations";
-
-// Lazy load the Spline component for faster initial load
-const Spline = lazy(() => import("@splinetool/react-spline"));
 
 const RFQ: React.FC = () => {
   const [formData, setFormData] = useState({
-    companyName: "",
-    contactName: "",
-    email: "",
-    phone: "",
-    aircraftType: "",
     partNumber: "",
-    quantity: "",
-    urgency: "",
+    condition: "",
     description: "",
+    certificate: "",
+    quality: "",
+    notes: "",
   });
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const formRef = useRef<HTMLDivElement | null>(null);
 
-  const urgencyOptions = [
-    "Standard (5-10 business days)",
-    "Rush (2-3 business days)",
-    "AOG (Aircraft on Ground - Same day)",
-  ];
-
-  const aircraftTypes = [
-    "Boeing 737",
-    "Boeing 747",
-    "Boeing 777",
-    "Boeing 787",
-    "Airbus A320",
-    "Airbus A330",
-    "Airbus A350",
-    "Other",
-  ];
-
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Simple professional visual effect
+    const button = document.getElementById("submit-btn");
+    if (button) {
+      button.classList.add("scale-95", "bg-[#4ab5bf]");
+      setTimeout(() => {
+        button.classList.remove("scale-95", "bg-[#4ab5bf]");
+      }, 300);
+    }
+
     console.log("RFQ submitted:", formData);
-    setIsSubmitted(true);
   };
 
-  if (isSubmitted) {
-    return (
-      <PageLayout>
-        <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
-        <div className="max-w-2xl mx-auto text-center">
-          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
-          <h1 className="text-3xl md:text-4xl font-bold mb-6">
-            Request Submitted Successfully!
-          </h1>
-          <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-            Thank you for your RFQ submission. Our team will contact you within
-            2 hours with a detailed quote and availability information.
-          </p>
-          <div className="bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-5 mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-[#5cc6d0]">
-              What happens next?
-            </h3>
-            <ul className="text-left text-gray-300 space-y-2 text-sm">
-              <li>• Our team reviews your requirements</li>
-              <li>• We source parts from our global network</li>
-              <li>• You’ll get a quote within 2 hours</li>
-              <li>• We coordinate delivery based on urgency</li>
-            </ul>
-          </div>
-          <Button
-            onClick={() => setIsSubmitted(false)}
-            className="bg-[#5cc6d0] text-black px-6 py-3 text-base font-semibold hover:bg-[#4ab5bf] transition-all duration-300"
-          >
-            Submit Another RFQ
-          </Button>
-        </div>
-        </div>
-      </PageLayout>
-    );
-  }
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const sectionPadding: React.CSSProperties = {
+    paddingLeft: "260px",
+    paddingRight: "260px",
+    paddingTop: "100px",
+    paddingBottom: "80px",
+    boxSizing: "border-box",
+  };
 
   return (
     <PageLayout>
-      <div className="min-h-screen bg-black text-white">
-      {/* Animated Hero Section */}
-      <ParallaxSection speed={0.2} className="relative pt-28 pb-16 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
-          {/* Animated content */}
-          <FadeInLeft delay={200}>
-            <div className="text-center lg:text-left">
-              <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
-                <FileText className="w-10 h-10 text-[#5cc6d0]" />
-                <h1 className="text-4xl md:text-5xl font-bold">
-                  Request for Quote (RFQ)
-                </h1>
-              </div>
-              <p className="text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed mx-auto lg:mx-0">
-                Submit your parts requirements and receive competitive quotes from
-                our global network. Expect a response within 2 hours.
-              </p>
-            </div>
-          </FadeInLeft>
+      <div className="bg-black text-white min-h-screen font-[Poppins] relative overflow-hidden">
+        {/* ============ HERO SECTION ============ */}
+        <section
+          style={sectionPadding}
+          className="flex flex-col lg:flex-row justify-between items-center text-left pt-[150px]"
+        >
+          <div className="max-w-xl space-y-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#5cc6d0] leading-snug whitespace-nowrap">
+              Request for Quote (RFQ)
+            </h1>
 
-          {/* Animated 3D spline */}
-          <FadeInRight delay={400}>
-            <div className="w-full lg:w-1/2 h-[300px] md:h-[500px]">
-              <Suspense
-                fallback={
-                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
-                    Loading 3D model...
-                  </div>
-                }
-              >
-                <Spline scene="https://prod.spline.design/6Rl-4NaKJMOHUkQH/scene.splinecode" />
-              </Suspense>
-            </div>
-          </FadeInRight>
-        </div>
-      </ParallaxSection>
+            <p className="text-gray-200 text-lg leading-relaxed">
+              Submit your parts requirements and receive competitive quotes from
+              our global network. Expect a response within 2 hours.
+            </p>
 
-      {/* FORM SECTION */}
-      <section className="py-16 px-6 md:px-12">
-        <div className="max-w-4xl mx-auto bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-6 md:p-10">
-          <form onSubmit={handleSubmit} className="space-y-8">
-            {/* COMPANY INFO */}
-            <div>
-              <h3 className="text-xl md:text-2xl font-semibold mb-4 text-[#5cc6d0]">
-                Company Information
-              </h3>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {[
-                  { label: "Company Name *", name: "companyName", type: "text" },
-                  { label: "Contact Name *", name: "contactName", type: "text" },
-                  { label: "Email Address *", name: "email", type: "email" },
-                  { label: "Phone Number", name: "phone", type: "tel" },
-                ].map((input, idx) => (
-                  <div key={idx}>
-                    <label className="block text-sm mb-2 text-gray-300">
-                      {input.label}
-                    </label>
-                    <input
-                      type={input.type}
-                      name={input.name}
-                      value={(formData as any)[input.name]}
-                      onChange={handleInputChange}
-                      required={input.label.includes("*")}
-                      className="w-full px-4 py-3 bg-[#0b0d10] border border-[#1a1d22] rounded-lg text-white focus:border-[#5cc6d0] focus:outline-none transition-colors"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Button
+              onClick={scrollToForm}
+              className="bg-[#5cc6d0] text-black px-6 py-3 rounded-full font-semibold hover:bg-[#4ab5bf] transition-all"
+            >
+              ↓ Scroll to Form
+            </Button>
+          </div>
 
-            {/* PARTS INFO */}
-            <div>
-              <h3 className="text-xl md:text-2xl font-semibold mb-4 text-[#5cc6d0]">
-                Parts Information
-              </h3>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm mb-2 text-gray-300">
-                    Aircraft Type *
-                  </label>
-                  <select
-                    name="aircraftType"
-                    value={formData.aircraftType}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-[#0b0d10] border border-[#1a1d22] rounded-lg text-white focus:border-[#5cc6d0]"
-                  >
-                    <option value="">Select Aircraft Type</option>
-                    {aircraftTypes.map((type) => (
-                      <option key={type}>{type}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm mb-2 text-gray-300">
-                    Part Number *
+          {/* Right Image Placeholder */}
+          <div className="w-[260px] h-[320px] bg-[#d9d9d9] rounded-xl flex items-center justify-center mt-10 lg:mt-0">
+            <span className="text-[#5cc6d0] text-lg font-medium">Mascot</span>
+          </div>
+        </section>
+
+        {/* ============ PARTS INFORMATION FORM ============ */}
+        <section ref={formRef} style={sectionPadding} className="text-left">
+          <h2 className="text-[#5cc6d0] text-2xl md:text-3xl font-semibold mb-12">
+            Parts Information
+          </h2>
+
+          <form onSubmit={handleSubmit} className="space-y-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              {[
+                {
+                  name: "partNumber",
+                  label: "Part Number*",
+                  placeholder: "Enter the part number",
+                },
+                {
+                  name: "condition",
+                  label: "Condition*",
+                  placeholder: "Enter the condition",
+                },
+                {
+                  name: "description",
+                  label: "Description*",
+                  placeholder: "Enter the description",
+                },
+                {
+                  name: "certificate",
+                  label: "Certificate*",
+                  placeholder: "Enter the certificate",
+                },
+                {
+                  name: "quality",
+                  label: "Quality*",
+                  placeholder: "Enter your quantity needed",
+                },
+              ].map((field) => (
+                <div key={field.name}>
+                  <label className="block text-sm font-medium mb-2">
+                    {field.label}
                   </label>
                   <input
-                    type="text"
-                    name="partNumber"
-                    value={formData.partNumber}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-[#0b0d10] border border-[#1a1d22] rounded-lg text-white focus:border-[#5cc6d0]"
+                    name={field.name}
+                    value={(formData as any)[field.name]}
+                    onChange={handleChange}
+                    placeholder={field.placeholder}
+                    className="w-full bg-[#d9d9d9] text-black px-5 py-3 rounded-full outline-none"
                   />
                 </div>
-                <div>
-                  <label className="block text-sm mb-2 text-gray-300">
-                    Quantity *
-                  </label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    min="1"
-                    value={formData.quantity}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-[#0b0d10] border border-[#1a1d22] rounded-lg text-white focus:border-[#5cc6d0]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm mb-2 text-gray-300">
-                    Urgency *
-                  </label>
-                  <select
-                    name="urgency"
-                    value={formData.urgency}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-[#0b0d10] border border-[#1a1d22] rounded-lg text-white focus:border-[#5cc6d0]"
-                  >
-                    <option value="">Select Urgency</option>
-                    {urgencyOptions.map((opt) => (
-                      <option key={opt}>{opt}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+              ))}
             </div>
 
-            {/* ADDITIONAL INFO */}
             <div>
-              <label className="block text-sm mb-2 text-gray-300">
-                Additional Description
-              </label>
+              <label className="block text-sm font-medium mb-2">Notes*</label>
               <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
+                name="notes"
+                value={formData.notes}
+                onChange={handleChange}
+                placeholder="Add any extra details, specs, or special instructions"
+                className="w-full bg-[#d9d9d9] text-black px-5 py-4 rounded-xl outline-none resize-none"
                 rows={4}
-                placeholder="Add any extra details, specs, or special instructions..."
-                className="w-full px-4 py-3 bg-[#0b0d10] border border-[#1a1d22] rounded-lg text-white focus:border-[#5cc6d0] resize-none"
               />
             </div>
 
-            {/* SUBMIT */}
-            <div className="flex flex-col sm:flex-row items-center gap-4">
+            {/* Submit Button */}
+            <div className="flex flex-wrap items-center gap-4">
               <Button
+                id="submit-btn"
                 type="submit"
-                className="bg-[#5cc6d0] text-black px-6 py-3 text-base font-semibold hover:bg-[#4ab5bf] transition-all duration-300 hover:scale-105 flex items-center gap-2"
+                className="bg-[#5cc6d0] text-black px-6 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-[#4ab5bf] transition-all transform active:scale-95"
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-5 h-5" />
                 Submit RFQ
               </Button>
-              <div className="flex items-center gap-2 text-sm text-gray-400">
-                <AlertCircle className="w-4 h-4" />
-                <span>Response within 2 hours</span>
-              </div>
+              <span className="text-sm text-gray-400">
+                Response within 2 hours
+              </span>
             </div>
           </form>
-        </div>
-      </section>
+        </section>
 
-      {/* Animated Benefits Section */}
-      <section className="py-16 px-6 md:px-12 bg-[#0b0d10]/30">
-        <div className="max-w-6xl mx-auto">
-          {/* Animated section title */}
-          <FadeInUp delay={200}>
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-              Why Submit an RFQ with RockDove?
-            </h2>
-          </FadeInUp>
-          
-          {/* Staggered benefit cards */}
-          <StaggeredContainer delay={150}>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Fast Response",
-                  description: "Receive detailed quotes within 2 hours of submission.",
-                },
-                {
-                  title: "Global Network",
-                  description: "Access to our worldwide network of certified suppliers.",
-                },
-                {
-                  title: "Competitive Pricing",
-                  description: "Best market rates with transparent pricing structure.",
-                },
-              ].map((benefit, index) => (
-                <ScaleIn key={index} delay={index * 100} scale={0.9}>
-                  <div className="text-center bg-[#0b0d10]/40 border border-[#1a1d22] p-6 rounded-xl hover:border-[#5cc6d0] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#5cc6d0]/20">
-                    <div className="w-14 h-14 bg-[#5cc6d0] rounded-full flex items-center justify-center mx-auto mb-4 hover:shadow-lg hover:shadow-[#5cc6d0]/30 transition-all duration-300">
-                      <CheckCircle className="w-6 h-6 text-black" />
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2 text-[#5cc6d0]">
-                      {benefit.title}
-                    </h3>
-                    <p className="text-gray-300 text-sm leading-relaxed">
-                      {benefit.description}
-                    </p>
-                  </div>
-                </ScaleIn>
-              ))}
+        {/* ============ WHY SUBMIT SECTION ============ */}
+        <section style={sectionPadding} className="text-left">
+          <h2 className="text-[#5cc6d0] text-2xl md:text-3xl font-semibold mb-14">
+            Why Submit Your RFQ with Rockdove Aviation?
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl">
+            {[1, 2, 3].map((item) => (
+              <div
+                key={item}
+                className="w-full h-[220px] bg-[#d9d9d9] rounded-xl flex items-center justify-center text-[#5cc6d0] text-lg font-medium mx-auto"
+              >
+                Image {item}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ============ HELP SECTION ============ */}
+        <section style={sectionPadding} className="text-left pb-20">
+          <h3 className="text-[#5cc6d0] text-xl md:text-2xl font-semibold mb-4">
+            Need Help with Your RFQ?
+          </h3>
+          <p className="text-gray-200 mb-8 text-base md:text-lg">
+            Contact our team directly for personalized assistance.
+          </p>
+
+          <div className="flex flex-col text-gray-300 gap-4">
+            <div className="flex items-center gap-3">
+              <Phone className="w-5 h-5 text-[#5cc6d0]" />
+              <span>+971 505056093</span>
             </div>
-          </StaggeredContainer>
-        </div>
-      </section>
+            <div className="flex items-center gap-3">
+              <Mail className="w-5 h-5 text-[#5cc6d0]" />
+              <span>sales@rockdoveaviation.com</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ============ ELLIPTICAL BALLS SECTION ============ */}
+        <section
+          className="w-full flex justify-center items-center bg-black overflow-hidden pb-16"
+          style={{ height: "280px" }}
+        >
+          <div
+            className="grid gap-[4px]"
+            style={{
+              gridTemplateColumns: "repeat(66, 10px)",
+              gridTemplateRows: "repeat(3, 10px)",
+            }}
+          >
+            {Array.from({ length: 3 * 66 }).map((_, i) => (
+              <div
+                key={i}
+                className="w-[10px] h-[10px] rounded-full bg-white"
+              ></div>
+            ))}
+          </div>
+        </section>
       </div>
     </PageLayout>
   );
