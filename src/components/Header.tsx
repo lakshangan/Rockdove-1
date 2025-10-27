@@ -90,52 +90,6 @@ const Header: React.FC = () => {
     if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
     setActiveDropdown(name);
   };
-  const items: CardNavItem[] = [];
-  const services = data.find((d) => d.label === "Services");
-  if (services)
-    items.push({
-      label: "Services",
-      ...COLORS.Services,
-      links: services.sections.flatMap((s: any) =>
-        s.links.map((l: any) => ({
-          label: l.name,
-          href: `/services/${l.name.toLowerCase().replace(/ /g, "-")}`,
-          ariaLabel: l.name,
-        }))
-      ),
-    });
-  const company = data.find((d) => d.label === "Company");
-  if (company)
-    items.push({
-      label: "Company",
-      ...COLORS.Company,
-      links: company.sections.flatMap((s: any) =>
-        s.links.map((l: any) => ({
-          label: l.name,
-          href: `/company/${l.name.toLowerCase().replace(/ /g, "-")}`,
-          ariaLabel: l.name,
-        }))
-      ),
-    });
-  items.push({
-    label: "Contact",
-    ...COLORS.Contact,
-    links: [
-      { label: "RFQ Submission", href: "/rfq", ariaLabel: "RFQ" },
-      {
-        label: "Email Support",
-        href: "mailto:contact@rockdove.com",
-        ariaLabel: "Email",
-      },
-      {
-        label: "Partner Inquiry",
-        href: "/partnerships",
-        ariaLabel: "Partner Inquiry",
-      },
-    ],
-  });
-  return items;
-};
 
   const handleMouseLeave = () => {
     hoverTimeout.current = setTimeout(() => setActiveDropdown(null), 200);
