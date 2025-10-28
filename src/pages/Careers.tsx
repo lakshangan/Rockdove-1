@@ -1,211 +1,329 @@
 import React from "react";
-import { Users, MapPin, Clock, Award, Heart, Briefcase } from "lucide-react";
-import { Button } from "../components/ui/button";
 import { PageLayout } from "../components/PageLayout";
+import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
+import { Textarea } from "../components/ui/textarea";
 
-const Careers: React.FC = () => {
-  const openPositions = [
-    {
-      title: "Senior Aviation Engineer",
-      location: "New York, NY",
-      type: "Full-time",
-      department: "Engineering",
-      description: "Lead technical projects and provide engineering support for aircraft parts and systems."
-    },
-    {
-      title: "Supply Chain Manager",
-      location: "London, UK",
-      type: "Full-time",
-      department: "Operations",
-      description: "Manage global supply chain operations and optimize logistics processes."
-    },
-    {
-      title: "Customer Success Manager",
-      location: "Remote",
-      type: "Full-time",
-      department: "Customer Success",
-      description: "Build and maintain relationships with key clients and ensure customer satisfaction."
-    },
-    {
-      title: "Software Developer",
-      location: "San Francisco, CA",
-      type: "Full-time",
-      department: "Technology",
-      description: "Develop and maintain our proprietary inventory management platform."
-    }
-  ];
+const perksData = [
+  { title: "Medical Insurance", description: "Your health, our priority" },
+  { title: "CSR Initiatives", description: "Give back with purpose" },
+  { title: "Weekend Turf", description: "Team sports & bonding every week" },
+  { title: "Festival Celebrations", description: "We celebrate together" },
+  {
+    title: "MRO & International Trips",
+    description: "Experience global exposure",
+  },
+  {
+    title: "Career Growth",
+    description: "Fast-track opportunities in a rising company",
+  },
+];
 
-  const benefits = [
-    {
-      icon: <Award className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Competitive Salary",
-      description: "Industry-leading compensation packages with performance bonuses"
-    },
-    {
-      icon: <Heart className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Health & Wellness",
-      description: "Comprehensive health insurance and wellness programs"
-    },
-    {
-      icon: <Clock className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Work-Life Balance",
-      description: "Flexible working arrangements and generous time off"
-    },
-    {
-      icon: <Briefcase className="w-8 h-8 text-[#5cc6d0]" />,
-      title: "Career Growth",
-      description: "Professional development opportunities and advancement paths"
-    }
-  ];
+const jobTypes = [
+  { id: "internship", label: "Internship" },
+  { id: "fulltime", label: "Full Time" },
+];
 
+const jobRoles = [
+  { id: "sales", label: "Sales" },
+  { id: "finance", label: "Finance" },
+  { id: "marketing", label: "Marketing" },
+  { id: "hr", label: "HR" },
+  { id: "admin", label: "Admin" },
+];
+
+const Career = (): JSX.Element => {
   return (
     <PageLayout>
-      <div className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-4 mb-8">
-            <Users className="w-12 h-12 text-[#5cc6d0]" />
-            <h1 className="text-5xl md:text-6xl font-bold">Careers</h1>
-          </div>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl leading-relaxed">
-            Join our team of aviation professionals and help shape the future of aircraft parts supply. 
-            We're looking for passionate individuals who share our commitment to excellence and innovation.
-          </p>
-        </div>
-      </section>
+      <div
+        className="bg-black overflow-hidden w-full min-h-screen relative"
+        data-model-id="596:223"
+      >
+        <div className="max-w-[1440px] mx-auto">
+          <main>
+            {/* Hero Section */}
+            <section className="flex flex-col items-center px-9 py-16 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
+              <h1 className="[font-family:'Poppins',Helvetica] font-bold text-[40px] text-center leading-[60px] mb-6">
+                <span className="text-[#5cc6d0]">Soar with</span>
+                <br />
+                <span className="text-white">Rockdove Aviation</span>
+              </h1>
+              <p className="[font-family:'Poppins',Helvetica] font-medium text-white text-[32px] text-center max-w-[931px]">
+                Be part of a fast-growing aviation leader
+              </p>
+            </section>
 
-      {/* Why Work With Us Section */}
-      <section className="py-20 px-8 bg-[#0b0d10]/30">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">Why Work With Us?</h2>
-          <div className="grid md:grid-cols-2 gap-12">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-8 hover:bg-[#0b0d10]/70 transition-all duration-300">
-                <div className="flex items-start gap-4">
-                  {benefit.icon}
+            {/* Why Join Us */}
+            <section className="flex flex-col items-center px-9 py-16 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:400ms]">
+              <h2 className="[font-family:'Poppins',Helvetica] font-bold text-white text-[40px] text-center mb-6">
+                Why Join Us?
+              </h2>
+              <div className="w-[93px] h-[3px] bg-[#5cc6d0] mb-8" />
+              <p className="[font-family:'Poppins',Helvetica] font-medium text-white text-2xl text-center max-w-[861px]">
+                We value talent and growth, nurturing every team member to reach
+                their full potential. From day one, you&apos;ll gain hands-on
+                experience in a dynamic, high-impact aviation environment. With
+                clear pathways to leadership, your ambition fuels our mission to
+                lead the global aftermarket.
+              </p>
+            </section>
+
+            {/* Our Perks Section */}
+            <section className="px-9 py-16 flex flex-col items-center">
+              <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#5cc6d0] text-[40px] text-left mb-2 ml-[-820px]">
+                Our Perks
+              </h2>
+              <p className="[font-family:'Poppins',Helvetica] font-bold text-white text-[24px] text-left mb-24 ml-[-770px]">
+                Here&apos;s what you get:
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-[1100px] mx-auto justify-items-center">
+                {[
+                  {
+                    title: "Medical Insurance",
+                    description: "Your health, our priority",
+                  },
+                  {
+                    title: "CSR Initiatives",
+                    description: "Give back with purpose",
+                  },
+                  {
+                    title: "Weekend Turf",
+                    description: "Team sports & bonding every week",
+                  },
+                  {
+                    title: "Festival Celebrations",
+                    description: "We celebrate together",
+                  },
+                  {
+                    title: "MRO & International Trips",
+                    description: "Hands-on training & global exposure",
+                  },
+                  {
+                    title: "Career Growth",
+                    description: "Fast-track opportunities in a rising company",
+                  },
+                  {
+                    title: "Flat Hierarchy",
+                    description: "We celebrate together",
+                  },
+                  {
+                    title: "Awards and Rewards",
+                    description: "Hands-on training & global exposure",
+                  },
+                  {
+                    title: "Team Outs",
+                    description: "Fast-track opportunities in a rising company",
+                  },
+                ].map((perk, index) => (
+                  <div
+                    key={index}
+                    className="bg-[#D9D9D9] w-[311px] h-[245px] rounded-[5px] flex flex-col justify-center items-center text-center shadow-[0px_0px_4px_#00000040] transition-transform hover:scale-[1.03]"
+                  >
+                    <h3 className="[font-family:'Poppins',Helvetica] font-semibold text-black text-[20px] mb-3">
+                      {perk.title}
+                    </h3>
+                    <p className="[font-family:'Poppins',Helvetica] font-normal text-[#3e3e3e] text-[16px] leading-[30px] max-w-[230px]">
+                      {perk.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Application Form */}
+            <section className="relative px-4 sm:px-6 md:px-12 lg:px-[178px] py-24 bg-transparent">
+              <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#5cc6d0] text-[40px] mb-12 text-left">
+                Join Our Team - Employee Gallery
+              </h2>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                {/* Left Form Section */}
+                <div className="flex flex-col space-y-8">
+                  {/* Job Type */}
                   <div>
-                    <h3 className="text-2xl font-semibold mb-4 text-[#5cc6d0]">{benefit.title}</h3>
-                    <p className="text-gray-300 leading-relaxed">{benefit.description}</p>
+                    <Label className="[font-family:'Poppins',Helvetica] font-semibold text-white text-xl mb-3 block">
+                      Select which type you are applying for{" "}
+                      <span className="text-[#f50000]">*</span>
+                    </Label>
+                    <RadioGroup defaultValue="internship" className="space-y-3">
+                      {jobTypes.map((type) => (
+                        <div key={type.id} className="flex items-center gap-3">
+                          <RadioGroupItem
+                            value={type.id}
+                            id={type.id}
+                            className="
+                  w-4 h-4 border-2 border-[#d9d9d9]
+                  data-[state=checked]:border-[#00E0FF]
+                  data-[state=checked]:bg-[#00E0FF]
+                  data-[state=checked]:shadow-[0_0_6px_#00E0FF]
+                  rounded-full transition-all duration-200
+                "
+                          />
+                          <Label
+                            htmlFor={type.id}
+                            className="[font-family:'Poppins',Helvetica] font-normal text-white text-[15px] cursor-pointer"
+                          >
+                            {type.label}
+                          </Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Open Positions Section */}
-      <section className="py-20 px-8">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">Open Positions</h2>
-          <div className="space-y-6">
-            {openPositions.map((position, index) => (
-              <div key={index} className="bg-[#0b0d10]/50 border border-[#1a1d22] rounded-xl p-8 hover:bg-[#0b0d10]/70 transition-all duration-300">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-semibold mb-2 text-[#5cc6d0]">{position.title}</h3>
-                    <div className="flex flex-wrap items-center gap-4 mb-4">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-gray-400" />
-                        <span className="text-gray-300">{position.location}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4 text-gray-400" />
-                        <span className="text-gray-300">{position.type}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Briefcase className="w-4 h-4 text-gray-400" />
-                        <span className="text-gray-300">{position.department}</span>
-                      </div>
+                  {/* Job Role */}
+                  <div>
+                    <Label className="[font-family:'Poppins',Helvetica] font-semibold text-white text-xl mb-3 block">
+                      Select which role you are applying for{" "}
+                      <span className="text-[#f50000]">*</span>
+                    </Label>
+                    <RadioGroup defaultValue="sales" className="space-y-3">
+                      {jobRoles.map((role) => (
+                        <div key={role.id} className="flex items-center gap-3">
+                          <RadioGroupItem
+                            value={role.id}
+                            id={role.id}
+                            className="
+                  w-4 h-4 border-2 border-[#d9d9d9]
+                  data-[state=checked]:border-[#00E0FF]
+                  data-[state=checked]:bg-[#00E0FF]
+                  data-[state=checked]:shadow-[0_0_6px_#00E0FF]
+                  rounded-full transition-all duration-200
+                "
+                          />
+                          <Label
+                            htmlFor={role.id}
+                            className="[font-family:'Poppins',Helvetica] font-normal text-white text-[15px] cursor-pointer"
+                          >
+                            {role.label}
+                          </Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                  </div>
+
+                  {/* Input Fields */}
+                  {[
+                    {
+                      id: "position",
+                      label: "Position Applying For",
+                      placeholder: "Enter your specific role",
+                    },
+                    {
+                      id: "name",
+                      label: "Enter your name",
+                      placeholder: "Enter your full name",
+                      required: true,
+                    },
+                    {
+                      id: "email",
+                      label: "Enter your Email ID",
+                      placeholder: "Enter your email",
+                      type: "email",
+                      required: true,
+                    },
+                    {
+                      id: "contact",
+                      label: "Enter your contact no",
+                      placeholder: "Enter your contact number",
+                      required: true,
+                    },
+                    {
+                      id: "education",
+                      label: "Enter your Educational Qualification",
+                      placeholder: "Enter your educational qualification",
+                      required: true,
+                    },
+                  ].map(({ id, label, placeholder, type, required }) => (
+                    <div key={id}>
+                      <Label
+                        htmlFor={id}
+                        className="[font-family:'Poppins',Helvetica] font-semibold text-white text-xl mb-3 block"
+                      >
+                        {label}
+                        {required && <span className="text-[#f50000]">*</span>}
+                      </Label>
+                      <Input
+                        id={id}
+                        type={type || "text"}
+                        placeholder={placeholder}
+                        className="h-[50px] bg-[#e7e7e7] rounded-[8px] border border-transparent focus:ring-2 focus:ring-[#00E0FF] focus:outline-none px-4 text-[#3c3c3c] text-sm [font-family:'Poppins',Helvetica]"
+                      />
                     </div>
-                    <p className="text-gray-300 leading-relaxed">{position.description}</p>
+                  ))}
+
+                  {/* Attachments */}
+                  {[
+                    { id: "resume", label: "Attach your Resume" },
+                    { id: "photo", label: "Attach your recent photo" },
+                  ].map(({ id, label }) => (
+                    <div key={id}>
+                      <Label
+                        htmlFor={id}
+                        className="[font-family:'Poppins',Helvetica] font-semibold text-white text-xl mb-3 block"
+                      >
+                        {label} <span className="text-[#f50000]">*</span>
+                      </Label>
+                      <input
+                        type="file"
+                        id={id}
+                        className="block w-full text-sm text-[#3c3c3c] bg-[#e7e7e7] rounded-[8px] p-2 cursor-pointer focus:ring-2 focus:ring-[#00E0FF]"
+                      />
+                    </div>
+                  ))}
+
+                  {/* Address */}
+                  <div>
+                    <Label
+                      htmlFor="address"
+                      className="[font-family:'Poppins',Helvetica] font-semibold text-white text-xl mb-3 block"
+                    >
+                      Enter your Current Address{" "}
+                      <span className="text-[#f50000]">*</span>
+                    </Label>
+                    <Textarea
+                      id="address"
+                      placeholder="Enter your current address"
+                      className="min-h-[100px] bg-[#e7e7e7] rounded-[8px] border border-transparent focus:ring-2 focus:ring-[#00E0FF] focus:outline-none px-4 py-2 text-[#3c3c3c] text-sm [font-family:'Poppins',Helvetica] resize-none"
+                    />
                   </div>
-                  <Button className="bg-[#5cc6d0] text-black px-6 py-3 font-semibold hover:bg-[#4ab5bf] transition-all duration-300 hover:scale-105">
-                    Apply Now
-                  </Button>
+
+                  {/* Submit Button */}
+                  <div className="pt-4">
+                    <Button className="w-[160px] rounded-[40px] bg-gradient-to-b from-[#5cc6d0] to-[#14919b] [font-family:'Poppins',Helvetica] font-bold text-white text-lg py-3 hover:opacity-90 transition-all duration-200">
+                      SUBMIT
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Right Image beside radio section */}
+                <div className="flex justify-center items-start lg:pt-[50px]">
+                  <img
+                    className="w-full max-w-[420px] object-contain"
+                    alt="Hiring illustration"
+                    src="https://c.animaapp.com/mh6jeg64gltCdD/img/undraw-hiring-8szx-1.svg"
+                  />
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </section>
 
-      {/* Culture Section */}
-      <section className="py-20 px-8 bg-[#0b0d10]/30">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">Our Culture</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Innovation",
-                description: "We encourage creative thinking and embrace new technologies to solve complex challenges."
-              },
-              {
-                title: "Collaboration",
-                description: "We believe in the power of teamwork and cross-functional collaboration to achieve our goals."
-              },
-              {
-                title: "Excellence",
-                description: "We maintain the highest standards in everything we do, from customer service to product quality."
-              }
-            ].map((value, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-[#5cc6d0] rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Award className="w-8 h-8 text-black" />
-                </div>
-                <h3 className="text-2xl font-semibold mb-4 text-[#5cc6d0]">{value.title}</h3>
-                <p className="text-gray-300 leading-relaxed">{value.description}</p>
-              </div>
-            ))}
-          </div>
+            {/* Contact HR Section */}
+            <section className="flex flex-col items-center px-9 h-[400px] py-16 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
+              <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#5cc6d0] text-[40px] text-center mb-8">
+                Grow with Rockdove Aviation - Contact HR
+              </h2>
+              <Button className="h-auto rounded-[40px] bg-[linear-gradient(180deg,rgba(92,198,208,1)_0%,rgba(20,145,155,1)_100%)] border-0 [font-family:'Poppins',Helvetica] font-bold text-white text-2xl px-12 py-4 hover:opacity-90 transition-opacity">
+                HR@rockdoveaviation.com
+              </Button>
+            </section>
+          </main>
         </div>
-      </section>
-
-      {/* Application Process Section */}
-      <section className="py-20 px-8">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">Application Process</h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              { step: "01", title: "Apply", description: "Submit your application and resume" },
-              { step: "02", title: "Review", description: "Our team reviews your application" },
-              { step: "03", title: "Interview", description: "Virtual or in-person interview process" },
-              { step: "04", title: "Decision", description: "We'll notify you of our decision" }
-            ].map((process, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-[#5cc6d0] text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  {process.step}
-                </div>
-                <h3 className="text-xl font-semibold mb-2 text-[#5cc6d0]">{process.title}</h3>
-                <p className="text-gray-300">{process.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-8 bg-[#0b0d10]/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8">Ready to Join Our Team?</h2>
-          <p className="text-xl text-gray-300 mb-12">
-            Don't see a position that matches your skills? We're always looking for talented individuals 
-            to join our growing team. Send us your resume and let us know how you can contribute.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-[#5cc6d0] text-black px-8 py-4 text-lg font-semibold hover:bg-[#4ab5bf] transition-all duration-300 hover:scale-105">
-              View All Positions
-            </Button>
-            <Button variant="outline" className="border-[#5cc6d0] text-[#5cc6d0] px-8 py-4 text-lg font-semibold hover:bg-[#5cc6d0] hover:text-black transition-all duration-300">
-              Submit Resume
-            </Button>
-          </div>
-        </div>
-      </section>
       </div>
     </PageLayout>
   );
 };
 
-export default Careers;
+export default Career;
