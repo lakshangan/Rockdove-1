@@ -1,11 +1,11 @@
-import React from 'react';
-import { PageLayout } from '../components/PageLayout';
-import { Contact } from '../components/Contact';
+import React from "react";
+import { PageLayout } from "../components/PageLayout";
+import { ContactUs } from "../components/ContactUs";
 
 const ContactPage: React.FC = () => {
   return (
     <PageLayout>
-      <Contact />
+      <ContactUs />
     </PageLayout>
   );
 };
