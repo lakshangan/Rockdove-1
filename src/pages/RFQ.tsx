@@ -153,7 +153,12 @@ const RFQ: React.FC = () => {
                 <Send className="w-5 h-5" />
                 Submit RFQ
               </Button>
-              <span className="text-sm text-gray-400">
+              <span className="flex items-center gap-2 text-sm text-gray-400">
+                <img
+                  src="/emark.svg"
+                  alt="Exclamation Icon"
+                  className="w-4 h-4"
+                />
                 Response within 2 hours
               </span>
             </div>
@@ -179,44 +184,25 @@ const RFQ: React.FC = () => {
         </section>
 
         {/* ============ HELP SECTION ============ */}
-        <section style={sectionPadding} className="text-left pb-20">
-          <h3 className="text-[#5cc6d0] text-xl md:text-2xl font-semibold mb-4">
+        <section style={sectionPadding} className="text-left pb-20 h-[500px]">
+          <h3 className="text-[#5cc6d0] text-[32px] md:text-[32px] font-semibold mb-4">
             Need Help with Your RFQ?
           </h3>
-          <p className="text-gray-200 mb-8 text-base md:text-lg">
+          <p className="text-gray-200 mb-8 text-base md:text-[28px]">
             Contact our team directly for personalized assistance.
           </p>
 
           <div className="flex flex-col text-gray-300 gap-4">
             <div className="flex items-center gap-3">
-              <Phone className="w-5 h-5 text-[#5cc6d0]" />
-              <span>+971 505056093</span>
+              <Phone className="w-5 h-5 text-[#5cc6d0] " />
+              <span className="text-[24px]">
+                +971 505056093 / +971 505059093
+              </span>
             </div>
             <div className="flex items-center gap-3">
               <Mail className="w-5 h-5 text-[#5cc6d0]" />
-              <span>sales@rockdoveaviation.com</span>
+              <span className="text-[24px]">sales@rockdoveaviation.com</span>
             </div>
-          </div>
-        </section>
-
-        {/* ============ ELLIPTICAL BALLS SECTION ============ */}
-        <section
-          className="w-full flex justify-center items-center bg-black overflow-hidden pb-16"
-          style={{ height: "280px" }}
-        >
-          <div
-            className="grid gap-[4px]"
-            style={{
-              gridTemplateColumns: "repeat(66, 10px)",
-              gridTemplateRows: "repeat(3, 10px)",
-            }}
-          >
-            {Array.from({ length: 3 * 66 }).map((_, i) => (
-              <div
-                key={i}
-                className="w-[10px] h-[10px] rounded-full bg-white"
-              ></div>
-            ))}
           </div>
         </section>
       </div>

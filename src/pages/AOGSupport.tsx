@@ -6,6 +6,7 @@ const advantages = [
   {
     title: "Advantage 1",
     description: "Always-on team for global, time-sensitive needs.",
+    icon: "/time.svg",
     gradient: true,
     titleColor: "text-white",
     descriptionColor: "text-black",
@@ -13,6 +14,7 @@ const advantages = [
   {
     title: "Advantage 2",
     description: "Reduces expenses by addressing urgent issues efficiently.",
+    icon: "/bell.svg",
     gradient: false,
     titleColor: "text-black",
     descriptionColor: "text-black",
@@ -20,6 +22,7 @@ const advantages = [
   {
     title: "Advantage 3",
     description: "Certified quality and innovation for trusted performance.",
+    icon: "/upchart.svg",
     gradient: false,
     titleColor: "text-black",
     descriptionColor: "text-black",
@@ -210,11 +213,11 @@ const AOGSupport: React.FC = () => {
         {/* ====================== ADVANTAGES SECTION ====================== */}
         <section
           className="
-          flex flex-col items-center 
-          px-[180px] md:px-[160px] lg:px-[205px] 
-          pt-48 pb-24 
-          text-center bg-black text-white
-        "
+    flex flex-col items-center 
+    px-[180px] md:px-[160px] lg:px-[205px] 
+    pt-48 pb-24 
+    text-center bg-black text-white
+  "
         >
           <h2
             className="max-w-3xl text-3xl md:text-4xl leading-snug mb-16"
@@ -231,33 +234,40 @@ const AOGSupport: React.FC = () => {
               <div
                 key={index}
                 className="
-                  group 
-                  rounded-[20px] 
-                  w-[341px] 
-                  h-[300px]
-                  flex flex-col justify-center items-start 
-                  px-8 py-6 mx-auto 
-                  transition-all duration-300 ease-in-out
-                  transform hover:scale-105
-                  bg-[#D9D9D9]
-                  hover:bg-[linear-gradient(180deg,#5CC6D0_0%,#0097A1_100%)]
-                  shadow-lg
-                "
+          group 
+          rounded-[20px] 
+          w-[341px] 
+          h-[300px]
+          flex flex-col justify-center items-start 
+          px-8 py-6 mx-auto 
+          transition-all duration-300 ease-in-out
+          transform hover:scale-105
+          bg-[#D9D9D9]
+          hover:bg-[linear-gradient(180deg,#5CC6D0_0%,#0097A1_100%)]
+          shadow-lg
+        "
               >
+                {/* Icon above the title */}
+                <img
+                  src={advantage.icon} // Add your icon link here in the data
+                  alt={`${advantage.title} icon`}
+                  className="w-[40px] h-[40px] mb-3 transition-transform duration-300 group-hover:scale-110"
+                />
+
                 <h3
                   className="
-                    font-[600] text-2xl mb-4 transition-colors duration-300 
-                    text-black group-hover:text-white font-[Poppins] mt-[-40px]
-                  "
+            font-[600] text-2xl mb-4 transition-colors duration-300 
+            text-black group-hover:text-white font-[Poppins]
+          "
                 >
                   {advantage.title}
                 </h3>
 
                 <p
                   className="
-                    text-black font-medium text-lg leading-relaxed tracking-wide 
-                    mt-[25px] text-left
-                  "
+            text-black font-medium text-lg leading-relaxed tracking-wide 
+            mt-[10px] text-left group-hover:text-white
+          "
                 >
                   {advantage.description}
                 </p>
@@ -266,7 +276,7 @@ const AOGSupport: React.FC = () => {
           </div>
         </section>
 
-        {/* ====================== RAPID RESPONSE SECTION (UPDATED SPACING) ====================== */}
+        {/* ====================== RAPID RESPONSE SECTION (UPDATED SPACING + NUMBER CIRCLES) ====================== */}
         <section className="flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-32 pt-24 pb-32 text-center">
           {/* Section Title */}
           <h2
@@ -280,7 +290,7 @@ const AOGSupport: React.FC = () => {
             <span className="text-[#5cc6d0]">From Request to Resolution</span>
           </h2>
 
-          {/* Section Paragraph (added more space below title) */}
+          {/* Section Paragraph */}
           <p
             className="max-w-3xl text-lg md:text-xl text-white mb-24"
             style={{
@@ -302,10 +312,19 @@ const AOGSupport: React.FC = () => {
                 className="flex flex-col items-center text-center"
                 style={{ fontFamily: "Poppins, sans-serif" }}
               >
-                {/* Step Number */}
-                <span className="text-[#5cc6d0] font-bold text-4xl mb-6">
+                {/* Step Number inside circle */}
+                <div
+                  className="
+            flex items-center justify-center
+            w-[90px] h-[90px]
+            rounded-full border-[3px] border-[#5cc6d0]
+            text-[#5cc6d0] font-bold text-3xl
+            mb-6 transition-all duration-300 
+            hover:bg-[#5cc6d0] hover:text-white hover:scale-110
+          "
+                >
                   {step.number}
-                </span>
+                </div>
 
                 {/* Step Title */}
                 <span className="text-white font-semibold text-lg mb-4 leading-snug">
