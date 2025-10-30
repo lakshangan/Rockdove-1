@@ -86,59 +86,18 @@ const AOGSupport: React.FC = () => {
     <PageLayout>
       <div className="bg-black text-white overflow-hidden">
         {/* ====================== HERO SECTION ====================== */}
-        <section
-          className="w-full"
-          style={{
-            paddingLeft: "205px",
-            paddingRight: "205px",
-            paddingTop: "80px",
-            paddingBottom: "56px",
-            boxSizing: "border-box",
-          }}
-        >
-          <div
-            style={{
-              maxWidth: "1200px",
-              margin: "0 auto",
-              display: "grid",
-              gridTemplateColumns: "832px 1fr",
-              columnGap: "48px",
-              alignItems: "start",
-            }}
-          >
+        <section className="w-full px-4 sm:px-6 md:px-12 lg:px-[205px] pt-20 lg:pt-[80px] pb-14 lg:pb-[56px] box-border">
+          <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:[grid-template-columns:832px_1fr] gap-x-12 items-start">
             {/* LEFT COLUMN */}
-            <div style={{ width: "832px" }}>
-              <h1
-                style={{
-                  fontFamily: "Poppins, sans-serif",
-                  fontWeight: 700,
-                  fontSize: "40px",
-                  lineHeight: "150%",
-                  margin: 0,
-                }}
-              >
-                <span style={{ color: "#5CC6D0" }}>24/7 AOG Support </span>
-                <span style={{ color: "#FFFFFF", marginLeft: 6 }}>
-                  (Aircraft on ground)
-                </span>
+            <div className="w-full lg:w-[832px]">
+              <h1 className="m-0 font-poppins font-extrabold text-[32px] lg:text-[40px] leading-[150%]">
+                <span className="text-[#5CC6D0]">24/7 AOG Support </span>
+                <span className="text-white ml-1">(Aircraft on ground)</span>
               </h1>
 
-              <div style={{ height: "28px" }} />
+              <div className="h-7" />
 
-              <p
-                className="shadow-lg transform translate-y-12 -translate-x-4 lg:translate-y-12 lg:-translate-x-[-10px]"
-                style={{
-                  fontFamily: "Poppins, sans-serif",
-                  fontWeight: 500,
-                  fontSize: "21px",
-                  lineHeight: "1.6",
-                  color: "#ffffff",
-                  margin: 0,
-                  maxWidth: "520px",
-                  textAlign: "left",
-                  letterSpacing: "0.05em",
-                }}
-              >
+              <p className="shadow-lg transform translate-y-3 lg:translate-y-12 -translate-x-1 lg:-translate-x-4 font-medium text-[18px] lg:text-[21px] leading-[1.6] text-white m-0 max-w-[520px] text-left tracking-wide">
                 Our priority service ensures parts are ready
                 <br />
                 for pickup in 60–90 minutes, delivering fast,
@@ -150,75 +109,24 @@ const AOGSupport: React.FC = () => {
                 emergencies
               </p>
 
-              <div style={{ height: "36px" }} />
+              <div className="h-9" />
 
-              <Button
-                className="shadow-lg transform translate-y-12 -translate-x-4 lg:translate-y-12 lg:-translate-x-[-20px]"
-                style={{
-                  width: 367,
-                  height: 53,
-                  borderRadius: 40,
-                  background:
-                    "linear-gradient(180deg, #5CC6D0 0%, #14919B 100%)",
-                  color: "#ffffff",
-                  fontFamily: "Poppins, sans-serif",
-                  fontWeight: 500,
-                  fontSize: 20,
-                  lineHeight: "100%",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "0 24px",
-                  boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
-                }}
-              >
+              <Button className="shadow-lg transform translate-y-3 lg:translate-y-12 -translate-x-1 lg:-translate-x-4 inline-flex items-center justify-center" style={{ width: 367, height: 53, borderRadius: 40, background: 'linear-gradient(180deg, #5CC6D0 0%, #14919B 100%)', color: '#ffffff', fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: 20, lineHeight: '100%', padding: '0 24px', boxShadow: '0 6px 18px rgba(0,0,0,0.25)' }}>
                 Request AOG Assistance Now
               </Button>
             </div>
 
             {/* RIGHT COLUMN - Mascot box */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "start",
-              }}
-            >
-              <div
-                className="shadow-lg transform translate-y-12 -translate-x-4 lg:translate-y-28 lg:-translate-x-40"
-                style={{
-                  width: 290,
-                  height: 335,
-                  background: "#D9D9D9",
-                  borderRadius: 20,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <span
-                  style={{
-                    color: "#5CC6D0",
-                    fontFamily: "Poppins, sans-serif",
-                    fontWeight: 500,
-                  }}
-                >
-                  Mascot
-                </span>
+            <div className="flex justify-center items-start mt-6 lg:mt-0">
+              <div className="shadow-lg transform translate-y-3 lg:translate-y-28 lg:-translate-x-10 w-full max-w-[290px] lg:w-[290px] h-[335px] bg-[#D9D9D9] rounded-[20px] flex items-center justify-center">
+                <span className="text-[#5CC6D0] font-poppins font-medium">Mascot</span>
               </div>
             </div>
           </div>
         </section>
 
         {/* ====================== ADVANTAGES SECTION ====================== */}
-        <section
-          className="
-    flex flex-col items-center 
-    px-[180px] md:px-[160px] lg:px-[205px] 
-    pt-48 pb-24 
-    text-center bg-black text-white
-  "
-        >
+        <section className="flex flex-col items-center px-4 sm:px-8 md:px-12 lg:px-[205px] pt-20 md:pt-48 pb-12 md:pb-24 text-center bg-black text-white">
           <h2
             className="max-w-3xl text-3xl md:text-4xl leading-snug mb-16"
             style={{ lineHeight: "1.4" }}
@@ -233,19 +141,9 @@ const AOGSupport: React.FC = () => {
             {advantages.map((advantage, index) => (
               <div
                 key={index}
-                className="
-          group 
-          rounded-[20px] 
-          w-[341px] 
-          h-[300px]
-          flex flex-col justify-center items-start 
-          px-8 py-6 mx-auto 
-          transition-all duration-300 ease-in-out
-          transform hover:scale-105
-          bg-[#D9D9D9]
-          hover:bg-[linear-gradient(180deg,#5CC6D0_0%,#0097A1_100%)]
-          shadow-lg
-        "
+                className={
+                  "group rounded-[20px] w-full sm:w-[320px] md:w-[341px] h-[300px] flex flex-col justify-center items-start px-6 sm:px-8 py-6 mx-auto transition-all duration-300 ease-in-out transform hover:scale-105 bg-[#D9D9D9] hover:bg-[linear-gradient(180deg,#5CC6D0_0%,#0097A1_100%)] shadow-lg"
+                }
               >
                 {/* Icon above the title */}
                 <img
@@ -254,27 +152,18 @@ const AOGSupport: React.FC = () => {
                   className="w-[40px] h-[40px] mb-3 transition-transform duration-300 group-hover:scale-110"
                 />
 
-                <h3
-                  className="
-            font-[600] text-2xl mb-4 transition-colors duration-300 
-            text-black group-hover:text-white font-[Poppins]
-          "
-                >
+                <h3 className="font-[600] text-2xl mb-4 transition-colors duration-300 text-black group-hover:text-white font-[Poppins]">
                   {advantage.title}
                 </h3>
 
-                <p
-                  className="
-            text-black font-medium text-lg leading-relaxed tracking-wide 
-            mt-[10px] text-left group-hover:text-white
-          "
-                >
+                <p className="text-black font-medium text-lg leading-relaxed tracking-wide mt-[10px] text-left group-hover:text-white">
                   {advantage.description}
                 </p>
               </div>
             ))}
           </div>
         </section>
+
 
         {/* ====================== RAPID RESPONSE SECTION (UPDATED SPACING + NUMBER CIRCLES) ====================== */}
         <section className="flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-32 pt-24 pb-32 text-center">
@@ -313,16 +202,7 @@ const AOGSupport: React.FC = () => {
                 style={{ fontFamily: "Poppins, sans-serif" }}
               >
                 {/* Step Number inside circle */}
-                <div
-                  className="
-            flex items-center justify-center
-            w-[90px] h-[90px]
-            rounded-full border-[3px] border-[#5cc6d0]
-            text-[#5cc6d0] font-bold text-3xl
-            mb-6 transition-all duration-300 
-            hover:bg-[#5cc6d0] hover:text-white hover:scale-110
-          "
-                >
+                <div className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 md:w-[90px] md:h-[90px] rounded-full border-[3px] border-[#5cc6d0] text-[#5cc6d0] font-bold text-[1.1rem] sm:text-2xl md:text-3xl mb-6 transition-all duration-300 hover:bg-[#5cc6d0] hover:text-white hover:scale-110">
                   {step.number}
                 </div>
 
@@ -355,45 +235,22 @@ const AOGSupport: React.FC = () => {
           </h2>
 
           {/* Top row (3 logos) */}
-          <div className="flex flex-wrap justify-center gap-12 pt-12 mb-10">
+          <div className="flex flex-wrap justify-center gap-6 pt-8 mb-8">
             {logisticsPartners.slice(0, 3).map((partner, index) => (
               <div
                 key={index}
-                className="
-          flex items-center justify-center 
-          bg-[#d9d9d9] rounded-[20px]
-          w-[220px] h-[120px]
-          shadow-md transition-transform duration-300 ease-in-out
-          hover:scale-105 hover:shadow-lg
-        "
+                className="flex items-center justify-center bg-[#d9d9d9] rounded-[20px] w-full max-w-[220px] sm:w-[220px] h-[90px] sm:h-[120px] shadow-md transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
               >
-                <img
-                  className="w-[140px] h-[70px] object-contain"
-                  alt={partner.alt}
-                  src={partner.src}
-                />
+                <img className="w-[120px] h-[60px] sm:w-[140px] sm:h-[70px] object-contain" alt={partner.alt} src={partner.src} />
               </div>
             ))}
           </div>
 
           {/* Bottom row (2 logos, centered) */}
-          <div className="flex justify-center gap-12 pt-12 mb-16">
+          <div className="flex flex-wrap justify-center gap-6 pt-8 mb-16">
             {logisticsPartners.slice(3).map((partner, index) => (
-              <div
-                key={index}
-                className="
-          flex items-center justify-center 
-          bg-[#d9d9d9] rounded-[20px]
-          w-[220px] h-[120px]
-          shadow-md transition-transform duration-300 ease-in-out
-          hover:scale-105 hover:shadow-lg
-        "
-              >
-                <img
-                  className="w-[140px] h-[70px] object-contain"
-                  alt={partner.alt}
-                  src={partner.src}
-                />
+              <div key={index} className="flex items-center justify-center bg-[#d9d9d9] rounded-[20px] w-full max-w-[220px] sm:w-[220px] h-[90px] sm:h-[120px] shadow-md transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+                <img className="w-[120px] h-[60px] sm:w-[140px] sm:h-[70px] object-contain" alt={partner.alt} src={partner.src} />
               </div>
             ))}
           </div>
