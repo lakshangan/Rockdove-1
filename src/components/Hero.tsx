@@ -2,12 +2,49 @@ import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader, GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+// @ts-ignore
+import CLOUDS from "./vanta/vanta.clouds.js";
+
 declare const gsap: any;
 
 export const Hero: React.FC = () => {
   const threeJsContainerRef = useRef<HTMLDivElement>(null);
+  const vantaRef = useRef<HTMLDivElement>(null);
+  const vantaInstanceRef = useRef<any>(null);
   const [isHeroReady, setIsHeroReady] = useState(false);
 
+  const airplaneRef = useRef<THREE.Group | null>(null);
+  const startTimeRef = useRef<number | null>(null);
+  const useGsapRef = useRef<boolean>(false);
+
+  // --- VANTA CLOUDS setup ---
+  useEffect(() => {
+    if (!vantaRef.current) return;
+    // @ts-ignore
+    window.THREE = THREE;
+
+    /* const effect = CLOUDS({
+      el: vantaRef.current,
+      THREE: THREE,
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.0,
+      minWidth: 200.0,
+      skyColor: "#6ec6ff",
+      cloudColor: "#ffffff",
+      speed: 1.4,
+    });
+
+    vantaInstanceRef.current = effect;*/
+
+    return () => {
+      if (vantaInstanceRef.current?.destroy) vantaInstanceRef.current.destroy();
+      vantaInstanceRef.current = null;
+    };
+  }, []);
+
+  // --- THREE.JS setup ---
   useEffect(() => {
     if (!threeJsContainerRef.current) return;
 
@@ -15,9 +52,8 @@ export const Hero: React.FC = () => {
     let isHovered = false;
     const mouse = new THREE.Vector2();
 
-    // === Scene, Camera, Renderer ===
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
+    scene.background = null;
 
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -25,118 +61,162 @@ export const Hero: React.FC = () => {
       0.1,
       100
     );
-    camera.position.set(0, 0, 8);
+    camera.position.set(0, 1.4, 8);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    threeJsContainerRef.current.appendChild(renderer.domElement);
 
-    // === Lighting ===
-    scene.add(new THREE.AmbientLight(0xffffff, 0.6)); // soft ambient base
+    // 🧠 Optimization for mobile: lower pixel ratio
+    const pixelRatio = Math.min(window.devicePixelRatio, 1.8);
+    renderer.setPixelRatio(pixelRatio);
 
-    // Key light (front-right)
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    keyLight.position.set(2, 4, 6);
+    threeJsContainerRef.current!.appendChild(renderer.domElement);
+
+    // --- LIGHTS ---
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+    const keyLight = new THREE.DirectionalLight(0xfff2e5, 1.2);
+    keyLight.position.set(4, 5, 6);
     scene.add(keyLight);
 
-    // Fill light (back-left)
-    const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
-    fillLight.position.set(-4, 2, -3);
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    fillLight.position.set(-3, 2, -4);
     scene.add(fillLight);
 
-    // Top light – adds glow from above
-    const topLight = new THREE.SpotLight(0xffffff, 10, 20, Math.PI / 3, 0.5, 1);
-    topLight.position.set(0, 6, 0);
+    const topLight = new THREE.SpotLight(0xffffff, 6, 25, Math.PI / 3, 0.5, 1);
+    topLight.position.set(0, 7, 2);
     topLight.target.position.set(0, 0, 0);
     scene.add(topLight);
     scene.add(topLight.target);
 
-    // Bottom light – adds a nice reflective brightness from below
-    const bottomLight = new THREE.PointLight(0x80ffff, 10, 15);
-    bottomLight.position.set(0, -4, 0);
+    const bottomLight = new THREE.PointLight(0x88ddff, 6, 18);
+    bottomLight.position.set(0, -5, 0);
     scene.add(bottomLight);
 
-    // Optional subtle rim light from behind for cinematic feel
-    const rimLight = new THREE.DirectionalLight(0x99ccff, 0.5);
-    rimLight.position.set(0, 0, -6);
-    scene.add(rimLight);
+    const domeLight1 = new THREE.PointLight(0x66ccff, 4, 15);
+    domeLight1.position.set(3, -4, 2);
+    scene.add(domeLight1);
 
-    // === Controls ===
+    const domeLight2 = new THREE.PointLight(0x66ccff, 4, 15);
+    domeLight2.position.set(-3, -4, -2);
+    scene.add(domeLight2);
+
+    const hemiLight = new THREE.HemisphereLight(0x87ceeb, 0xffffff, 0.8);
+    hemiLight.position.set(0, 5, 0);
+    scene.add(hemiLight);
+
+    // --- CONTROLS ---
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.enableZoom = false;
     controls.enablePan = false;
-    controls.maxAzimuthAngle = Math.PI / 10;
-    controls.minAzimuthAngle = -Math.PI / 10;
-    controls.minPolarAngle = Math.PI / 2.15;
-    controls.maxPolarAngle = Math.PI / 2.2;
+    controls.enableRotate = true;
+    controls.minPolarAngle = 0;
+    controls.maxPolarAngle = Math.PI;
 
     const raycaster = new THREE.Raycaster();
     const loader = new GLTFLoader();
 
-    // === Load model ===
+    useGsapRef.current = typeof gsap !== "undefined" && gsap != null;
+
+    // --- LOAD AIRPLANE MODEL ---
     loader.load(
-      "/heroflight.glb",
+      "/flymodel.glb",
       (gltf: GLTF) => {
         airplaneGroup = gltf.scene;
-        airplaneGroup.scale.set(0.25, 0.25, 0.25);
-        airplaneGroup.position.set(0, -0.1, 0); // ✅ plane above heading now
 
+        // ✈️ Dynamic scaling based on screen width
+        const screenWidth = window.innerWidth;
+        let scaleValue = 0.25;
+        if (screenWidth < 480) scaleValue = 0.12; // phones
+        else if (screenWidth < 768) scaleValue = 0.18; // tablets
+        else if (screenWidth < 1024) scaleValue = 0.22; // small laptops
+
+        airplaneGroup.scale.set(scaleValue, scaleValue, scaleValue);
+        airplaneGroup.position.set(0, 0.8, 0);
+
+        // make materials solid and realistic
         airplaneGroup.traverse((child: THREE.Object3D) => {
           if ((child as THREE.Mesh).isMesh) {
             const mesh = child as THREE.Mesh;
             mesh.castShadow = true;
-            if (mesh.material) {
-              const material = mesh.material;
-              if (Array.isArray(material)) {
-                mesh.material = material.map((mat) => {
-                  const m = mat.clone();
-                  m.transparent = true;
-                  m.opacity = 1;
-                  return m;
-                });
-              } else {
-                const m = material.clone();
-                m.transparent = true;
-                m.opacity = 1;
-                mesh.material = m;
-              }
+            mesh.receiveShadow = true;
+
+            let mat: THREE.MeshStandardMaterial;
+            if ((mesh.material as any).isMaterial) {
+              const base = mesh.material as THREE.MeshStandardMaterial;
+              mat = base.clone();
+            } else {
+              mat = new THREE.MeshStandardMaterial();
             }
-            mesh.userData.originalPos = mesh.position.clone();
+
+            mat.transparent = false;
+            mat.opacity = 1;
+            mat.metalness = 0.3;
+            mat.roughness = 0.4;
+            mat.envMapIntensity = 0;
+
+            mesh.material = mat;
+            (mesh as any).userData.originalPos = mesh.position.clone();
           }
         });
 
         scene.add(airplaneGroup);
+        airplaneRef.current = airplaneGroup;
         setIsHeroReady(true);
+
+        if (useGsapRef.current) {
+          gsap.to(airplaneGroup.position, {
+            y: airplaneGroup.position.y + 0.28,
+            duration: 2.5,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+          });
+          gsap.to(airplaneGroup.rotation, {
+            z: "+=0.05",
+            x: "+=0.02",
+            duration: 3,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+          });
+          gsap.to(airplaneGroup.position, {
+            z: airplaneGroup.position.z - 0.35,
+            duration: 4,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+          });
+        } else {
+          startTimeRef.current = performance.now();
+        }
       },
       undefined,
-      () => {
-        console.error("Model failed to load");
+      (err) => {
+        console.error("Model failed to load:", err);
         setTimeout(() => setIsHeroReady(true), 500);
       }
     );
 
-    // === Hover animation ===
+    // --- HOVER SEPARATION ---
     function animateParts(expand: boolean) {
-      if (!airplaneGroup || typeof gsap === "undefined") return;
-      const spreadFactor = 2;
-
-      airplaneGroup.traverse((child: THREE.Object3D) => {
+      if (!airplaneRef.current || typeof gsap === "undefined") return;
+      const spread = 2;
+      airplaneRef.current.traverse((child: THREE.Object3D) => {
         if ((child as THREE.Mesh).isMesh) {
           const mesh = child as THREE.Mesh;
-          const original = mesh.userData.originalPos;
+          const original = (mesh as any).userData?.originalPos;
           if (!original) return;
-
           gsap.to(mesh.position, {
             x: expand
-              ? original.x + (Math.random() - 0.5) * spreadFactor
+              ? original.x + (Math.random() - 0.5) * spread
               : original.x,
             y: expand
-              ? original.y + (Math.random() - 0.5) * spreadFactor * 0.5
+              ? original.y + (Math.random() - 0.5) * spread * 0.5
               : original.y,
             z: expand
-              ? original.z + (Math.random() - 0.5) * spreadFactor
+              ? original.z + (Math.random() - 0.5) * spread
               : original.z,
             duration: 1.5,
             ease: "power3.out",
@@ -145,30 +225,43 @@ export const Hero: React.FC = () => {
       });
     }
 
-    const onMouseMove = (event: MouseEvent) => {
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    // --- EVENTS ---
+    const mouseMove = (e: MouseEvent) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
     };
+    window.addEventListener("mousemove", mouseMove);
 
-    const onWindowResize = () => {
+    const resize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
+    window.addEventListener("resize", resize);
 
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("resize", onWindowResize);
-
+    // --- ANIMATION LOOP ---
+    let last = performance.now();
     const animate = () => {
-      requestAnimationFrame(animate);
+      const now = performance.now();
+      const dt = (now - last) / 1000;
+      last = now;
 
-      if (airplaneGroup) {
+      if (!useGsapRef.current && airplaneRef.current) {
+        if (startTimeRef.current === null) startTimeRef.current = now;
+        const t = (now - (startTimeRef.current || now)) / 1000;
+        const g = airplaneRef.current;
+        g.position.y = 0.8 + Math.sin(t * 0.6) * 0.14;
+        g.position.z = Math.cos(t * 0.25) * 0.18;
+        g.rotation.x = Math.sin(t * 0.4) * 0.02;
+        g.rotation.z = Math.sin(t * 0.6) * 0.03;
+      }
+
+      if (airplaneRef.current) {
         raycaster.setFromCamera(mouse, camera);
         const intersects = raycaster.intersectObjects(
-          airplaneGroup.children,
+          airplaneRef.current.children,
           true
         );
-
         if (intersects.length > 0 && !isHovered) {
           isHovered = true;
           document.body.style.cursor = "pointer";
@@ -182,42 +275,52 @@ export const Hero: React.FC = () => {
 
       controls.update();
       renderer.render(scene, camera);
+      requestAnimationFrame(animate);
     };
-
     animate();
 
     return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("resize", onWindowResize);
-      renderer.domElement.remove();
+      window.removeEventListener("mousemove", mouseMove);
+      window.removeEventListener("resize", resize);
       renderer.dispose();
+      renderer.domElement.remove();
     };
   }, []);
 
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Background 3D Canvas */}
+      {/* CLOUDS BACKGROUND */}
       <div
-        ref={threeJsContainerRef}
+        ref={vantaRef}
         className="absolute inset-0 w-full h-full z-0"
+        style={{
+          transform: "scaleX(-1)",
+          pointerEvents: "none",
+        }}
       />
 
-      {/* Text Content */}
+      {/* AIRPLANE CANVAS */}
       <div
-        className={`relative z-10 text-center px-6 md:px-12 mt-[350px] transition-opacity duration-1000 ${
+        ref={threeJsContainerRef}
+        className="absolute inset-0 w-full h-full z-10"
+      />
+
+      {/* TEXT */}
+      <div
+        className={`relative z-20 text-center px-4 sm:px-8 md:px-12 mt-[300px] sm:mt-[320px] md:mt-[350px] transition-opacity duration-1000 ${
           isHeroReady ? "opacity-100" : "opacity-0"
         }`}
       >
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">
+        <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">
           Parts, Service and <span className="text-cyan-400">Solution</span>
         </h1>
 
-        <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-8">
-          The one-stop destination for all of your aircraft components and
+        <p className="text-base sm:text-lg md:text-xl text-white max-w-2xl mx-auto mb-8 px-4">
+          The one-stop destination for all your aircraft components and
           servicing for a safe flight.
         </p>
 
-        <button className="px-8 py-3 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-full shadow-lg transition-all duration-300">
+        <button className="px-6 sm:px-8 py-3 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-full shadow-lg transition-all duration-300">
           Know more
         </button>
       </div>

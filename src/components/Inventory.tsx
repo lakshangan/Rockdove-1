@@ -1,26 +1,19 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 
 export const Inventory: React.FC = () => {
   return (
-    <section className="bg-black text-white py-20">
-      {/* Centered container with same side spacing as Features section */}
-      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 px-[5vw]">
+    <section className="bg-black text-white py-2 px-6 sm:px-10 md:px-[178px] font-[Poppins] -mt-20">
+      {/* Centered container with consistent alignment */}
+      <div className="w-full max-w-[1300px] mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-16">
         {/* LEFT SIDE CONTENT */}
-        <motion.div
-          initial={{ opacity: 0, x: -40, y: 150 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="space-y-6"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold font-[Poppins] text-[#5CC6D0]">
+        <div className="space-y-8">
+          <h2 className="text-[50px] md:text-[54px] font-bold leading-[100%] text-[#5CC6D0]">
             Broad Inventory
           </h2>
 
-          <p className="text-base md:text-lg text-gray-300 font-[Poppins] font-medium leading-relaxed max-w-lg">
+          <p className="text-[17px] md:text-[18px] text-gray-300 font-medium leading-relaxed max-w-[550px]">
             Rockdove Aviation's Broad Inventory, with over 500,000 items
             including Rotables, consumables, expendables, tools, and placards,
             ensures rapid access to high-quality aircraft parts for Boeing,
@@ -33,9 +26,8 @@ export const Inventory: React.FC = () => {
               relative overflow-hidden
               bg-gradient-to-b from-[#5CC6D0] to-[#14919B]
               text-white
-              font-[Poppins]
               font-semibold
-              text-base md:text-lg
+              text-lg
               px-8 py-3
               rounded-xl
               transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]
@@ -45,22 +37,16 @@ export const Inventory: React.FC = () => {
           >
             Know more
           </Button>
-        </motion.div>
+        </div>
 
         {/* RIGHT SIDE IMAGE */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="flex justify-center"
-        >
+        <div className="flex justify-center lg:justify-end">
           <img
             src="/RDINVENT.png"
             alt="Broad Inventory Illustration"
-            className="w-full max-w-lg h-auto object-contain transition-transform duration-700 hover:scale-105"
+            className="w-full max-w-[500px] h-auto object-contain transition-transform duration-700 hover:scale-105 lg:translate-x-[-40px]"
           />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

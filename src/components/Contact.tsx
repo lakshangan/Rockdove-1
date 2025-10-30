@@ -6,7 +6,7 @@ import { MascotModel } from "./MascotModel";
 
 export const Contact: React.FC = () => {
   return (
-    <section className="bg-black text-white py-24 md:py-32">
+    <section className="bg-black text-white py-8 md:py-12 -mt-48 ">
       <div
         className="
           max-w-[1280px] mx-auto 
