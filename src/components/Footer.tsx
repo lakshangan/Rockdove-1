@@ -7,16 +7,16 @@ import { Link } from "react-router-dom";
 export const Footer: React.FC = () => {
   return (
     <footer
-      className="w-full h-[400px] text-black font-[Inter] text-[17px] leading-snug"
+      className="w-full text-black font-[Inter] text-[15px] md:text-[17px] leading-snug"
       style={{
         background: "linear-gradient(180deg, #5CC6D0 0%, #3EA3AB 100%)",
         fontWeight: 400,
       }}
     >
       {/* MAIN FOOTER CONTENT */}
-      <div className="max-w-[1400px] mx-auto px-12 py-14 flex flex-col md:flex-row justify-between items-start gap-12">
+  <div className="max-w-[1400px] mx-auto px-4 sm:px-8 md:px-12 py-8 md:py-10 flex flex-col md:flex-row justify-between items-start gap-8 md:gap-10 border-b border-[#3EA3AB]/30">
         {/* LEFT SECTION - LOGO + CERTIFICATIONS */}
-        <div className="flex flex-col gap-5">
+  <div className="flex flex-col gap-3 md:gap-4 items-start min-w-[180px] w-full">
           <Link to="/">
             <img
               src="https://c.animaapp.com/mh6p7bc3N6zmh3/img/rda-black-logo.png"
@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
           </Link>
 
           {/* CERTIFICATION LOGOS */}
-          <div className="flex items-center gap-5">
+          <div className="flex flex-wrap items-center gap-2 md:gap-4 justify-start w-full">
             <img
               src="https://c.animaapp.com/mh6p7bc3N6zmh3/img/download--12--removebg-preview.png"
               alt="NBAA"
@@ -46,11 +46,11 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* SERVICES SECTION */}
-        <div>
-          <h3 className="font-[Poppins] font-semibold text-[18px] mb-3">
+  <div className="mt-8 md:mt-0 min-w-[140px] w-full flex flex-col items-start">
+          <h3 className="font-[Poppins] font-semibold text-[15px] md:text-[17px] mb-2 text-left">
             Services
           </h3>
-          <ul className="space-y-1">
+          <ul className="space-y-1 text-left w-full">
             <li>
               <Link
                 to="/asset-management"
@@ -80,18 +80,18 @@ export const Footer: React.FC = () => {
           {/* RFQ Button */}
           <Link
             to="/rfq"
-            className="inline-block mt-4 px-4 py-1.5 rounded-full bg-white text-black text-[15px] font-[Poppins] font-medium shadow-sm hover:bg-gray-100 transition"
+            className="inline-block mt-3 px-4 py-1.5 rounded-full bg-white text-black text-[13px] md:text-[14px] font-[Poppins] font-medium shadow-sm hover:bg-gray-100 transition"
           >
             RFQ
           </Link>
         </div>
 
         {/* COMPANY SECTION */}
-        <div>
-          <h3 className="font-[Poppins] font-semibold text-[18px] mb-3">
+  <div className="mt-8 md:mt-0 min-w-[140px] w-full flex flex-col items-start">
+          <h3 className="font-[Poppins] font-semibold text-[15px] md:text-[17px] mb-2 text-left">
             The Company
           </h3>
-          <ul className="space-y-1">
+          <ul className="space-y-1 text-left w-full">
             <li>
               <Link
                 to="/the-story"
@@ -128,7 +128,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* CONTACT SECTION */}
-        <div className="flex flex-col gap-3 text-[16px] leading-relaxed">
+  <div className="flex flex-col gap-2 md:gap-3 text-[13px] md:text-[15px] leading-relaxed mt-8 md:mt-0 min-w-[180px] w-full items-start">
           <div className="flex items-start gap-3">
             <img src="/building.png" alt="Address" className="w-5 h-5 mt-1" />
             <p>
@@ -164,7 +164,7 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* BOTTOM BAR */}
-      <div className="flex flex-col md:flex-row justify-between items-center px-12 pb-6 text-[15px] text-black">
+  <div className="flex flex-col md:flex-row justify-between items-center md:items-start px-4 sm:px-8 md:px-12 py-3 md:py-4 text-[12px] md:text-[14px] text-black gap-2 md:gap-0 text-left">
         <p>Copyright © 2025 | All Rights Reserved</p>
 
         {/* SOCIALS */}
