@@ -122,16 +122,16 @@ const RepairManagementPage = () => {
         <ContainerScroll
           titleComponent={
             <>
-              <h1 className="text-4xl font-semibold text-white">
-                Comprehensive Repair Management for <br />
-                <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
+              <h1 className="text-3xl md:text-4xl font-semibold text-white leading-snug text-center md:text-left">
+                Comprehensive Repair Management for <br className="hidden md:block" />
+                <span className="text-3xl md:text-[6rem] font-bold mt-1 leading-none block">
                   Unmatched Aircraft Reliability
                 </span>
               </h1>
             </>
           }
         >
-          <div className="py-20 px-8">
+          <div className="py-12 md:py-20 px-6 sm:px-8 md:px-8">
             <div className="max-w-6xl mx-auto relative rounded-2xl border border-white/[0.2]">
               <GlowEffect />
               <div className="relative z-10 bg-black rounded-2xl">
@@ -139,7 +139,7 @@ const RepairManagementPage = () => {
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="grid md:grid-cols-4 gap-8 p-4"
+                  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 p-4"
                 >
                   {serviceSteps.map((step, index) => (
                     <motion.div
@@ -152,11 +152,13 @@ const RepairManagementPage = () => {
                       )}
                     >
                       <ServiceStepCard>
-                        <div className="flex flex-col p-4 h-full">
-                          <h3 className="text-xl font-semibold mb-2">
+                        <div className="flex flex-col p-4 h-full text-center md:text-left">
+                          <h3 className="text-lg md:text-xl font-semibold mb-2">
                             {step.title}
                           </h3>
-                          <p className="text-gray-400">{step.description}</p>
+                          <p className="text-gray-400 text-sm md:text-base">
+                            {step.description}
+                          </p>
                         </div>
                       </ServiceStepCard>
                     </motion.div>
@@ -168,44 +170,38 @@ const RepairManagementPage = () => {
         </ContainerScroll>
 
         {/* Partnerships Section */}
-        <section className="relative px-[149px] py-[93px]">
-          <div className="text-center mb-[94px] translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms]">
-            <h2 className="[font-family:'Poppins',Helvetica] font-bold text-white text-[32px] mb-6">
+        <section className="relative px-6 sm:px-10 md:px-[149px] py-12 md:py-[93px]">
+          <div className="text-center mb-10 md:mb-[94px]">
+            <h2 className="font-[Poppins] font-bold text-white text-2xl md:text-[32px] mb-4">
               Powered by Industry-Leading Partnerships
             </h2>
-            <p className="[font-family:'Poppins',Helvetica] font-medium text-white text-2xl">
-              Our alliances with top providers enhance our repair capabilities,
-              <br />
+            <p className="font-[Poppins] font-medium text-gray-300 text-base md:text-2xl leading-relaxed">
+              Our alliances with top providers enhance our repair capabilities, <br className="hidden md:block" />
               delivering reliable, efficient, and innovative solutions
             </p>
           </div>
 
-          <div className="grid grid-cols-4 gap-[18px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-[18px]">
             {partnerCards.map((partner, index) => (
               <Card
                 key={index}
-                className="group relative bg-[#d9d9d9] rounded-[20px] border-none cursor-pointer transition-all duration-300 hover:-translate-y-2 overflow-hidden h-[403px] before:content-[''] before:absolute before:inset-0 before:p-px before:rounded-[20px] before:[background:linear-gradient(180deg,rgba(92,198,208,1)_0%,rgba(47,101,106,1)_100%)] before:[-webkit-mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] before:[-webkit-mask-composite:xor] before:[mask-composite:exclude] before:z-[1] before:pointer-events-none translate-y-[-1rem] animate-fade-in opacity-0"
-                style={
-                  {
-                    "--animation-delay": `${400 + index * 100}ms`,
-                  } as React.CSSProperties
-                }
+                className="group relative bg-[#d9d9d9] rounded-[20px] border-none cursor-pointer transition-all duration-300 hover:-translate-y-2 overflow-hidden h-[340px] md:h-[403px]"
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[#0097A1] transition-opacity duration-500 rounded-[20px]"></div>
-                <CardContent className="relative z-10 flex flex-col items-center justify-between h-full p-6">
+                <CardContent className="relative z-10 flex flex-col items-center justify-between h-full p-6 text-center">
                   <div className="flex-1 flex items-center justify-center">
                     <img
-                      className={`${partner.logoClass} object-cover`}
+                      className={`${partner.logoClass} object-contain`}
                       alt={partner.title}
                       src={partner.logo}
                     />
                   </div>
-                  <div className="text-center">
-                    <h3 className="[font-family:'Poppins',Helvetica] font-bold text-black text-xl mb-3 whitespace-pre-line transition-colors duration-300 group-hover:text-white">
+                  <div>
+                    <h3 className="font-[Poppins] font-bold text-black text-lg md:text-xl mb-3 transition-colors duration-300 group-hover:text-white">
                       {partner.title}
                     </h3>
                     <div className="w-6 h-0.5 bg-black mx-auto mb-3 transition-colors duration-300 group-hover:bg-white" />
-                    <p className="[font-family:'Poppins',Helvetica] font-medium text-black text-base transition-colors duration-300 group-hover:text-white">
+                    <p className="font-[Poppins] font-medium text-black text-sm md:text-base transition-colors duration-300 group-hover:text-white">
                       {partner.description}
                     </p>
                   </div>
@@ -218,85 +214,88 @@ const RepairManagementPage = () => {
         {/* Scroll animation section */}
         <section
           ref={sectionRef}
-          className="relative min-h-[230vh] bg-black text-white flex flex-col items-center justify-start py-24 font-[Poppins]"
+          className="relative min-h-[230vh] bg-black text-white flex flex-col items-center justify-start py-16 md:py-24 font-[Poppins]"
         >
-          <h2 className="text-[48px] font-semibold text-center text-white mb-32">
+          <h2 className="text-3xl md:text-[48px] font-semibold text-center text-white mb-20 md:mb-32 px-4">
             Fly safe with parts you <span className="text-[#5CC6D0]">trust.</span>
           </h2>
 
+          {/* Lines & Plane */}
           <div
             ref={whiteLineRef}
-            className="absolute top-[280px] left-1/2 w-[10px] h-[900px] bg-white rounded-full -translate-x-1/2"
+            className="absolute top-[280px] left-1/2 w-[6px] md:w-[10px] h-[900px] bg-white rounded-full -translate-x-1/2"
           ></div>
 
           <div
             ref={blueLineRef}
-            className="absolute top-[280px] left-1/2 w-[10px] h-[900px] bg-[#5CC6D0] rounded-full -translate-x-1/2 scale-y-0"
+            className="absolute top-[280px] left-1/2 w-[6px] md:w-[10px] h-[900px] bg-[#5CC6D0] rounded-full -translate-x-1/2 scale-y-0"
           ></div>
 
           <img
             ref={planeRef}
             src="/sliderplane.png"
             alt="Plane"
-            className="absolute top-[250px] left-1/2 w-[120px] h-[120px] -translate-x-1/2"
+            className="absolute top-[250px] left-1/2 w-[70px] h-[70px] md:w-[120px] md:h-[120px] -translate-x-1/2"
           />
 
           {/* Zigzag features */}
-          <div className="mt-[-100px] flex flex-col gap-[120px] w-full max-w-[1200px]">
-            <div className="feature-block flex justify-start ml-[5vw] mt-[20vh]">
-              <div className="max-w-[440px] text-left space-y-3">
-                <div className="text-[#5CC6D0] font-bold text-[40px]">01</div>
-                <h3 className="text-[32px] font-medium">Quality we follow</h3>
-                <p className="text-[16px] text-gray-300 leading-[160%]">
-                  RDA ensures top-quality products and on-time support, backed by ISO 9001:2015
-                  compliance, ASA, and NBAA memberships.
-                </p>
+          <div className="mt-[-60px] md:mt-[-100px] flex flex-col gap-[100px] md:gap-[120px] w-full max-w-[1200px] px-4">
+            {[
+              {
+                id: '01',
+                title: 'Quality we follow',
+                desc: 'RDA ensures top-quality products and on-time support, backed by ISO 9001:2015 compliance, ASA, and NBAA memberships.',
+                align: 'left',
+              },
+              {
+                id: '02',
+                title: 'Logistics',
+                desc: 'Our team ensures timely global delivery of aircraft parts, partnering with trusted providers like DHL, FedEx, UPS, and TWI.',
+                align: 'right',
+              },
+              {
+                id: '03',
+                title: 'From OEM to Customer',
+                desc: 'A trusted distributor of aerospace tools and placards, RDA guarantees quality and reliability for every order.',
+                align: 'left',
+              },
+              {
+                id: '04',
+                title: 'Accreditation',
+                desc: 'Partnerships with SAT, Logisky, Shanghai Junxun Aviation, and JS-Tooling elevate our repair, tooling, and distribution services.',
+                align: 'right',
+              },
+            ].map((feature, i) => (
+              <div
+                key={i}
+                className={`feature-block flex ${
+                  feature.align === 'right' ? 'justify-end text-right' : 'justify-start text-left'
+                }`}
+              >
+                <div className="max-w-[440px] space-y-3">
+                  <div className="text-[#5CC6D0] font-bold text-[32px] md:text-[40px]">
+                    {feature.id}
+                  </div>
+                  <h3 className="text-[24px] md:text-[32px] font-medium">
+                    {feature.title}
+                  </h3>
+                  <p className="text-[15px] md:text-[16px] text-gray-300 leading-[160%]">
+                    {feature.desc}
+                  </p>
+                </div>
               </div>
-            </div>
-
-            <div className="feature-block flex justify-end">
-              <div className="max-w-[440px] mr-[4vw] mt-[-15vh] text-right space-y-3">
-                <div className="text-[#5CC6D0] font-bold text-[40px]">02</div>
-                <h3 className="text-[32px] font-medium">Logistics</h3>
-                <p className="text-[16px] text-gray-300 leading-[160%]">
-                  Our team ensures timely global delivery of aircraft parts, partnering with trusted
-                  providers like DHL, FedEx, UPS, and TWI.
-                </p>
-              </div>
-            </div>
-
-            <div className="feature-block flex justify-start">
-              <div className="max-w-[440px] ml-[5vw] mt-[-10vh] text-left space-y-3">
-                <div className="text-[#5CC6D0] font-bold text-[40px]">03</div>
-                <h3 className="text-[32px] font-medium">From OEM to Customer</h3>
-                <p className="text-[16px] text-gray-300 leading-[160%]">
-                  A trusted distributor of aerospace tools and placards, RDA guarantees quality and
-                  reliability for every order.
-                </p>
-              </div>
-            </div>
-
-            <div className="feature-block flex justify-end">
-              <div className="max-w-[440px] mr-[4vw] mt-[-15vh] text-right space-y-3">
-                <div className="text-[#5CC6D0] font-bold text-[40px]">04</div>
-                <h3 className="text-[32px] font-medium">Accreditation</h3>
-                <p className="text-[16px] text-gray-300 leading-[160%]">
-                  Partnerships with SAT, Logisky, Shanghai Junxun Aviation, and JS-Tooling elevate
-                  our repair, tooling, and distribution services.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-8 text-center">
+        <section className="py-16 md:py-20 px-6 text-center">
           <div className="max-w-2xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-4xl font-bold mb-4"
+              className="text-3xl md:text-4xl font-bold mb-4"
             >
               Elevate Your Aircraft Maintenance Today
             </motion.h2>
@@ -305,7 +304,7 @@ const RepairManagementPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Button className="bg-blue-600 text-white px-8 py-4 text-lg font-semibold hover:bg-blue-700">
+              <Button className="bg-blue-600 text-white px-8 py-4 text-base md:text-lg font-semibold hover:bg-blue-700">
                 Schedule a Repair Consultation
               </Button>
             </motion.div>
