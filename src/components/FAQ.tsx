@@ -36,7 +36,12 @@ export const FAQ: React.FC = () => {
   };
 
   return (
-    <section className="bg-black text-white py-20 -mt-24">
+    <section
+      className="
+        bg-black text-white py-20 -mt-24 
+        sm:pb-20 pb-32    /* extra bottom padding for mobile */
+      "
+    >
       {/* Container with same width & side gaps as other sections */}
       <div className="w-full max-w-[1200px] mx-auto grid md:grid-cols-2 gap-12 md:gap-20 px-[5vw] items-start">
         {/* Left Section (vertical offset) */}
@@ -48,7 +53,7 @@ export const FAQ: React.FC = () => {
             ease: [0.25, 0.1, 0.25, 1],
           }}
           viewport={{ once: true }}
-          className="space-y-4 mt-10 md:mt-16" // vertical offset
+          className="space-y-4 mt-10 md:mt-16"
         >
           <h2 className="text-4xl md:text-5xl font-semibold font-[Poppins]">
             FAQS

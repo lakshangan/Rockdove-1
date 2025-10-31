@@ -125,11 +125,12 @@ export const Hero: React.FC = () => {
       (gltf: GLTF) => {
         airplaneGroup = gltf.scene;
 
-        // ✈️ Dynamic scaling based on screen width
+        // ✈️ Dynamic scaling based on screen width (adjusted for mobile)
         const screenWidth = window.innerWidth;
-        let scaleValue = 0.25;
-        if (screenWidth < 480) scaleValue = 0.12; // phones
-        else if (screenWidth < 768) scaleValue = 0.18; // tablets
+        let scaleValue = 0.25; // default desktop size
+
+        if (screenWidth < 480) scaleValue = 0.08; // smaller for phones
+        else if (screenWidth < 768) scaleValue = 0.14; // slightly smaller for tablets
         else if (screenWidth < 1024) scaleValue = 0.22; // small laptops
 
         airplaneGroup.scale.set(scaleValue, scaleValue, scaleValue);
