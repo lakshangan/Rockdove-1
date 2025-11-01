@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -17,7 +17,7 @@ const Features: React.FC = () => {
 
     if (!section || !plane || !blueLine) return;
 
-    // Scroll animation
+    // Scroll animation for plane and blue line growth
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
@@ -26,10 +26,11 @@ const Features: React.FC = () => {
         scrub: 1,
       },
     });
+
     // Plane movement along the line
     tl.fromTo(plane, { y: 0 }, { y: 900, ease: "none" }, 0);
 
-    // Line color progress (white to cyan as plane moves)
+    // Line growth animation
     tl.fromTo(
       blueLine,
       { scaleY: 0 },
@@ -37,7 +38,7 @@ const Features: React.FC = () => {
       0
     );
 
-    // Fade-in animations for text blocks
+    // Fade-in animations for text blocks on scroll
     const texts = gsap.utils.toArray<HTMLElement>(".feature-block");
     texts.forEach((text) => {
       gsap.fromTo(
@@ -46,12 +47,12 @@ const Features: React.FC = () => {
         {
           opacity: 1,
           y: 0,
-          duration: 1.2,
+          duration: 1,
           ease: "power3.out",
           scrollTrigger: {
             trigger: text,
             start: "top 80%",
-            toggleActions: "play none none none", // only once
+            toggleActions: "play none none none",
           },
         }
       );
@@ -68,27 +69,28 @@ const Features: React.FC = () => {
         Fly safe with parts you <span className="text-[#5CC6D0]">trust.</span>
       </h2>
 
-      {/* Vertical Lines */}
+      {/* Static White Line */}
       <div
         ref={whiteLineRef}
         className="absolute top-[280px] left-1/2 w-[10px] h-[900px] bg-white rounded-full -translate-x-1/2"
       ></div>
 
+      {/* Glowing Cyan Line (grows + glows continuously) */}
       <div
         ref={blueLineRef}
-        className="absolute top-[280px] left-1/2 w-[10px] h-[900px] bg-[#5CC6D0] rounded-full -translate-x-1/2 scale-y-0"
+        className="absolute top-[280px] left-1/2 w-[10px] h-[900px] bg-[#5CC6D0] rounded-full -translate-x-1/2 scale-y-0 glow-line"
       ></div>
 
-      {/* Plane */}
+      {/* Plane (scrolls with GSAP) */}
       <img
         ref={planeRef}
         src="/sliderplane.png"
         alt="Plane"
-        className="absolute top-[250px] left-1/2 w-[120px] h-[120px] rotate-0 -translate-x-1/2"
+        className="absolute top-[250px] left-1/2 w-[120px] h-[120px] -translate-x-1/2"
       />
 
-      {/* Zigzag Feature Blocks */}
-      <div className="mt-[-100px]  flex flex-col gap-[120px] w-full max-w-[1200px]">
+      {/* Feature Blocks */}
+      <div className="mt-[-100px] flex flex-col gap-[120px] w-full max-w-[1200px]">
         {/* 01 - Left */}
         <div className="feature-block flex justify-start ml-[5vw] mt-[20vh]">
           <div className="max-w-[440px] text-left space-y-3">
@@ -98,7 +100,7 @@ const Features: React.FC = () => {
             <h3 className="text-[32px] font-medium leading-[110%]">
               Quality we follow
             </h3>
-            <p className="text-[16px] font-normal text-gray-300 leading-[160%] tracking-wide">
+            <p className="text-[16px] text-gray-300 leading-[160%] tracking-wide">
               RDA ensures top-quality products and on-time support, backed by
               ISO 9001:2015 compliance, ASA, and NBAA memberships. Regular
               audits reflect our commitment to being the premier aviation
@@ -109,14 +111,12 @@ const Features: React.FC = () => {
 
         {/* 02 - Right */}
         <div className="feature-block flex justify-end">
-          <div className="max-w-[440px] mr-[100px] mr-[4vw] mt-[-15vh]  text-right space-y-3">
+          <div className="max-w-[440px] mr-[4vw] mt-[-15vh] text-right space-y-3">
             <div className="text-[#5CC6D0] font-bold text-[40px] leading-[100%]">
               02
             </div>
-            <h3 className="text-[32px] font-medium leading-[110%]">
-              Logistics
-            </h3>
-            <p className="text-[16px] font-normal text-gray-300 leading-[160%] tracking-wide">
+            <h3 className="text-[32px] font-medium leading-[110%]">Logistics</h3>
+            <p className="text-[16px] text-gray-300 leading-[160%] tracking-wide">
               Our team ensures timely global delivery of aircraft parts,
               partnering with trusted providers like DHL, FedEx, UPS, and TWI.
               We collaborate with private air, sea, and freight forwarders for
@@ -127,14 +127,14 @@ const Features: React.FC = () => {
 
         {/* 03 - Left */}
         <div className="feature-block flex justify-start">
-          <div className="max-w-[440px]  ml-[5vw] mt-[-10vh] text-left space-y-3">
+          <div className="max-w-[440px] ml-[5vw] mt-[-10vh] text-left space-y-3">
             <div className="text-[#5CC6D0] font-bold text-[40px] leading-[100%]">
               03
             </div>
             <h3 className="text-[32px] font-medium leading-[110%]">
               From OEM to Customer
             </h3>
-            <p className="text-[16px] font-normal text-gray-300 leading-[160%] tracking-wide">
+            <p className="text-[16px] text-gray-300 leading-[160%] tracking-wide">
               A trusted distributor of aerospace tools and placards, RDA
               specializes in aircraft parts for the Asia-Pacific, Middle East,
               and Africa. As an official OEM distributor, we guarantee quality
@@ -145,14 +145,14 @@ const Features: React.FC = () => {
 
         {/* 04 - Right */}
         <div className="feature-block flex justify-end">
-          <div className="max-w-[440px] mr-[100px] mr-[4vw] mt-[-15vh] text-right space-y-3">
+          <div className="max-w-[440px] mr-[4vw] mt-[-15vh] text-right space-y-3">
             <div className="text-[#5CC6D0] font-bold text-[40px] leading-[100%]">
               04
             </div>
             <h3 className="text-[32px] font-medium leading-[110%]">
               Accreditation
             </h3>
-            <p className="text-[16px] font-normal text-gray-300 leading-[160%] tracking-wide">
+            <p className="text-[16px] text-gray-300 leading-[160%] tracking-wide">
               Partnerships with SAT, Logisky, Shanghai Junuun Aviation, and
               JS-Tooling elevate our repair, tooling, and distribution services.
               We ensure fast turnaround, high precision, and unmatched service

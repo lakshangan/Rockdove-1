@@ -46,3 +46,18 @@
 /* Fade in app content */
 #root { opacity: 0; transition: opacity 1s ease; }
 body.loaded #root { opacity: 1; }
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 10px #5CC6D0, 0 0 20px #5CC6D0, 0 0 30px #5CC6D0;
+  }
+  50% {
+    box-shadow: 0 0 25px #5CC6D0, 0 0 45px #5CC6D0, 0 0 60px #5CC6D0;
+  }
+  100% {
+    box-shadow: 0 0 10px #5CC6D0, 0 0 20px #5CC6D0, 0 0 30px #5CC6D0;
+  }
+}
+
+.glow-line {
+  animation: glowPulse 2s ease-in-out infinite;
+}
