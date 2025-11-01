@@ -1,23 +1,24 @@
-import React, { useState, Suspense, lazy } from "react";
+import React, { useState, Suspense, lazy, useEffect, useRef } from "react";
 import { PageLayout } from "../components/PageLayout";
 import { Button } from "../components/ui/button";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 const Spline = lazy(() => import("@splinetool/react-spline"));
+gsap.registerPlugin(ScrollTrigger);
 
 const advantages = [
   {
     title: "Advantage 1",
     description: "Always-on team for global, time-sensitive needs.",
-    gradient: true,
   },
   {
     title: "Advantage 2",
     description: "Reduces expenses by addressing urgent issues efficiently.",
-    gradient: false,
   },
   {
     title: "Advantage 3",
     description: "Certified quality and innovation for trusted performance.",
-    gradient: false,
   },
 ];
 
@@ -67,6 +68,8 @@ const logisticsPartners = [
 
 const AOGSupport: React.FC = () => {
   const [showHeading, setShowHeading] = useState(false);
+  const heroRef = useRef<HTMLDivElement | null>(null);
+  const splineRef = useRef<HTMLDivElement | null>(null);
 
   const handleSplineLoad = () => {
     setTimeout(() => {
@@ -74,15 +77,41 @@ const AOGSupport: React.FC = () => {
     }, 1000);
   };
 
+  useEffect(() => {
+    if (heroRef.current && splineRef.current) {
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          splineRef.current,
+          { y: 80, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 2,
+            scrollTrigger: {
+              trigger: heroRef.current,
+              start: "top 90%",
+              end: "bottom 30%",
+              scrub: true,
+            },
+          }
+        );
+      }, heroRef);
+      return () => ctx.revert();
+    }
+  }, []);
+
   return (
     <PageLayout>
       <div className="bg-black text-white overflow-x-hidden">
         {/* ====================== HERO SECTION ====================== */}
-        <section className="relative w-full h-screen">
+        <section
+          ref={heroRef}
+          className="relative w-full h-screen flex flex-col justify-center items-center overflow-hidden"
+        >
           {/* Background Glow */}
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
-            style={{ width: "50vw", height: "50vh" }}
+            style={{ width: "55vw", height: "55vh" }}
           >
             <div
               className="w-full h-full rounded-full bg-[#5cc6d0] opacity-30"
@@ -90,12 +119,21 @@ const AOGSupport: React.FC = () => {
             ></div>
           </div>
 
-          {/* 3D Plane */}
+          {/* 3D Spline Scene */}
           <div
-            className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
-            style={{ transform: "translateY(-50px)" }}
+            ref={splineRef}
+            className="
+              absolute inset-0 z-10 flex items-center justify-center pointer-events-none
+              transform -translate-y-10
+            "
           >
-            <div className="relative w-full h-full sm:w-[80vw] sm:h-[80vh] md:w-[70vw] md:h-[70vh] lg:w-[50vw] lg:h-[60vh]">
+            <div
+              className="
+                relative flex justify-center items-center
+                w-[120vw] sm:w-[140vw] md:w-[160vw] lg:w-[180vw] xl:w-[200vw]
+                h-[55vh] sm:h-[65vh] md:h-[75vh]
+              "
+            >
               <Suspense
                 fallback={
                   <div className="flex items-center justify-center text-gray-400 text-sm h-full">
@@ -106,9 +144,9 @@ const AOGSupport: React.FC = () => {
                 <Spline
                   scene="https://prod.spline.design/sha7cJ5NS-EhRcKr/scene.splinecode"
                   onLoad={handleSplineLoad}
+                  className="spline-canvas"
                 />
               </Suspense>
-              <div className="absolute bottom-0 right-0 w-24 h-12 bg-black"></div>
             </div>
           </div>
 
@@ -116,8 +154,7 @@ const AOGSupport: React.FC = () => {
           <div
             className={`absolute inset-0 flex items-start justify-center pt-24 sm:pt-32 md:pt-40 z-20 transition-opacity duration-1000 ${
               showHeading ? "opacity-100" : "opacity-0"
-            }`}
-            style={{ transform: "translateY(-70px)" }}
+            } transform -translate-y-16`}
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center px-4">
               <span className="text-[#5cc6d0]">24/7 AOG Support </span>
@@ -125,7 +162,7 @@ const AOGSupport: React.FC = () => {
             </h1>
           </div>
 
-          {/* Animated Paragraph and Button */}
+          {/* Paragraph + Button */}
           <div
             className={`absolute bottom-10 left-0 right-0 flex flex-col items-center z-20 transition-opacity duration-1000 ${
               showHeading ? "opacity-100" : "opacity-0"
@@ -137,7 +174,7 @@ const AOGSupport: React.FC = () => {
             >
               Our priority service ensures parts are ready for pickup in 60–90
               minutes, delivering fast, cost-effective solutions to minimize
-              downtime during Aircraft-on-Ground emergencies.
+              downtime during Aircraft-on-Ground emergencies
             </p>
             <Button
               className="shadow-lg w-full sm:w-auto"
@@ -157,6 +194,25 @@ const AOGSupport: React.FC = () => {
               Request AOG Assistance Now
             </Button>
           </div>
+
+          {/* Mobile Fix for 3D Model */}
+          <style>
+            {`
+              @media (max-width: 768px) {
+                .spline-canvas canvas {
+                  transform: scale(1.4) translateY(25px);
+                  transform-origin: center;
+                }
+              }
+
+              @media (max-width: 480px) {
+                .spline-canvas canvas {
+                  transform: scale(1.55) translateY(30px);
+                  transform-origin: center;
+                }
+              }
+            `}
+          </style>
         </section>
 
         {/* ====================== ADVANTAGES SECTION ====================== */}
@@ -187,22 +243,12 @@ const AOGSupport: React.FC = () => {
 
         {/* ====================== RAPID RESPONSE SECTION ====================== */}
         <section className="flex flex-col items-center px-4 sm:px-8 md:px-16 lg:px-24 pt-24 pb-32 text-center">
-          <h2
-            className="max-w-2xl font-bold text-3xl md:text-4xl mb-14"
-            style={{ fontFamily: "Poppins, sans-serif", lineHeight: "1.4" }}
-          >
+          <h2 className="max-w-2xl font-bold text-3xl md:text-4xl mb-14">
             <span className="text-white">Rapid Response: </span>
             <span className="text-[#5cc6d0]">From Request to Resolution</span>
           </h2>
 
-          <p
-            className="max-w-3xl text-lg md:text-xl text-white mb-24"
-            style={{
-              fontFamily: "Poppins, sans-serif",
-              lineHeight: "1.8",
-              color: "#E5E5E5",
-            }}
-          >
+          <p className="max-w-3xl text-lg md:text-xl text-white mb-24">
             When you select our AOG Priority service, we guarantee prompt
             action. Our committed and agile team handles all aspects to
             seamlessly assist during Aircraft-on-Ground scenarios.
@@ -210,11 +256,7 @@ const AOGSupport: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 max-w-6xl">
             {processSteps.map((step, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center text-center"
-                style={{ fontFamily: "Poppins, sans-serif" }}
-              >
+              <div key={index} className="flex flex-col items-center text-center">
                 <span className="text-[#5cc6d0] font-bold text-4xl mb-6">
                   {step.number}
                 </span>
