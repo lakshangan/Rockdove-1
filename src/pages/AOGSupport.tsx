@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { Button } from "../components/ui/button";
 import { gsap } from "gsap";
@@ -133,8 +134,8 @@ const AOGSupport: React.FC = () => {
             <div
               className="
                 relative flex justify-center items-center
-                w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[60vw]
-                h-[50vh] sm:h-[60vh]
+                w-[70vw] sm:w-[50vw] md:w-[40vw] lg:w-[35vw]
+                h-[40vh] sm:h-[50vh]
               "
             >
               {/* Background Glow directly behind the image */}
@@ -158,8 +159,8 @@ const AOGSupport: React.FC = () => {
 
           {/* Animated Heading */}
           <div
-            className={`absolute inset-0 flex items-start justify-center pt-40 sm:pt-40 md:pt-40 z-20 transition-opacity duration-1000 ${showHeading ? "opacity-100" : "opacity-0"
-              } md:transform md:-translate-y-16`}
+            className={`absolute inset-0 flex items-start justify-center pt-52 sm:pt-56 md:pt-60 z-20 transition-opacity duration-1000 ${showHeading ? "opacity-100" : "opacity-0"
+              }`}
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center px-6 leading-tight max-w-[90vw] md:max-w-full">
               <span className="text-[#5cc6d0]">24/7 AOG Support </span>
@@ -181,23 +182,16 @@ const AOGSupport: React.FC = () => {
               minutes, delivering fast, cost-effective solutions to minimize
               downtime during Aircraft-on-Ground emergencies
             </p>
-            <Button
-              className="shadow-lg w-full sm:w-auto"
-              style={{
-                maxWidth: 367,
-                height: 40,
-                borderRadius: 40,
-                background:
-                  "linear-gradient(180deg, #5CC6D0 0%, #14919B 100%)",
-                color: "#ffffff",
-                fontFamily: "Poppins, sans-serif",
-                fontWeight: 500,
-                fontSize: "clamp(16px, 5vw, 20px)",
-                lineHeight: "100%",
-              }}
-            >
-              Request AOG Assistance Now
-            </Button>
+            <Link to="/rfq" className="w-full sm:w-auto">
+              <Button
+                className="h-[48px] px-12 rounded-xl border-0 transition-all duration-300 ease-out hover:scale-105 active:scale-[0.98] shadow-[0_4px_14px_rgba(92,198,208,0.4)] hover:shadow-[0_6px_20px_rgba(92,198,208,0.6)] text-white font-bold text-lg w-full uppercase tracking-wider"
+                style={{
+                  background: "linear-gradient(180deg, #5CC6D0 0%, #05848E 100%)",
+                }}
+              >
+                Request AOG Assistance Now
+              </Button>
+            </Link>
           </div>
 
 
@@ -256,23 +250,20 @@ const AOGSupport: React.FC = () => {
             seamlessly assist during Aircraft-on-Ground scenarios.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 max-w-6xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {processSteps.map((step, index) => (
-              <div key={index} className="flex flex-col items-center text-center">
-                <div className="w-[100px] h-[100px] rounded-full border-2 border-[#5cc6d0] flex items-center justify-center mb-10 transition-transform duration-300 hover:scale-110">
-                  <span className="text-[#5cc6d0] font-bold text-3xl">
+              <div key={index} className="group">
+                <div className="w-full h-[320px] bg-white/5 border border-white/10 rounded-[40px] p-8 flex flex-col justify-end transition-all duration-500 hover:bg-[#5cc6d0]/5 hover:border-[#5cc6d0]/30 hover:-translate-y-2 relative overflow-hidden text-left">
+                  <div className="absolute top-8 left-8 text-6xl font-black text-white/15 group-hover:text-[#5cc6d0]/30 transition-colors">
                     {step.number}
-                  </span>
+                  </div>
+                  <h3 className="text-[#5cc6d0] text-xl font-bold mb-3 relative z-10">
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed font-light text-sm relative z-10">
+                    {step.description}
+                  </p>
                 </div>
-                <span className="text-white font-semibold text-xl mb-4 leading-snug">
-                  {step.title}
-                </span>
-                <p
-                  className="text-white text-base font-medium leading-relaxed"
-                  style={{ maxWidth: "260px", color: "#E5E5E5" }}
-                >
-                  {step.description}
-                </p>
               </div>
             ))}
           </div>

@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ContainerScroll } from '../components/ui/container-scroll-animation';
 import { Button } from '../components/ui/button';
 import { motion } from 'framer-motion';
@@ -33,16 +34,41 @@ const RepairManagementPage = () => {
   const planeRef = useRef<HTMLImageElement | null>(null);
   const whiteLineRef = useRef<HTMLDivElement | null>(null);
   const blueLineRef = useRef<HTMLDivElement | null>(null);
+  const lastBlockRef = useRef<HTMLDivElement | null>(null);
+  const [distance, setDistance] = useState(0);
+
+  useLayoutEffect(() => {
+    const calculateDistance = () => {
+      if (!sectionRef.current || !lastBlockRef.current || !whiteLineRef.current) return;
+
+      const lastBlock = lastBlockRef.current;
+      const section = sectionRef.current;
+      const whiteLine = whiteLineRef.current;
+
+      const sectionRect = section.getBoundingClientRect();
+      const lastBlockRect = lastBlock.getBoundingClientRect();
+      const lineRect = whiteLine.getBoundingClientRect();
+
+      const lineStartTop = lineRect.top - sectionRect.top;
+      const lastBlockBottom = (lastBlockRect.top - sectionRect.top) + lastBlockRect.height;
+
+      const newDistance = lastBlockBottom - lineStartTop;
+      setDistance(newDistance);
+    };
+
+    calculateDistance();
+    window.addEventListener("resize", calculateDistance);
+    return () => window.removeEventListener("resize", calculateDistance);
+  }, []);
 
   useEffect(() => {
+    if (distance === 0) return;
+
     const section = sectionRef.current;
     const plane = planeRef.current;
     const blueLine = blueLineRef.current;
 
     if (!section || !plane || !blueLine) return;
-
-    const isMobile = window.innerWidth < 768;
-    const distance = isMobile ? 1600 : 850;
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -50,10 +76,10 @@ const RepairManagementPage = () => {
         start: "top center",
         end: `+=${distance}`,
         scrub: 1,
+        invalidateOnRefresh: true,
       },
     });
 
-    // Animate height instead of scaleY for better sync and rounded caps
     tl.to(blueLine, { height: distance, ease: "none" }, 0);
     tl.to(plane, { y: distance, ease: "none" }, 0);
 
@@ -75,7 +101,14 @@ const RepairManagementPage = () => {
         }
       );
     });
-  }, []);
+
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach(st => {
+        if (st.vars.trigger === section) st.kill();
+      });
+    };
+  }, [distance]);
 
   const serviceSteps = [
     { title: 'Assessment & Diagnosis', description: 'Thorough inspection of components like thrust reversers and actuators.' },
@@ -187,33 +220,35 @@ const RepairManagementPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-[18px]">
-            {partnerCards.map((partner, index) => (
-              <Card
-                key={index}
-                className="group relative bg-[#d9d9d9] rounded-[20px] border-none cursor-pointer transition-all duration-300 hover:-translate-y-2 overflow-hidden h-[340px] md:h-[403px]"
-              >
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[#0097A1] transition-opacity duration-500 rounded-[20px]"></div>
-                <CardContent className="relative z-10 flex flex-col items-center justify-between h-full p-6 text-center">
-                  <div className="flex-1 flex items-center justify-center">
-                    <img
-                      className={`${partner.logoClass} object-contain`}
-                      alt={partner.title}
-                      src={partner.logo}
-                    />
-                  </div>
-                  <div>
-                    <h3 className="font-[Poppins] font-bold text-black text-lg md:text-xl mb-3 transition-colors duration-300 group-hover:text-white">
-                      {partner.title}
-                    </h3>
-                    <div className="w-6 h-0.5 bg-black mx-auto mb-3 transition-colors duration-300 group-hover:bg-white" />
-                    <p className="font-[Poppins] font-medium text-black text-sm md:text-base transition-colors duration-300 group-hover:text-white">
-                      {partner.description}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-[18px]">
+            {partnerCards.map((partner, index) => {
+              return (
+                <Card
+                  key={index}
+                  className="group relative bg-[#d9d9d9] text-black rounded-[20px] border-none cursor-pointer transition-all duration-300 hover:-translate-y-2 overflow-hidden h-[340px] md:h-[403px]"
+                >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-b from-[#5CC6D0] to-[#0097A1] transition-opacity duration-500 rounded-[20px]"></div>
+                  <CardContent className="relative z-10 flex flex-col items-center justify-between h-full p-6 text-center">
+                    <div className="flex-1 flex items-center justify-center">
+                      <img
+                        className={`${partner.logoClass} object-contain group-hover:brightness-0 group-hover:invert`}
+                        alt={partner.title}
+                        src={partner.logo}
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-[Poppins] font-bold text-lg md:text-xl mb-3 transition-colors duration-300 text-black group-hover:text-white">
+                        {partner.title}
+                      </h3>
+                      <div className="w-6 h-0.5 mx-auto mb-3 transition-colors duration-300 bg-black group-hover:bg-white" />
+                      <p className="font-[Poppins] font-medium text-sm md:text-base transition-colors duration-300 text-black group-hover:text-white">
+                        {partner.description}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </section>
 
@@ -229,7 +264,8 @@ const RepairManagementPage = () => {
           {/* Lines & Plane */}
           <div
             ref={whiteLineRef}
-            className="absolute top-[320px] md:top-[364px] left-[30px] md:left-1/2 w-[4px] md:w-[10px] h-[1600px] md:h-[850px] bg-white/10 rounded-full -translate-x-1/2"
+            className="absolute top-[320px] md:top-[364px] left-[30px] md:left-1/2 w-[4px] md:w-[10px] bg-white/10 rounded-full -translate-x-1/2"
+            style={{ height: distance > 0 ? `${distance}px` : "1000px" }}
           ></div>
 
           <div
@@ -271,12 +307,13 @@ const RepairManagementPage = () => {
               {
                 id: '04',
                 title: 'Accreditation',
-                desc: 'Partnerships with SAT, Logisky, Shanghai Junxun Aviation, and JS-Tooling elevate our repair, tooling, and distribution services.',
+                desc: 'Partnerships with SAT, Logosky, Shanghai Junxun Aviation, and JS-Tooling elevate our repair, tooling, and distribution services.',
                 align: 'right',
               },
             ].map((feature, i) => (
               <div
                 key={i}
+                ref={i === 3 ? lastBlockRef : null}
                 className={`feature-block flex justify-end ${feature.align === 'right' ? 'md:justify-end' : 'md:justify-start'
                   }`}
               >
@@ -313,11 +350,13 @@ const RepairManagementPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Button
-                className="bg-[linear-gradient(180deg,#5CC6D0_0%,#14919B_100%)] text-white px-8 py-4 sm:px-12 sm:py-8 text-base sm:text-xl md:text-2xl font-semibold rounded-2xl shadow-[0_4px_0_0_#0D5D64] hover:brightness-110 transition-all active:translate-y-1 active:shadow-none h-auto border-none"
-              >
-                Schedule a Repair Consultation
-              </Button>
+              <Link to="/rfq">
+                <Button
+                  className="bg-[linear-gradient(180deg,#5CC6D0_0%,#14919B_100%)] text-white px-6 py-2.5 text-base sm:text-lg font-semibold rounded-xl shadow-[0_3px_0_0_#0D5D64] hover:brightness-110 transition-all active:translate-y-1 active:shadow-none h-auto border-none"
+                >
+                  Schedule a Repair Consultation
+                </Button>
+              </Link>
             </motion.div>
           </div>
         </section>
